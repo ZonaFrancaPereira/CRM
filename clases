@@ -1,0 +1,28 @@
+INSERT INTO `clases` (`id`, `clase`) VALUES
+(1, 'controladores/plantilla.controlador.php'),
+(2, 'controladores/usuarios.controlador.php'),
+(3, 'controladores/utilerias.controlador.php'),
+(4, 'controladores/empresa.controlador.php'),
+(5, 'controladores/perfiles.controlador.php'),
+(6, 'controladores/CorreoSaliente.controlador.php'),
+(7, 'modelos/usuarios.modelo.php'),
+(8, 'modelos/empresa.modelo.php'),
+(9, 'modelos/correo.modelo.php'),
+(10, 'modelos/perfiles.modelo.php'),
+(11, 'modelos/bitacora.modelo.php'),
+(12, 'extensiones/vendor/autoload.php'),
+(13, 'controladores/clientes.controlador.php'),
+(14 , 'modelos/clientes.modelo.php'),
+(15, 'controladores/bascula.controlador.php'),
+(16, 'modelos/bascula.modelo.php'),
+(17, 'controladores/clientes.controlador.php'),
+(18, 'modelos/clientes.modelo.php'),
+(19+, 'controladores/valorbascula.controlador.php'),
+(20, 'modelos/valorbascula.modelo.php'),
+(21, 'controladores/activos.controlador.php'),
+(22, 'modelos/activos.modelo.php'),
+(23, 'controladores/proveedor.controlador.php'),
+(24, 'modelos/proveedor.modelo.php');
+(25, 'controladores/soporte.controlador.php');
+(26, 'modelos/soporte.modelo.php');
+
