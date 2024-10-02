@@ -184,6 +184,7 @@ CUERPO DOCUMENTO
         $_GET["ruta"] == "perfiles" ||
         $_GET["ruta"] == "usuarios" ||
         $_GET["ruta"] == "ti" ||
+        $_GET["ruta"] == "datosEmpresa" ||
         $_GET["ruta"] == "salir"
       ) {
 
@@ -219,6 +220,7 @@ CUERPO DOCUMENTO
   <script src="vistas/js/usuarios.js"></script>
   <script src="vistas/js/perfiles.js"></script>
   <script src="vistas/js/ti.js"></script>
+  <script src="vistas/js/empresa.js"></script>
 
   <script>
     $(document).ready(function() {
@@ -267,7 +269,6 @@ CUERPO DOCUMENTO
 
     });
   </script>
-
 
 </body>
 

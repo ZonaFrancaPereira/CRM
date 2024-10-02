@@ -1,16 +1,81 @@
 <?php
 
-class ControladorEmpresa {
+class ControladorEmpresa
+{
+    /* =============================================
+      CREAR EMPRESA
+      ============================================= */
+
+    public static function ctrCrearEmpresas()
+    {
+        if (isset($_POST["NombreEmpresa"])) {
+            // Validar que los campos obligatorios no estén vacíos
+            if (!empty($_POST["id"]) && !empty($_POST["dv"]) && !empty($_POST["NombreEmpresa"])) {
+                // Preparar datos para el modelo
+                $tabla = "datosempresa";
+                $datos = array(
+                    "id" => $_POST["id"],
+                    "dv" => $_POST["dv"],
+                    "NombreEmpresa" => $_POST["NombreEmpresa"],
+                    "DireccionEmpresa" => $_POST["DireccionEmpresa"],
+                    "ciudad" => $_POST["ciudad"],
+                    "Telefono" => $_POST["Telefono"],
+                    "telefono2" => $_POST["telefono2"],
+                    "nombre_rep_legal" => $_POST["nombre_rep_legal"],
+                    "fecha_nap_red_legal" => $_POST["fecha_nap_red_legal"],
+                    "correoElectronico" => $_POST["correoElectronico"],
+                    "fecha_inicio_contrato" => $_POST["fecha_inicio_contrato"]
+                );
+
+                // Llamar al modelo
+                $respuesta = ModeloEmpresas::mdlCrearEmpresa($tabla, $datos);
+
+                // Verificar la respuesta y mostrar alertas
+                if ($respuesta == "ok") {
+                    echo '<script>
+                            Swal.fire(
+                            "Buen Trabajo!",
+                            "Su respuesta se ha registrado con éxito.",
+                            "success"
+                            ).then(function() {
+                            document.getElementById("crear_empresa").reset();
+                            });
+                        </script>';
+                } else {
+                    echo '<script>
+                        Swal.fire({
+                            type: "error",
+                            title: "¡La Respuesta no pudo ser guardada!",
+                            text: "Error: ' . implode(" - ", $respuesta) . '", // Mostrar error específico de PDO
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar"
+                        });
+                    </script>';
+                }
+            } else {
+                echo '<script>
+                        Swal.fire({
+                            type: "error",
+                            title: "¡Faltan Datos Obligatorios!",
+                            text: "Por favor, complete todos los campos obligatorios.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar"
+                        });
+                    </script>';
+            }
+        }
+    }
+
+
     /* =============================================
       MOSTRAR EMPRESA
       ============================================= */
 
-    static public function ctrMostrarEmpresas($item, $valor) {
-
+    static public function ctrMostrarEmpresa($consulta)
+    {
         $tabla = "datosempresa";
-        $item = null;
-        $valor = null;
-        $respuesta = ModeloEmpresas::mdlMostrarEmpresa($tabla, $item, $valor);
+
+        $respuesta = ModeloEmpresas::mdlMostraEmpresas($tabla, $consulta);
 
         return $respuesta;
     }
@@ -19,164 +84,86 @@ class ControladorEmpresa {
       EDITAR EMPRESA
       ============================================= */
 
-    static public function ctrEditarEmpresa() {
+    public static function ctrActualizarEmpresa()
+    {
+        if (isset($_POST["actualizar_empresa"])) {
+            // Capturar datos desde el formulario
+            $datos = array(
+                "id" => $_POST["id_empresa"],
+                "dv" => $_POST["dv_empresa"],
+                "NombreEmpresa" => $_POST["nombre_empresa"],
+                "DireccionEmpresa" => $_POST["direccion_empresa"],
+                "ciudad" => $_POST["ciudad_empresa"],
+                "Telefono" => $_POST["telefono_empresa"],
+                "telefono2" => $_POST["telefono2_empresa"],
+                "nombre_rep_legal" => $_POST["nombre_rep_legal_empresa"],
+                "correoElectronico" => $_POST["correo_empresa"]
+            );
 
-        if (isset($_POST["editarNombreEmpresa"])) {
+            // Llamar al modelo para actualizar la fecha y otros datos
+            $respuesta = ModeloEmpresas::mdlActualizarEmpresa($datos);
 
-            if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombreEmpresa"])) {
-
-                $tabla = "datosempresa";
-
-                $datos = array("nombreEmpresa" => $_POST["editarNombreEmpresa"],
-                    "DireccionEmpresa" => $_POST["editarDireccionEmpresa"],
-                    "RFC" => $_POST["editarRFC"],
-                    "telefonoEmpresa" => $_POST["editarTelefonoEmpresa"],
-                    "diasEntrega" => $_POST["editarDiasEntrega"],
-                    "caja" => $_POST["caja"],
-                    "correoElectronicoEmpresa" => $_POST["editarCorreoElectronicoEmpresa"]
-                );
-
-                $respuesta = ModeloEmpresas::mdlEditarEmpresa($tabla, $datos);
-
-                if ($respuesta == "ok") {
-
-                    echo'<script>
-
-					swal({
-						  type: "success",
-						  title: "La empresa ha sido editada correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result) {
-									if (result.value) {
-
-									window.location = "datosEmpresa";
-
-									}
-								})
-
-					</script>';
-                }
+            // Manejar la respuesta del modelo
+            if ($respuesta == "ok") {
+                echo '<script>
+                    Swal.fire(
+                        "Actualizado!",
+                        "La información de la empresa ha sido actualizada con éxito.",
+                        "success"
+                    ).then(function() {
+                        document.getElementById("formEditarEmpresa").reset();
+                    });
+                    </script>';
             } else {
-
-                echo'<script>
-
-					swal({
-						  type: "error",
-						  title: "¡El nombre no puede ir vacío o llevar caracteres especiales!",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result) {
-							if (result.value) {
-
-							window.location = "usuarios";
-
-							}
-						})
-
-			  	</script>';
+                echo '<script>
+                    Swal.fire(
+                        "ERROR!",
+                        "Error al actualizar la información de la empresa.",
+                        "error"
+                    ).then(function() {
+                        window.location = ""; // Redirige a la página actual o a la vista correcta
+                    });
+                    </script>';
             }
         }
     }
-}
 
-if (isset($_POST["GUARDAREMPRESA"])) {
-    error_reporting(0);
-    include_once '../modelos/empresas.modelo.php';
+    public static function ctrAsignarEmpresa()
+    {
+        if (isset($_POST["asignar_empresa"])) {
+            // Capturar datos desde el formulario
+            $datos = array(
+                "id" => $_POST["id_asignar"],
+                "id_usuario_fk" => $_POST["id_usuario_fk_empresa"]
+            );
 
-    if ($_POST["id"] > 0) {
+            // Llamar al modelo para actualizar la fecha y otros datos
+            $respuesta = ModeloEmpresas::mdlAsignarEmpresa($datos);
 
-
-        $empresa = new ModeloEmpresas2();
-
-        $empresa->CURP = $_POST["CURP"];
-        $empresa->DireccionEmpresa = $_POST["DireccionEmpresa"];
-        $empresa->NombreEmpresa = $_POST["NombreEmpresa"];
-        $empresa->RFC = $_POST["RFC"];
-        $empresa->Telefono = $_POST["Telefono"];
-        $empresa->codigoPostal = $_POST["codigoPostal"];
-        $empresa->contraCertificado = $_POST["contraCertificado"];
-        $empresa->contraEmpresa = $_POST["contraEmpresa"];
-        $empresa->correoElectronico = $_POST["correoElectronico"];
-        $empresa->diasEntrega = $_POST["diasEntrega"];
-        $empresa->id = $_POST["idEmpresa"];
-
-        if (isset($_FILES["logo"]["tmp_name"]) && $_FILES["logo"]["tmp_name"] != "") {
-
-            $empresa->logo = fopen($_FILES['logo']['tmp_name'], "rb");
-        } else {
-
-            $empresa->logo = null;
+            // Manejar la respuesta del modelo
+            if ($respuesta == "ok") {
+                echo '<script>
+                    Swal.fire(
+                        "Asignado!",
+                        "La Empresa ha sido asignada con exito.",
+                        "success"
+                    ).then(function() {
+                        document.getElementById("formEditarEmpresa").reset();
+                    });
+                    </script>';
+            } else {
+                echo '<script>
+                    Swal.fire(
+                        "ERROR!",
+                        "Error al asignar la empresa.",
+                        "error"
+                    ).then(function() {
+                        window.location = ""; // Redirige a la página actual o a la vista correcta
+                    });
+                    </script>';
+            }
         }
-
-        if (isset($_FILES["archivoKey"]["tmp_name"]) && $_FILES["archivoKey"]["tmp_name"] != "") {
-
-            $empresa->archivoKey = fopen($_FILES['archivoKey']['tmp_name'], "rb");
-        } else {
-
-            $empresa->archivoKey = null;
-        }
-
-        if (isset($_FILES["certificado"]["tmp_name"]) && $_FILES["certificado"]["tmp_name"] != "") {
-
-            $empresa->certificado = fopen($_FILES['certificado']['tmp_name'], "rb");
-        } else {
-
-            $empresa->certificado = null;
-        }
-
-
-        $empresa->razonSocial = $_POST["razonSocial"];
-        $empresa->regimenFiscal = $_POST["regimenFiscal"];
-
-        $actualizar = $empresa->mdlActualizar();
-
-        echo $actualizar;
-    } else {
-
-        $empresa = new ModeloEmpresas2();
-
-        $empresa->CURP = $_POST["CURP"];
-        $empresa->DireccionEmpresa = $_POST["DireccionEmpresa"];
-        $empresa->NombreEmpresa = $_POST["NombreEmpresa"];
-        $empresa->RFC = $_POST["RFC"];
-        $empresa->Telefono = $_POST["Telefono"];
-        $empresa->codigoPostal = $_POST["codigoPostal"];
-        $empresa->contraCertificado = $_POST["contraCertificado"];
-        $empresa->contraEmpresa = $_POST["contraEmpresa"];
-        $empresa->correoElectronico = $_POST["correoElectronico"];
-        $empresa->diasEntrega = $_POST["diasEntrega"];
-        $empresa->id = $_POST["id"];
-        if (isset($_FILES["logo"]["tmp_name"]) && $_FILES["logo"]["tmp_name"] != "") {
-
-            $empresa->logo = fopen($_FILES['logo']['tmp_name'], "rb");
-        } else {
-
-            $empresa->logo = null;
-        }
-
-
-        if (isset($_FILES["archivoKey"]["tmp_name"]) && $_FILES["archivoKey"]["tmp_name"] != "") {
-
-            $empresa->archivoKey = fopen($_FILES['archivoKey']['tmp_name'], "rb");
-        } else {
-
-            $empresa->archivoKey = null;
-        }
-
-        if (isset($_FILES["certificado"]["tmp_name"]) && $_FILES["certificado"]["tmp_name"] != "") {
-
-            $empresa->certificado = fopen($_FILES['certificado']['tmp_name'], "rb");
-        } else {
-
-            $empresa->certificado = null;
-        }
-
-
-
-        $empresa->razonSocial = $_POST["razonSocial"];
-        $empresa->regimenFiscal = $_POST["regimenFiscal"];
-
-        echo $empresa->mdlInsertar();
     }
+
+
 }
