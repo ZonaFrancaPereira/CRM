@@ -42,73 +42,11 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                     <th>Nombre Representante Legal</th>
                                     <th>Correo Electrónico</th>
                                     <th>Usuario Asignado</th>
-                                    <th>Actualizar</th>
                                     <th>Asignar</th>
                                     
                                 </tr>
                             </thead>
                         </table>
-
-
-                        <div class="modal fade" id="modal-editempresa" tabindex="-1" role="dialog" aria-labelledby="modalEditarEmpresaLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-dark text-white">
-                                        <h5 class="modal-title" id="modalEditarEmpresaLabel">Editar Empresa</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="formEditarEmpresa" method="POST" enctype="multipart/form-data">
-                                            <div class="form-group">
-                                                <label for="id_empresa">NIT Empresa</label>
-                                                <input type="text" class="form-control" id="id_empresa" name="id_empresa" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="dv_empresa">Dígito de Verificación Empresa</label>
-                                                <input type="text" class="form-control" id="dv_empresa" name="dv_empresa" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="nombre_empresa">Nombre Empresa</label>
-                                                <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="direccion_empresa">Dirección Empresa</label>
-                                                <input type="text" class="form-control" id="direccion_empresa" name="direccion_empresa" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="ciudad_empresa">Ciudad Empresa</label>
-                                                <input type="text" class="form-control" id="ciudad_empresa" name="ciudad_empresa" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="telefono_empresa">Teléfono Empresa 1</label>
-                                                <input type="text" class="form-control" id="telefono_empresa" name="telefono_empresa" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="telefono2_empresa">Teléfono Empresa 2</label>
-                                                <input type="text" class="form-control" id="telefono2_empresa" name="telefono2_empresa">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="nombre_rep_legal_empresa">Nombre Representante Legal Empresa</label>
-                                                <input type="text" class="form-control" id="nombre_rep_legal_empresa" name="nombre_rep_legal_empresa" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="correo_empresa">Correo Electrónico Empresa</label>
-                                                <input type="text" class="form-control" id="correo_empresa" name="correo_empresa" required>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary" name="actualizar_empresa" id="actualizar_empresa">Actualizar Empresa</button>
-
-                                            <?php
-                                            $ActualizarEmpresa = new ControladorEmpresa();
-                                            $ActualizarEmpresa->ctrActualizarEmpresa();
-                                            ?>
-                                        </form>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="modal fade" id="modal-asignarempresa" tabindex="-1" role="dialog" aria-labelledby="modalAsignarempresaLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

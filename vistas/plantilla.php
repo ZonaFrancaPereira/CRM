@@ -185,7 +185,11 @@ CUERPO DOCUMENTO
         $_GET["ruta"] == "usuarios" ||
         $_GET["ruta"] == "ti" ||
         $_GET["ruta"] == "datosEmpresa" ||
+<<<<<<< HEAD
         $_GET["ruta"] == "documentos" ||
+=======
+        $_GET["ruta"] == "perfil" ||
+>>>>>>> fa80490f5bdbe02dd8e37ff1f7aa58e5186419d2
         $_GET["ruta"] == "salir"
       ) {
 
