@@ -100,7 +100,7 @@ if ($perfil > 0) {
                                         <div class="card-body box-profile">
                                             <div class="text-center">
                                                 <img class="profile-user-img img-fluid img-circle"
-                                                    src="../../dist/img/boxed-bg.png"
+                                                    src="vistas/img/plantilla/icono-blanco.png"
                                                     alt="User profile picture">
                                             </div>
 
@@ -108,7 +108,7 @@ if ($perfil > 0) {
                                                 <?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?>
                                             </h3>
                                             <p class="text-muted text-center"><?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($digito, ENT_QUOTES, 'UTF-8'); ?></p>
-                                            <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+
                                         </div>
                                     </div>
                                     <div class="card card-primary">
@@ -153,7 +153,7 @@ if ($perfil > 0) {
                                                     <!-- Post -->
                                                     <div class="post">
                                                         <div class="user-block">
-                                                            <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                                                            <img class="img-circle img-bordered-sm" src="vistas/img/plantilla/icono-blanco.png" alt="user image">
                                                             <span class="username">
                                                                 <a href="#"><?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?></a>
                                                                 <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>

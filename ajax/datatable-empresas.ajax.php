@@ -41,18 +41,6 @@ class TablaEmpresas
     {
         switch ($consulta) {
             case 'empresas':
-            $editar = "<button type='button' class='btn btn-outline-info' 
-              data-id='{$s["id"]}' 
-              data-dv='{$s["dv"]}' 
-              data-nombre='{$s["NombreEmpresa"]}' 
-              data-direccion='{$s["DireccionEmpresa"]}' 
-              data-ciudad='{$s["ciudad"]}' 
-              data-telefono='{$s["Telefono"]}' 
-              data-telefono2='{$s["telefono2"]}' 
-              data-nombre-rep='{$s["nombre_rep_legal"]}' 
-              data-correo='{$s["correoElectronico"]}' 
-              data-toggle='modal' 
-              data-target='#modal-editempresa'>Editar</button>";
               
                 $asignar = "<button type='button' class='btn btn-outline-info' data-id='{$s["id"]}' data-toggle='modal' data-target='#modal-asignarempresa'>Asignar</button>";
                 return [
@@ -66,7 +54,6 @@ class TablaEmpresas
                     $s["nombre_rep_legal"],
                     $s["correoElectronico"],
                     $s["id_usuario_fk"],
-                    $editar,
                     $asignar
 
                 ];
