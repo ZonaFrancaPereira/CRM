@@ -19,19 +19,17 @@ if ($_SESSION["datosEmpresa"] == "off") {
     </div>
 </section>
 
-<!-- Main content -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <!-- Full width column -->
-            <div class="col-12">
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header bg-gradient-primary text-white text-center">
-                        <h3 class="card-title font-weight-bold">Empresas</h3>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-info">
+                        <h3 class="card-title">Empresas</h3>
                     </div>
-                    <div class="card-body p-4">
+                    <div class="card-body">
 
-                        <table id="tabla-empresas" class="table table-bordered nowrap text-center" width="100%">
+                        <table id="tabla-empresa" class="table table-bordered nowrap text-center" width="100%">
                             <thead class="bg-dark text-white">
                                 <tr>
                                     <th>Nit</th>

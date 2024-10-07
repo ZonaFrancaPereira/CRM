@@ -74,12 +74,20 @@ class ModeloEmpresas
 	public static function mdlMostraEmpresas($tabla, $consulta)
 	{
 		switch ($consulta) {
+			
 			case 'empresas':
 				// Consulta para obtener todos los datos de la tabla
 				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
 				$stmt->execute();
 				return $stmt->fetchAll(PDO::FETCH_ASSOC); // Usar fetchAll() para obtener todos los resultados como un array asociativo
 				break;
+
+			case 'usuario':
+					// Consulta para obtener todos los datos de la tabla
+					$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+					$stmt->execute();
+					return $stmt->fetchAll(PDO::FETCH_ASSOC); // Usar fetchAll() para obtener todos los resultados como un array asociativo
+					break;
 			default:
 				return []; // Retorna un array vacío si no se cumple ninguna condición
 				break;

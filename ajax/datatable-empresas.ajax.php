@@ -16,6 +16,9 @@ class TablaEmpresas
             case 'empresas':
                 $this->mostrarTabla($item, $valor, "empresas");
                 break;
+            case 'usuario':
+                $this->mostrarTabla($item, $valor, "usuario");
+                break;
         }
     }
 
@@ -38,7 +41,7 @@ class TablaEmpresas
     {
         switch ($consulta) {
             case 'empresas':
-                $editar = "<button type='button' class='btn btn-outline-info' 
+            $editar = "<button type='button' class='btn btn-outline-info' 
               data-id='{$s["id"]}' 
               data-dv='{$s["dv"]}' 
               data-nombre='{$s["NombreEmpresa"]}' 
@@ -50,10 +53,8 @@ class TablaEmpresas
               data-correo='{$s["correoElectronico"]}' 
               data-toggle='modal' 
               data-target='#modal-editempresa'>Editar</button>";
-
-              $asignar = "<button type='button' class='btn btn-outline-info' data-id='{$s["id"]}' data-toggle='modal' data-target='#modal-asignarempresa'>Asignar</button>";
-
-
+              
+                $asignar = "<button type='button' class='btn btn-outline-info' data-id='{$s["id"]}' data-toggle='modal' data-target='#modal-asignarempresa'>Asignar</button>";
                 return [
                     $s["id"],
                     $s["dv"],
@@ -68,6 +69,21 @@ class TablaEmpresas
                     $editar,
                     $asignar
 
+                ];
+
+            case 'usuario':
+                if ($s["id_usuario_fk"] !== $_SESSION['id']) return null;
+                return [
+                    $s["id"],
+                    $s["dv"],
+                    $s["NombreEmpresa"],
+                    $s["DireccionEmpresa"],
+                    $s["ciudad"],
+                    $s["Telefono"],
+                    $s["telefono2"],
+                    $s["nombre_rep_legal"],
+                    $s["correoElectronico"],
+                    $s["id_usuario_fk"],
                 ];
             default:
                 return null;
