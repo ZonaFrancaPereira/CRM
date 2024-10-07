@@ -11,8 +11,7 @@ if ($perfil > 0) {
         $tabla_perfil = 'datosempresa';
 
         // Preparar la consulta para obtener datos de ACPM
-        $query_perfil = "
-            SELECT 
+        $query_perfil = "SELECT 
                 $tabla_perfil.*, 
                 usuarios.nombre, 
                 usuarios.apellidos_usuario

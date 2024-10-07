@@ -92,9 +92,6 @@ class ControladorArchivo {
         return $respuesta;
     }
 
-    static public function ctrDescargarArchivoWord() {
-
-    }
 
 
 }
