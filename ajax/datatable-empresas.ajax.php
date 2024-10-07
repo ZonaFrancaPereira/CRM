@@ -72,18 +72,16 @@ class TablaEmpresas
                 ];
 
             case 'usuario':
+                $perfil = "<a target='_blank' class='btn btn-outline-warning' href='index.php?ruta=perfil&id={$s["id"]}'>Perfil</a>";
                 if ($s["id_usuario_fk"] !== $_SESSION['id']) return null;
                 return [
                     $s["id"],
-                    $s["dv"],
                     $s["NombreEmpresa"],
                     $s["DireccionEmpresa"],
-                    $s["ciudad"],
                     $s["Telefono"],
-                    $s["telefono2"],
                     $s["nombre_rep_legal"],
                     $s["correoElectronico"],
-                    $s["id_usuario_fk"],
+                    $perfil
                 ];
             default:
                 return null;
