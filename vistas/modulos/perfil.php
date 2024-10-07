@@ -63,24 +63,6 @@ if ($perfil > 0) {
 
 ?>
 
-
-<!-- Navbar -->
-<nav class="mt-2">
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item En_linea 1" role="presentation">
-            <a data-toggle="tab" href="#acpm" class="nav-link">
-                <i class="nav-icon far fa-smile-wink"></i>
-                <p>Novedades</p>
-            </a>
-        </li>
-        <li class="nav-item En_linea 1" role="presentation">
-            <a data-toggle="tab" href="#acpm" class="nav-link">
-                <i class="nav-icon far fa-smile-wink"></i>
-                <p>Enviar Comentario</p>
-            </a>
-        </li>
-    </ul>
-</nav>
 <!-- /.sidebar-menu -->
 </div>
 <!-- /.sidebar -->
@@ -216,7 +198,23 @@ if ($perfil > 0) {
                                                                 </li>
                                                             </ul>
 
-                                                            <button type="submit" class="btn btn-primary float-right" name="" id="" data-id='' data-toggle='modal' data-target='#modal-editempresa'>Actualizar Empresa</button>
+                                                            <button type="submit"
+                                                                class="btn btn-primary float-right"
+                                                                data-representante-legal="<?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-id="<?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-dv=" <?php echo htmlspecialchars($digito, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-nombre="<?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-direccion="<?php echo htmlspecialchars($direccion, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-ciudad="<?php echo htmlspecialchars($ciudad, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-telefono="<?php echo htmlspecialchars($telefono1, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-telefono2="<?php echo htmlspecialchars($telefono2, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-nombre-rep="<?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-correo="<?php echo htmlspecialchars($correo, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-toggle="modal"
+                                                                data-target="#modal-editempresa">
+                                                                Actualizar Empresa
+                                                            </button>
+
                                                         </div>
                                                     </div>
                                                 </div>

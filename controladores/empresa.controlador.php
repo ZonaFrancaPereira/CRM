@@ -106,14 +106,14 @@ class ControladorEmpresa
             // Manejar la respuesta del modelo
             if ($respuesta == "ok") {
                 echo '<script>
-                    Swal.fire(
-                        "Actualizado!",
-                        "La información de la empresa ha sido actualizada con éxito.",
-                        "success"
-                    ).then(function() {
-                        document.getElementById("formEditarEmpresa").reset();
-                    });
-                    </script>';
+                Swal.fire(
+                    "Actualizado!",
+                    "La información de la empresa ha sido actualizada con éxito.",
+                    "success"
+                ).then(function() {
+                    window.location = ""; // Redirige a la página "perfil"
+                });
+                </script>';
             } else {
                 echo '<script>
                     Swal.fire(
