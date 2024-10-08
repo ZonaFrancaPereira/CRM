@@ -219,49 +219,49 @@ if ($perfil > 0) {
                                                 </div>
 
                                                 <div class="tab-pane" id="documentos">
-                                                    
-                                                <table class="display table table-bordered table-striped dt-responsive " width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:10px">#</th>
-                                            <th>Nombre Archivo</th>
-                                            <th>Tipo Archivo</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $item = null;
-                                        $valor = null;
 
-                                        $archivos = ControladorArchivo::ctrMostrarArchivos($item, $valor);
+                                                    <table class="display table table-bordered table-striped dt-responsive " width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width:10px">#</th>
+                                                                <th>Nombre Archivo</th>
+                                                                <th>Tipo Archivo</th>
+                                                                <th>Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $item = null;
+                                                            $valor = null;
 
-                                        foreach ($archivos as $key => $value) {
+                                                            $archivos = ControladorArchivo::ctrMostrarArchivos($item, $valor);
 
-                                            echo ' <tr>
-                                                <td>' . ($key + 1) . '</td>
-                                                <td>' . $value["nombre_archivo_e"] . '</td>
-                                                <td>' . $value["tipo_archivo_e"] . '</td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-warning btnEditarArchivo" idArchivo="' . $value["cod_archivo_e"] . '" data-toggle="modal" data-target="#modalEditarArchivo"><i class="fa fa-edit"></i></button>
-                                                        <button type="submit" class="btn bg-success btnDescargarArchivo" name="descargarArchivoWord" idArchivo="' . $value["cod_archivo_e"] . '" idempresa="' . $perfil . '"><i class="fa fa-download"></i></button>
-                                                        <button class="btn btn-danger btnEliminarArchivo" idArchivo="' . $value["cod_archivo_e"] . '"><i class="fa fa-times"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>';
-                                        }
-                                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'descargarArchivoWord') {
-                                            $idArchivo = $_POST['idArchivo'];
-                                            $idEmpresa = $_POST['idEmpresa'];
-                                            
-                                            ControladorArchivo::ctrDescargarArchivoWord($idArchivo, $idEmpresa);
-                                        }
-                                        
-                                        ?>
-                                    </tbody>
-                                </table>
-                                
+                                                            foreach ($archivos as $key => $value) {
+
+                                                                echo ' <tr>
+                                                                <td>' . ($key + 1) . '</td>
+                                                                <td>' . $value["nombre_archivo_e"] . '</td>
+                                                                <td>' . $value["tipo_archivo_e"] . '</td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        <button class="btn btn-warning btnEditarArchivo" idArchivo="' . $value["cod_archivo_e"] . '" data-toggle="modal" data-target="#modalEditarArchivo"><i class="fa fa-edit"></i></button>
+                                                                        <button type="submit" class="btn bg-success btnDescargarArchivo" name="descargarArchivoWord" idArchivo="' . $value["cod_archivo_e"] . '" idempresa="' . $perfil . '"><i class="fa fa-download"></i></button>
+                                                                        <button class="btn btn-danger btnEliminarArchivo" idArchivo="' . $value["cod_archivo_e"] . '"><i class="fa fa-times"></i></button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>';
+                                                            }
+                                                            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'descargarArchivoWord') {
+                                                                $idArchivo = $_POST['idArchivo'];
+                                                                $idEmpresa = $_POST['idEmpresa'];
+
+                                                                ControladorArchivo::ctrDescargarArchivoWord($idArchivo, $idEmpresa);
+                                                            }
+
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+
                                                 </div>
 
 
@@ -387,4 +387,44 @@ if ($perfil > 0) {
 </div>
 <!-- /.content-wrapper -->
 <?php require('footer.php'); ?>
+
+<script>
+   $(document).on('click', '.btnDescargarArchivo', function() {
+    var idArchivo = $(this).attr('idArchivo');
+    var idEmpresa = $(this).attr('idempresa');
+
+    // Envío de la solicitud AJAX para verificar o preparar la descarga
+    $.ajax({
+        url: 'controladores/archivo.controlador.php', // Cambia esto a la ruta de tu controlador
+        method: 'POST',
+        data: {
+            action: 'descargarArchivoWord',
+            idArchivo: idArchivo,
+            idEmpresa: idEmpresa
+        },
+        success: function(response) {
+            // Manejar la respuesta
+            if (response.success) {
+                // Redirigir al usuario a la URL del archivo para la descarga
+                window.location.href = response.fileUrl; // Asegúrate de que `fileUrl` esté definido en el backend
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "¡Error!",
+                    text: response.message || "No se pudo descargar el archivo."
+                });
+            }
+        },
+        error: function() {
+            Swal.fire({
+                icon: "error",
+                title: "¡Error!",
+                text: "Hubo un problema al procesar la solicitud."
+            });
+        }
+    });
+});
+
+
+</script>
 <!-- Scripts -->

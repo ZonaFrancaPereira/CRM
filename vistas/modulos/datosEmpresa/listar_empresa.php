@@ -8,8 +8,8 @@ if ($_SESSION["datosEmpresa"] == "off") {
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-            <div class="col-sm-6"></div>
-            <div class="col-sm-6">
+            <div class="col-12 col-sm-6"></div>
+            <div class="col-12 col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
                     <li class="breadcrumb-item active">ACPM</li>
@@ -22,31 +22,65 @@ if ($_SESSION["datosEmpresa"] == "off") {
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-header bg-info">
                         <h3 class="card-title">Empresas</h3>
                     </div>
                     <div class="card-body">
 
-                        <table id="tabla-empresa" class="table table-bordered nowrap text-center" width="100%">
-                            <thead class="bg-dark text-white">
-                                <tr>
-                                    <th>Nit</th>
-                                    <th>Digito de Verificación</th>
-                                    <th>Nombre</th>
-                                    <th>Dirección</th>
-                                    <th>Ciudad</th>
-                                    <th>Teléfono</th>
-                                    <th>Teléfono</th>
-                                    <th>Nombre Representante Legal</th>
-                                    <th>Correo Electrónico</th>
-                                    <th>Usuario Asignado</th>
-                                    <th>Asignar</th>
-                                    
-                                </tr>
-                            </thead>
-                        </table>
+                        <div class="tab-pane show" id="">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body table-responsive p-0">
+                                            <table class="display table table-striped table-valign-middle" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:10px">Nit</th>
+                                                        <th>Nombre</th>
+                                                        <th>Dirección</th>
+                                                        <th>Ciudad</th>
+                                                        <th>Teléfono</th>
+                                                        <th>Nombre Representante Legal</th>
+                                                        <th>Correo Electrónico</th>
+                                                        <th>Usuario Asignado</th>
+                                                        <th>Asignar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $item = null;
+                                                    $valor = null;
+
+                                                    $empresas = ControladorEmpresa::ctrMostrarEmpresa($item, $valor);
+
+                                                    foreach ($empresas as $key => $value) {
+
+                                                        echo '<tr>
+                                                            <td>' . $value["id"] . '</td>
+                                                            <td>' . $value["NombreEmpresa"] . '</td>
+                                                            <td>' . $value["DireccionEmpresa"] . '</td>
+                                                            <td>' . $value["ciudad"] . '</td>
+                                                            <td>' . $value["Telefono"] . '</td>
+                                                            <td>' . $value["nombre_rep_legal"] . '</td>
+                                                            <td>' . $value["correoElectronico"] . '</td>
+                                                            <td>' . $value["id_usuario_fk"] . '</td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <button type="button" class="btn btn-outline-info" data-id="' . $value["id"] . '" data-toggle="modal" data-target="#modal-asignarempresa">Asignar</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>';
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="modal fade" id="modal-asignarempresa" tabindex="-1" role="dialog" aria-labelledby="modalAsignarempresaLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -69,13 +103,13 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                                 <datalist id="usuarios">
                                                     <?php
                                                     if ($usuario["id"] <> 0) {
-                                                        echo '<option value="' . $value["id"] . '"> ' . $value["nombre"] . $value["apellidos_usuario"] . ' </option>';
+                                                        echo '<option value="' . $value["id"] . '"> ' . $value["nombre"] . ' ' . $value["apellidos_usuario"] . ' </option>';
                                                     }
                                                     $item = null;
                                                     $valor = null;
                                                     $usuario = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
                                                     foreach ($usuario as $key => $value) {
-                                                        echo '<option value="' . $value["id"] . '"> ' . $value["nombre"] . $value["apellidos_usuario"] . ' </option>';
+                                                        echo '<option value="' . $value["id"] . '"> ' . $value["nombre"] . ' ' . $value["apellidos_usuario"] . ' </option>';
                                                     }
                                                     ?>
                                                 </datalist>
@@ -87,12 +121,10 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                             $AsignarEmpresa->ctrAsignarEmpresa();
                                             ?>
                                         </form>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                     </div>
                 </div>

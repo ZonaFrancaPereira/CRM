@@ -1,7 +1,8 @@
 <?php
      // Incluyendo las librerías necesarias
-     require_once('extensiones/tbs/tbs_class.php'); // Clase TBS
-     require_once('extensiones/tbs/plugins/tbs_plugin_opentbs.php'); // Plugin OpenTBS
+   // Incluyendo las librerías necesarias
+   require_once(__DIR__ . '/../extensiones/tbs/tbs_class.php');
+   require_once(__DIR__ . '/../extensiones/tbs/plugins/tbs_plugin_opentbs.php');
 class ControladorArchivo {
 
     // Método para crear un archivo
@@ -93,30 +94,38 @@ class ControladorArchivo {
     }
 
     static public function ctrDescargarArchivoWord($idArchivo, $idEmpresa) {
-        $tabla="datosempresa";
-        // Obtener datos del archivo y de la empresa usando los IDs
+        $tabla = "datosempresa";
         $datosArchivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
-        $datosEmpresa = ModeloEmpresas::mdlMostraEmpresaid($tabla,$idEmpresa);
-
+        $datosEmpresa = ModeloEmpresas::mdlMostraEmpresaid($tabla, $idEmpresa);
+    
         // Verifica si los datos se obtuvieron correctamente
         if ($datosArchivo && $datosEmpresa) {
-            
-            echo '<script>
-            Swal.fire({
-                icon: "success",
-                title: "¡El archivo ha sido guardado correctamente!",
-                showConfirmButton: true,
-                confirmButtonText: "Cerrar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location = "ruta_deseada";
-                }
-            });
-        </script>';
+            // Asignar la ruta del archivo
+            // Si el campo 'archivo_e' solo tiene el nombre del archivo
+            $rutaArchivo = $datosArchivo['archivo_e']; 
+    
+            // Comprobar si el archivo existe
+            if (file_exists($rutaArchivo)) {
+                // Forzar la descarga
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                header('Content-Disposition: attachment; filename="' . basename($rutaArchivo) . '"');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($rutaArchivo));
+                flush(); // Limpiar el buffer del sistema
+                readfile($rutaArchivo);
+                exit; // Termina el script
+            } else {
+                echo 'Error: El archivo no existe.';
+            }
         } else {
             echo 'Error: No se pudieron obtener los datos necesarios.';
         }
     }
+    
+
 
 
 }

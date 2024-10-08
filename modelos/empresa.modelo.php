@@ -71,17 +71,31 @@ class ModeloEmpresas
 	MOSTRAR ACPM
 	=============================================*/
 
-	public static function mdlMostraEmpresas($tabla, $consulta)
+	public static function mdlMostraEmpresas($tabla, $item, $valor)
+	{
+		
+        if($item != null) {
+            // Consulta preparada para obtener un registro específico
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+            $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetch();
+        } else {
+            // Consulta para obtener todos los registros
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+            $stmt->execute();
+            return $stmt->fetchAll();
+        }
+
+        // Cerramos la conexión
+        $stmt->close();
+        $stmt = null;
+    }
+
+	public static function mdlMostraEmpresasAsignada($tabla, $consulta)
 	{
 		switch ($consulta) {
 			
-			case 'empresas':
-				// Consulta para obtener todos los datos de la tabla
-				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-				$stmt->execute();
-				return $stmt->fetchAll(PDO::FETCH_ASSOC); // Usar fetchAll() para obtener todos los resultados como un array asociativo
-				break;
-
 			case 'usuario':
 					// Consulta para obtener todos los datos de la tabla
 					$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
