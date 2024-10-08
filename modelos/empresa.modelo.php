@@ -94,6 +94,26 @@ class ModeloEmpresas
 		}
 	}
 
+	 /*=============================================
+	MOSTRAR EMPRESA POR ID
+	=============================================*/
+
+	public static function mdlMostraEmpresaid($tabla, $idEmpresa)
+{
+    // Conectar a la base de datos
+    $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id = :idempresa");
+    
+    // Vincular el parámetro de manera segura
+    $stmt->bindParam(':id_empresa',$idEmpresa, PDO::PARAM_INT);
+
+    // Ejecutar la consulta
+    $stmt->execute();
+
+    // Retornar los resultados
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 	/*=============================================
     ACTUALIZAR EMPRESA
     =============================================*/

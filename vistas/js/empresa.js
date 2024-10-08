@@ -147,3 +147,5 @@ $('#modal-asignarempresa').on('show.bs.modal', function (event) {
   // Establece los valores en los campos del modal
   modal.find('#id_asignar').val(id_asignar);
 });
+
+

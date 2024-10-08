@@ -52,6 +52,14 @@ class ModeloArchivo {
         $stmt = null;
     }
 
+    // Método para obtener el archivo por su ID
+    static public function mdlObtenerArchivo($idArchivo) {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM archivos_evaluacion WHERE cod_archivo_e = :cod_archivo_e");
+        $stmt->bindParam(":cod_archivo_e", $idArchivo, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 
 }
 ?>

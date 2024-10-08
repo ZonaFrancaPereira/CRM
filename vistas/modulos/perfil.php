@@ -142,7 +142,7 @@ if ($perfil > 0) {
                                         <div class="card-header p-2">
                                             <ul class="nav nav-pills">
                                                 <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Informacion</a></li>
-                                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="#documentos" data-toggle="tab">Documentos</a></li>
                                                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
                                             </ul>
                                         </div><!-- /.card-header -->
@@ -218,100 +218,53 @@ if ($perfil > 0) {
                                                     </div>
                                                 </div>
 
-                                                <div class="tab-pane" id="timeline">
-                                                    <!-- The timeline -->
-                                                    <div class="timeline timeline-inverse">
-                                                        <!-- timeline time label -->
-                                                        <div class="time-label">
-                                                            <span class="bg-danger">
-                                                                10 Feb. 2014
-                                                            </span>
-                                                        </div>
-                                                        <!-- /.timeline-label -->
-                                                        <!-- timeline item -->
-                                                        <div>
-                                                            <i class="fas fa-envelope bg-primary"></i>
+                                                <div class="tab-pane" id="documentos">
+                                                    
+                                                <table class="display table table-bordered table-striped dt-responsive " width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:10px">#</th>
+                                            <th>Nombre Archivo</th>
+                                            <th>Tipo Archivo</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $item = null;
+                                        $valor = null;
 
-                                                            <div class="timeline-item">
-                                                                <span class="time"><i class="far fa-clock"></i> 12:05</span>
+                                        $archivos = ControladorArchivo::ctrMostrarArchivos($item, $valor);
 
-                                                                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                                        foreach ($archivos as $key => $value) {
 
-                                                                <div class="timeline-body">
-                                                                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                                                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                                                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                                                    quora plaxo ideeli hulu weebly balihoo...
-                                                                </div>
-                                                                <div class="timeline-footer">
-                                                                    <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                                                                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- END timeline item -->
-                                                        <!-- timeline item -->
-                                                        <div>
-                                                            <i class="fas fa-user bg-info"></i>
-
-                                                            <div class="timeline-item">
-                                                                <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-
-                                                                <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request
-                                                                </h3>
-                                                            </div>
-                                                        </div>
-                                                        <!-- END timeline item -->
-                                                        <!-- timeline item -->
-                                                        <div>
-                                                            <i class="fas fa-comments bg-warning"></i>
-
-                                                            <div class="timeline-item">
-                                                                <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-
-                                                                <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                                                                <div class="timeline-body">
-                                                                    Take me to your leader!
-                                                                    Switzerland is small and neutral!
-                                                                    We are more like Germany, ambitious and misunderstood!
-                                                                </div>
-                                                                <div class="timeline-footer">
-                                                                    <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- END timeline item -->
-                                                        <!-- timeline time label -->
-                                                        <div class="time-label">
-                                                            <span class="bg-success">
-                                                                3 Jan. 2014
-                                                            </span>
-                                                        </div>
-                                                        <!-- /.timeline-label -->
-                                                        <!-- timeline item -->
-                                                        <div>
-                                                            <i class="fas fa-camera bg-purple"></i>
-
-                                                            <div class="timeline-item">
-                                                                <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-
-                                                                <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                                                                <div class="timeline-body">
-                                                                    <img src="https://placehold.it/150x100" alt="...">
-                                                                    <img src="https://placehold.it/150x100" alt="...">
-                                                                    <img src="https://placehold.it/150x100" alt="...">
-                                                                    <img src="https://placehold.it/150x100" alt="...">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- END timeline item -->
-                                                        <div>
-                                                            <i class="far fa-clock bg-gray"></i>
-                                                        </div>
+                                            echo ' <tr>
+                                                <td>' . ($key + 1) . '</td>
+                                                <td>' . $value["nombre_archivo_e"] . '</td>
+                                                <td>' . $value["tipo_archivo_e"] . '</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-warning btnEditarArchivo" idArchivo="' . $value["cod_archivo_e"] . '" data-toggle="modal" data-target="#modalEditarArchivo"><i class="fa fa-edit"></i></button>
+                                                        <button type="submit" class="btn bg-success btnDescargarArchivo" name="descargarArchivoWord" idArchivo="' . $value["cod_archivo_e"] . '" idempresa="' . $perfil . '"><i class="fa fa-download"></i></button>
+                                                        <button class="btn btn-danger btnEliminarArchivo" idArchivo="' . $value["cod_archivo_e"] . '"><i class="fa fa-times"></i></button>
                                                     </div>
+                                                </td>
+                                            </tr>';
+                                        }
+                                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'descargarArchivoWord') {
+                                            $idArchivo = $_POST['idArchivo'];
+                                            $idEmpresa = $_POST['idEmpresa'];
+                                            
+                                            ControladorArchivo::ctrDescargarArchivoWord($idArchivo, $idEmpresa);
+                                        }
+                                        
+                                        ?>
+                                    </tbody>
+                                </table>
+                                
                                                 </div>
+
+
 
                                                 <div class="tab-pane" id="settings">
                                                     <form class="form-horizontal">

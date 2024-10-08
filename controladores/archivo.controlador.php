@@ -1,7 +1,7 @@
 <?php
-    // Incluyendo las librerías necesarias
-    require_once('exteensiones/tbs_class.php'); // Clase TBS
-    require_once('exteensiones/plugins/tbs_plugin_opentbs.php'); // Plugin OpenTBS
+     // Incluyendo las librerías necesarias
+     require_once('extensiones/tbs/tbs_class.php'); // Clase TBS
+     require_once('extensiones/tbs/plugins/tbs_plugin_opentbs.php'); // Plugin OpenTBS
 class ControladorArchivo {
 
     // Método para crear un archivo
@@ -92,6 +92,31 @@ class ControladorArchivo {
         return $respuesta;
     }
 
+    static public function ctrDescargarArchivoWord($idArchivo, $idEmpresa) {
+        $tabla="datosempresa";
+        // Obtener datos del archivo y de la empresa usando los IDs
+        $datosArchivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
+        $datosEmpresa = ModeloEmpresas::mdlMostraEmpresaid($tabla,$idEmpresa);
+
+        // Verifica si los datos se obtuvieron correctamente
+        if ($datosArchivo && $datosEmpresa) {
+            
+            echo '<script>
+            Swal.fire({
+                icon: "success",
+                title: "¡El archivo ha sido guardado correctamente!",
+                showConfirmButton: true,
+                confirmButtonText: "Cerrar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "ruta_deseada";
+                }
+            });
+        </script>';
+        } else {
+            echo 'Error: No se pudieron obtener los datos necesarios.';
+        }
+    }
 
 
 }
