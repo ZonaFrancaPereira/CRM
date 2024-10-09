@@ -93,40 +93,61 @@ class ControladorArchivo {
         return $respuesta;
     }
 
-    static public function ctrDescargarArchivoWord($idArchivo, $idEmpresa) {
-        $tabla = "datosempresa";
-        $datosArchivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
-        $datosEmpresa = ModeloEmpresas::mdlMostraEmpresaid($tabla, $idEmpresa);
-    
-        // Verifica si los datos se obtuvieron correctamente
-        if ($datosArchivo && $datosEmpresa) {
-            // Asignar la ruta del archivo
-            // Si el campo 'archivo_e' solo tiene el nombre del archivo
-            $rutaArchivo = $datosArchivo['archivo_e']; 
-    
-            // Comprobar si el archivo existe
+   
+    public static function ctrHandleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+            switch ($_POST['action']) {
+                case 'descargarArchivoWord':
+                    $idArchivo = $_POST['idArchivo'];
+                    $idEmpresa = $_POST['idEmpresa'];
+                    self::ctrDescargarArchivoWord($idArchivo, $idEmpresa);
+                    break;
+
+                // Otros casos según sea necesario...
+
+                default:
+                    echo json_encode(['error' => 'Acción no válida']);
+                    break;
+            }
+        } else {
+            echo json_encode(['error' => 'Método no permitido']);
+        }
+    }
+
+    public static function ctrDescargarArchivoWord($idArchivo) {
+        // Obtener el archivo desde la base de datos
+        $archivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
+
+        if ($archivo) {
+            // La ruta absoluta del archivo en el servidor local (XAMPP en Windows)
+            $rutaArchivo = $_SERVER['DOCUMENT_ROOT'] . '/CRM/' . $archivo["archivo_e"];
+            // Verificar si el archivo existe en el servidor
             if (file_exists($rutaArchivo)) {
-                // Forzar la descarga
+                // Limpia cualquier salida previa
+                ob_clean(); // Limpia el buffer de salida
+                flush(); // Libera el sistema de salida
+
+                // Configura las cabeceras para la descarga
                 header('Content-Description: File Transfer');
-                header('Content-Type: application/octet-stream');
-                header('Content-Disposition: attachment; filename="' . basename($rutaArchivo) . '"');
+                header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                header('Content-Disposition: attachment; filename="' . basename($archivo["archivo_e"]) . '"');
                 header('Expires: 0');
                 header('Cache-Control: must-revalidate');
                 header('Pragma: public');
                 header('Content-Length: ' . filesize($rutaArchivo));
-                flush(); // Limpiar el buffer del sistema
+
+                // Enviar el archivo al navegador para su descarga
                 readfile($rutaArchivo);
-                exit; // Termina el script
+                exit;
             } else {
-                echo 'Error: El archivo no existe.';
+                echo json_encode(['error' => 'El archivo no existe en el servidor.']);
             }
         } else {
-            echo 'Error: No se pudieron obtener los datos necesarios.';
+            echo json_encode(['error' => 'No se encontró el archivo.']);
         }
     }
-    
-
-
-
 }
+
+// Manejar la solicitud
+ControladorArchivo::ctrHandleRequest();
 ?>
