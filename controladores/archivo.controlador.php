@@ -1,7 +1,8 @@
 <?php
      // Incluyendo las librerías necesarias
-     require_once('extensiones/tbs/tbs_class.php'); // Clase TBS
-     require_once('extensiones/tbs/plugins/tbs_plugin_opentbs.php'); // Plugin OpenTBS
+   // Incluyendo las librerías necesarias
+   require_once(__DIR__ . '/../extensiones/tbs/tbs_class.php');
+   require_once(__DIR__ . '/../extensiones/tbs/plugins/tbs_plugin_opentbs.php');
 class ControladorArchivo {
 
     // Método para crear un archivo
@@ -92,32 +93,61 @@ class ControladorArchivo {
         return $respuesta;
     }
 
-    static public function ctrDescargarArchivoWord($idArchivo, $idEmpresa) {
-        $tabla="datosempresa";
-        // Obtener datos del archivo y de la empresa usando los IDs
-        $datosArchivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
-        $datosEmpresa = ModeloEmpresas::mdlMostraEmpresaid($tabla,$idEmpresa);
+   
+    public static function ctrHandleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+            switch ($_POST['action']) {
+                case 'descargarArchivoWord':
+                    $idArchivo = $_POST['idArchivo'];
+                    $idEmpresa = $_POST['idEmpresa'];
+                    self::ctrDescargarArchivoWord($idArchivo, $idEmpresa);
+                    break;
 
-        // Verifica si los datos se obtuvieron correctamente
-        if ($datosArchivo && $datosEmpresa) {
-            
-            echo '<script>
-            Swal.fire({
-                icon: "success",
-                title: "¡El archivo ha sido guardado correctamente!",
-                showConfirmButton: true,
-                confirmButtonText: "Cerrar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location = "ruta_deseada";
-                }
-            });
-        </script>';
+                // Otros casos según sea necesario...
+
+                default:
+                    echo json_encode(['error' => 'Acción no válida']);
+                    break;
+            }
         } else {
-            echo 'Error: No se pudieron obtener los datos necesarios.';
+            echo json_encode(['error' => 'Método no permitido']);
         }
     }
 
+    public static function ctrDescargarArchivoWord($idArchivo) {
+        // Obtener el archivo desde la base de datos
+        $archivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
 
+        if ($archivo) {
+            // La ruta absoluta del archivo en el servidor local (XAMPP en Windows)
+            $rutaArchivo = $_SERVER['DOCUMENT_ROOT'] . '/CRM/' . $archivo["archivo_e"];
+            // Verificar si el archivo existe en el servidor
+            if (file_exists($rutaArchivo)) {
+                // Limpia cualquier salida previa
+                ob_clean(); // Limpia el buffer de salida
+                flush(); // Libera el sistema de salida
+
+                // Configura las cabeceras para la descarga
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+                header('Content-Disposition: attachment; filename="' . basename($archivo["archivo_e"]) . '"');
+                header('Expires: 0');
+                header('Cache-Control: must-revalidate');
+                header('Pragma: public');
+                header('Content-Length: ' . filesize($rutaArchivo));
+
+                // Enviar el archivo al navegador para su descarga
+                readfile($rutaArchivo);
+                exit;
+            } else {
+                echo json_encode(['error' => 'El archivo no existe en el servidor.']);
+            }
+        } else {
+            echo json_encode(['error' => 'No se encontró el archivo.']);
+        }
+    }
 }
+
+// Manejar la solicitud
+ControladorArchivo::ctrHandleRequest();
 ?>

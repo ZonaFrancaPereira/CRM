@@ -13,9 +13,6 @@ class TablaEmpresas
         $valor = $_SESSION['id'];
 
         switch ($especifico) {
-            case 'empresas':
-                $this->mostrarTabla($item, $valor, "empresas");
-                break;
             case 'usuario':
                 $this->mostrarTabla($item, $valor, "usuario");
                 break;
@@ -24,7 +21,7 @@ class TablaEmpresas
 
     private function mostrarTabla($item, $valor, $consulta)
     {
-        $empresas = ControladorEmpresa::ctrMostrarEmpresa($consulta);
+        $empresas = ControladorEmpresa::ctrMostrarEmpresaAsignada($consulta);
         $data = [];
 
         foreach ($empresas as $s) {
