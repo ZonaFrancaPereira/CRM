@@ -1,0 +1,7 @@
+<br />
+<b>Fatal error</b>:  Uncaught Error: Class &quot;ModeloArchivo&quot; not found in C:\xampp\htdocs\CRM\controladores\archivo.controlador.php:119
+Stack trace:
+#0 C:\xampp\htdocs\CRM\controladores\archivo.controlador.php(103): ControladorArchivo::ctrDescargarArchivoWord('1', '900910663')
+#1 C:\xampp\htdocs\CRM\controladores\archivo.controlador.php(152): ControladorArchivo::ctrHandleRequest()
+#2 {main}
+  thrown in <b>C:\xampp\htdocs\CRM\controladores\archivo.controlador.php</b> on line <b>119</b><br />

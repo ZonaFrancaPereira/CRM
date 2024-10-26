@@ -238,28 +238,28 @@ if ($perfil > 0) {
                                                             // Mostrar cada archivo en la tabla
                                                             foreach ($archivos as $key => $value) {
                                                                 echo '<tr>
-                        <td>' . ($key + 1) . '</td>
-                        <td>' . htmlspecialchars($value["nombre_archivo_e"]) . '</td>
-                        <td>' . htmlspecialchars($value["tipo_archivo_e"]) . '</td>
-                        <td>
-                            <div class="btn-group">
-                                <!-- Botón Editar Archivo -->
-                                <button class="btn btn-warning btnEditarArchivo" idArchivo="' . htmlspecialchars($value["cod_archivo_e"]) . '" data-toggle="modal" data-target="#modalEditarArchivo">
-                                    <i class="fa fa-edit"></i>
-                                </button>
+                                                                            <td>' . ($key + 1) . '</td>
+                                                                            <td>' . htmlspecialchars($value["nombre_archivo_e"]) . '</td>
+                                                                            <td>' . htmlspecialchars($value["tipo_archivo_e"]) . '</td>
+                                                                            <td>
+                                                                                <div class="btn-group">
+                                                                                    <!-- Botón Editar Archivo -->
+                                                                                    <button class="btn btn-warning btnEditarArchivo" idArchivo="' . htmlspecialchars($value["cod_archivo_e"]) . '" data-toggle="modal" data-target="#modalEditarArchivo">
+                                                                                        <i class="fa fa-edit"></i>
+                                                                                    </button>
 
-                                <!-- Botón Descargar Archivo -->
-                                <button class="btn bg-success" onclick="descargarArchivo(' . htmlspecialchars($value["cod_archivo_e"]) . ', ' . htmlspecialchars($perfil) . ')">
-                                    <i class="fa fa-download"></i>
-                                </button>
+                                                                                    <!-- Botón Descargar Archivo -->
+                                                                                    <button class="btn bg-success" onclick="descargarArchivo(' . htmlspecialchars($value["cod_archivo_e"]) . ', ' . htmlspecialchars($perfil) . ')">
+                                                                                        <i class="fa fa-download"></i>
+                                                                                    </button>
 
-                                <!-- Botón Eliminar Archivo -->
-                                <button class="btn btn-danger btnEliminarArchivo" idArchivo="' . htmlspecialchars($value["cod_archivo_e"]) . '">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>';
+                                                                                    <!-- Botón Eliminar Archivo -->
+                                                                                    <button class="btn btn-danger btnEliminarArchivo" idArchivo="' . htmlspecialchars($value["cod_archivo_e"]) . '">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>';
                                                             }
                                                             ?>
                                                         </tbody>
@@ -268,30 +268,30 @@ if ($perfil > 0) {
 
                                                 <script>
                                                    function descargarArchivo(idArchivo, idEmpresa) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'controladores/archivo.controlador.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                                            var xhr = new XMLHttpRequest();
+                                                            xhr.open('POST', 'controladores/archivo.controlador.php', true);
+                                                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    xhr.responseType = 'blob'; // Esperamos un Blob
+                                                            xhr.responseType = 'blob'; // Esperamos un Blob
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            var blob = new Blob([xhr.response], { type: 'application/octet-stream' });
-            var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = "archivo_" + idArchivo + ".docx"; // Nombre del archivo
-            link.click();
-        } else {
-            console.error("Error en la descarga del archivo: " + xhr.statusText);
-        }
-    };
+                                                            xhr.onload = function() {
+                                                                if (xhr.status === 200) {
+                                                                    var blob = new Blob([xhr.response], { type: 'application/octet-stream' });
+                                                                    var link = document.createElement('a');
+                                                                    link.href = window.URL.createObjectURL(blob);
+                                                                    link.download = "archivo_" + idArchivo + ".docx"; // Nombre del archivo
+                                                                    link.click();
+                                                                } else {
+                                                                    console.error("Error en la descarga del archivo: " + xhr.statusText);
+                                                                }
+                                                            };
 
-    xhr.onerror = function() {
-        console.error("Error en la solicitud.");
-    };
+                                                            xhr.onerror = function() {
+                                                                console.error("Error en la solicitud.");
+                                                            };
 
-    xhr.send('action=descargarArchivoWord&idArchivo=' + idArchivo + '&idEmpresa=' + idEmpresa);
-}
+                                                            xhr.send('action=descargarArchivoWord&idArchivo=' + idArchivo + '&idEmpresa=' + idEmpresa);
+                                                        }
 
                                                 </script>
                                             </div>

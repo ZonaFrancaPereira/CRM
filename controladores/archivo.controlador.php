@@ -114,36 +114,51 @@ class ControladorArchivo {
         }
     }
 
-    public static function ctrDescargarArchivoWord($idArchivo) {
+    public static function ctrDescargarArchivoWord($idArchivo,$idEmpresa) {
         // Obtener el archivo desde la base de datos
         $archivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
 
         if ($archivo) {
-            // La ruta absoluta del archivo en el servidor local (XAMPP en Windows)
-            $rutaArchivo = $_SERVER['DOCUMENT_ROOT'] . '/CRM/' . $archivo["archivo_e"];
-            // Verificar si el archivo existe en el servidor
-            if (file_exists($rutaArchivo)) {
-                // Limpia cualquier salida previa
-                ob_clean(); // Limpia el buffer de salida
-                flush(); // Libera el sistema de salida
+                // Crear una instancia de TinyButStrong (TBS)
+    $TBS = new clsTinyButStrong; 
+    // Instalar el plugin OpenTBS
+    $TBS->Plugin(TBS_INSTALL, OPENTBS_PLUGIN); 
+    
+    // Definir los parámetros que se van a fusionar con el documento
+    $nomprofesor = 'Anderson Code';
+    $fechaprofesor = '04/06/2020';
+    $firmadecano = 'firma.png'; // Asegúrate de que la imagen esté en el mismo directorio o proporciona la ruta correcta
+    
+    // Cargar la plantilla de Word (asegúrate de que la plantilla esté en la ruta especificada)
+    $template = 'Plantilla_Colegiado.docx';
+    $TBS->LoadTemplate($template, OPENTBS_ALREADY_UTF8);
+    
+    // Fusionar los campos de texto con la plantilla
+    $TBS->MergeField('pro.nomprofesor', $nomprofesor); // Asocia el campo con los datos
+    $TBS->MergeField('pro.fechaprofesor', $fechaprofesor);
+    
+    // Asignar una variable de referencia para la firma (si tienes un marcador que se usa en el documento)
+    $TBS->VarRef['x'] = $firmadecano;
 
-                // Configura las cabeceras para la descarga
-                header('Content-Description: File Transfer');
-                header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                header('Content-Disposition: attachment; filename="' . basename($archivo["archivo_e"]) . '"');
-                header('Expires: 0');
-                header('Cache-Control: must-revalidate');
-                header('Pragma: public');
-                header('Content-Length: ' . filesize($rutaArchivo));
+    // Eliminar los comentarios en la plantilla (esto es opcional)
+    $TBS->PlugIn(OPENTBS_DELETE_COMMENTS);
 
-                // Enviar el archivo al navegador para su descarga
-                readfile($rutaArchivo);
-                exit;
-            } else {
-                echo json_encode(['error' => 'El archivo no existe en el servidor.']);
-            }
+    // Definir el nombre del archivo de salida (el nombre del archivo generado)
+    $save_as = (isset($_POST['save_as']) && (trim($_POST['save_as'])!=='') && ($_SERVER['SERVER_NAME']=='localhost')) ? trim($_POST['save_as']) : '';
+    $output_file_name = str_replace('.', '_'.date('Y-m-d').$save_as.'.', $template);
+    
+    // Descargar el archivo o guardarlo según la opción seleccionada
+    if ($save_as === '') {
+        // Descargar directamente el archivo al navegador
+        $TBS->Show(OPENTBS_DOWNLOAD, $output_file_name); 
+        exit();
+    } else {
+        // Guardar el archivo en el servidor
+        $TBS->Show(OPENTBS_FILE, $output_file_name);
+        exit("El archivo [$output_file_name] ha sido creado.");
+    }
         } else {
-            echo json_encode(['error' => 'No se encontró el archivo.']);
+            //echo json_encode(['error' => 'No se encontró el archivo.']);
         }
     }
 }
