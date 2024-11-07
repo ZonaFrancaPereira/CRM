@@ -65,7 +65,7 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                                             <td>' . $value["Telefono"] . '</td>
                                                             <td>' . $value["nombre_rep_legal"] . '</td>
                                                             <td>' . $value["correoElectronico"] . '</td>
-                                                            <td>' . $value["id_usuario_fk"] . '</td>
+                                                            <td>' . $value["nombre"] . '</td>
                                                             <td>
                                                                 <div class="btn-group">
                                                                     <button type="button" class="btn btn-outline-info" data-id="' . $value["id"] . '" data-toggle="modal" data-target="#modal-asignarempresa">Asignar</button>

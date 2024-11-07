@@ -68,29 +68,43 @@ class ModeloEmpresas
 	}
 	
  /*=============================================
-	MOSTRAR ACPM
+	MOSTRAR EMPRESAS
 	=============================================*/
 
 	public static function mdlMostraEmpresas($tabla, $item, $valor)
-	{
-		
-        if($item != null) {
-            // Consulta preparada para obtener un registro específico
-            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+{
+    try {
+        $conexion = Conexion::conectar();
+        
+        if ($item != null) {
+            $query = "SELECT $tabla.*, usuarios.nombre 
+                      FROM $tabla 
+                      INNER JOIN usuarios ON usuarios.id = $tabla.id_usuario_fk 
+                      WHERE $item = :$item";
+            $stmt = $conexion->prepare($query);
             $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
             $stmt->execute();
-            return $stmt->fetch();
+            $resultado = $stmt->fetch();
         } else {
-            // Consulta para obtener todos los registros
-            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+            $query = "SELECT $tabla.*, usuarios.nombre 
+                      FROM $tabla 
+                      INNER JOIN usuarios ON usuarios.id = $tabla.id_usuario_fk";
+            $stmt = $conexion->prepare($query);
             $stmt->execute();
-            return $stmt->fetchAll();
+            $resultado = $stmt->fetchAll();
         }
 
-        // Cerramos la conexión
-        $stmt->close();
+        return $resultado;
+
+    } catch (PDOException $e) {
+        error_log("Error en la consulta: " . $e->getMessage());
+        return false;
+    } finally {
         $stmt = null;
+        $conexion = null;
     }
+}
+
 
 	public static function mdlMostraEmpresasAsignada($tabla, $consulta)
 	{
