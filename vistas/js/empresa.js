@@ -1,13 +1,13 @@
 
 /*=============================================
-TABLA PARA MOSTRAR TODAS LAS EMPRESAS
+TABLA PARA MOSTRAR LA EMPRESA ASIGNADA
 =============================================*/
-var tablaEmpresas = $("#tabla-empresas").DataTable({
+var tablaUsuario = $("#tabla-usuario").DataTable({
   "ajax": {
       "url": "ajax/datatable-empresas.ajax.php",
       "type": "POST",
       "data": function (d) {
-          d.especifico = "empresas";
+          d.especifico = "usuario";
           console.log("Valor de específico:", d.especifico);
       },
       "dataSrc": "data"
@@ -97,3 +97,5 @@ $('#modal-asignarempresa').on('show.bs.modal', function (event) {
   // Establece los valores en los campos del modal
   modal.find('#id_asignar').val(id_asignar);
 });
+
+

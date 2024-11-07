@@ -61,11 +61,11 @@
                             </div>
                             <div class="card-body">
                                 <div id="external-events">
-                                    <div class="external-event bg-success">Lunch</div>
-                                    <div class="external-event bg-warning">Go home</div>
-                                    <div class="external-event bg-info">Do homework</div>
-                                    <div class="external-event bg-primary">Work on UI design</div>
-                                    <div class="external-event bg-danger">Sleep tight</div>
+                                    <div class="external-event bg-success">Empresa 1</div>
+                                    <div class="external-event bg-warning">Empresa 2</div>
+                                    <div class="external-event bg-info">Empresa 3</div>
+                                    <div class="external-event bg-primary">Empresa 4</div>
+                                    <div class="external-event bg-danger">Empresa 5</div>
                                     <div class="checkbox">
                                         <label for="drop-remove">
                                             <input type="checkbox" id="drop-remove">
@@ -117,184 +117,177 @@
 
   <!-- /.control-sidebar -->
 </div>
-
 <script>
-    $(function () {
-        function ini_events(ele) {
-            ele.each(function () {
-                var eventObject = {
-                    title: $.trim($(this).text())
-                }
-                $(this).data('eventObject', eventObject)
-                $(this).draggable({
-                    zIndex        : 1070,
-                    revert        : true,
-                    revertDuration: 0
-                })
-            })
-        }
-
-        ini_events($('#external-events div.external-event'))
-
-        var Calendar = FullCalendar.Calendar;
-        var Draggable = FullCalendar.Draggable;
-
-        var containerEl = document.getElementById('external-events');
-        var calendarEl = document.getElementById('calendar');
-
-        new Draggable(containerEl, {
-            itemSelector: '.external-event',
-            eventData: function(eventEl) {
-                return {
-                    title: eventEl.innerText,
-                    backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
-                    borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
-                    textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color'),
-                };
-            }
+$(function () {
+    function ini_events(ele) {
+        ele.each(function () {
+            var eventObject = {
+                title: $.trim($(this).text())
+            };
+            $(this).data('eventObject', eventObject);
+            $(this).draggable({
+                zIndex: 1070,
+                revert: true,
+                revertDuration: 0
+            });
         });
+    }
 
-        var calendar = new Calendar(calendarEl, {
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-            },
-            themeSystem: 'bootstrap',
-            locale: 'es',
-            editable: true,
-            droppable: true,
-            views: {
-                listWeek: {
-                    buttonText: 'Lista'
+    ini_events($('#external-events div.external-event'));
+
+    var Calendar = FullCalendar.Calendar;
+    var Draggable = FullCalendar.Draggable;
+
+    var containerEl = document.getElementById('external-events');
+    var calendarEl = document.getElementById('calendar');
+
+    new Draggable(containerEl, {
+        itemSelector: '.external-event',
+        eventData: function (eventEl) {
+            return {
+                title: eventEl.innerText.trim(),
+                backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
+                borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
+                textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color')
+            };
+        }
+    });
+
+    var calendar = new Calendar(calendarEl, {
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        },
+        themeSystem: 'bootstrap',
+        locale: 'es',
+        editable: true,
+        droppable: true,
+        views: {
+            listWeek: {
+                buttonText: 'Lista'
+            }
+        },
+        eventReceive: function (info) {
+            var event = info.event;
+            event.setProp('allDay', true);
+
+            $.ajax({
+                url: 'controladores/agenda.controlador.php',
+                method: 'POST',
+                data: {
+                    action: 'crearEvento',
+                    title: event.title,
+                    start: event.start.toISOString(),
+                    end: event.end ? event.end.toISOString() : null,
+                    backgroundColor: event.backgroundColor,
+                    borderColor: event.borderColor,
+                    textColor: event.textColor,
+                    allDay: event.allDay ? 1 : 0
+                },
+                success: function (response) {
+                    console.log('Respuesta del servidor:', response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error en la solicitud AJAX:', error);
                 }
-            },
-            eventReceive: function(info) {
-                var event = info.event;
-                event.setProp('allDay', true);
+            });
+        },
+        eventClick: function (info) {
+            if (confirm('¿Deseas eliminar este evento?')) {
                 $.ajax({
                     url: 'controladores/agenda.controlador.php',
                     method: 'POST',
                     data: {
-                        action: 'crearEvento',
-                        title: event.title,
-                        start: event.start.toISOString(),
-                        end: event.end ? event.end.toISOString() : null,
-                        backgroundColor: event.backgroundColor,
-                        borderColor: event.borderColor,
-                        textColor: event.textColor,
-                        allDay: event.allDay ? 1 : 0
+                        action: 'eliminarEvento',
+                        id: info.event.id
                     },
-                    success: function(response) {
+                    success: function (response) {
                         try {
                             response = JSON.parse(response);
                             if (response.status === 'success') {
-                                alert('Evento guardado correctamente.');
+                                info.event.remove();
+                                alert('Evento eliminado correctamente.');
                             } else {
-                                alert('Error al guardar el evento: ' + response.message);
+                                alert('Error al eliminar el evento: ' + response.message);
                             }
                         } catch (e) {
                             console.error('Error al parsear la respuesta:', response);
-                            alert('Error al guardar el evento.');
+                            alert('Error al eliminar el evento.');
                         }
                     },
-                    error: function(xhr, status, error) {
-                        console.error('Error al guardar el evento:', error);
-                        alert('Error al guardar el evento: ' + error);
+                    error: function (xhr, status, error) {
+                        console.error('Error al eliminar el evento:', error);
+                        alert('Error al eliminar el evento: ' + error);
                     }
                 });
-            },
-            eventClick: function(info) {
-                if (confirm('¿Deseas eliminar este evento?')) {
-                    $.ajax({
-                        url: 'controladores/agenda.controlador.php',
-                        method: 'POST',
-                        data: {
-                            action: 'eliminarEvento',
-                            id: info.event.id
-                        },
-                        success: function(response) {
-                            try {
-                                response = JSON.parse(response);
-                                if (response.status === 'success') {
-                                    info.event.remove();
-                                    alert('Evento eliminado correctamente.');
-                                } else {
-                                    alert('Error al eliminar el evento: ' + response.message);
-                                }
-                            } catch (e) {
-                                console.error('Error al parsear la respuesta:', response);
-                                alert('Error al eliminar el evento.');
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('Error al eliminar el evento:', error);
-                            alert('Error al eliminar el evento: ' + error);
-                        }
-                    });
+            }
+        },
+        events: function (fetchInfo, successCallback, failureCallback) {
+    // Obtener eventos desde el servidor
+    console.log('Cargando eventos...'); // Verifica que se llame
+    $.ajax({
+        url: 'controladores/agenda.controlador.php',
+        method: 'GET',
+        data: {
+            action: 'obtenerEventos', // Asegúrate de que esto esté presente
+            start: fetchInfo.startStr,
+            end: fetchInfo.endStr
+        },
+        success: function (response) {
+            try {
+                var events = JSON.parse(response);
+                if (events.status && events.status === 'error') {
+                    alert('Error al cargar eventos: ' + events.message);
+                } else {
+                    successCallback(events); // Pasar eventos al calendario
                 }
-            },
-            events: function(fetchInfo, successCallback, failureCallback) {
-                $.ajax({
-                    url: 'controladores/agenda.controlador.php',
-                    method: 'GET',
-                    data: {
-                        action: 'obtenerEventos',
-                        start: fetchInfo.startStr,
-                        end: fetchInfo.endStr
-                    },
-                    success: function(response) {
-                        try {
-                            var events = JSON.parse(response);
-                            if (events.status && events.status === 'error') {
-                                alert('Error al cargar eventos: ' + events.message);
-                            } else {
-                                successCallback(events);
-                            }
-                        } catch (e) {
-                            console.error('Error al parsear los eventos:', response);
-                            failureCallback('Error al cargar eventos.');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error al cargar los eventos:', error);
-                        failureCallback('Error al cargar eventos: ' + error);
-                    }
-                });
+            } catch (e) {
+                console.error('Error al parsear los eventos:', response);
+                failureCallback('Error al cargar eventos.');
             }
-        });
+        },
+        error: function (xhr, status, error) {
+            console.error('Error al cargar los eventos:', error);
+            failureCallback('Error al cargar eventos: ' + error);
+        }
+    });
+}
+    });
 
-        calendar.render();
+    calendar.render();
 
-        var currColor = '#3c8dbc';
-        $('#color-chooser > li > a').click(function (e) {
-            e.preventDefault();
-            currColor = $(this).css('color');
-            $('#add-new-event').css({
-                'background-color': currColor,
-                'border-color'    : currColor
-            });
-        });
-
-        $('#add-new-event').click(function (e) {
-            e.preventDefault();
-            var val = $('#new-event').val();
-            if (val.length == 0) {
-                return;
-            }
-
-            var event = $('<div />');
-            event.css({
-                'background-color': currColor,
-                'border-color'    : currColor,
-                'color'           : '#fff'
-            }).addClass('external-event');
-            event.text(val);
-            $('#external-events').prepend(event);
-            ini_events(event);
-            $('#new-event').val('');
+    var currColor = '#3c8dbc';
+    $('#color-chooser > li > a').click(function (e) {
+        e.preventDefault();
+        currColor = $(this).css('color');
+        $('#add-new-event').css({
+            'background-color': currColor,
+            'border-color': currColor
         });
     });
+
+    $('#add-new-event').click(function (e) {
+        e.preventDefault();
+        var val = $('#new-event').val();
+        if (val.length == 0) {
+            return;
+        }
+
+        var event = $('<div />');
+        event.css({
+            'background-color': currColor,
+            'border-color': currColor,
+            'color': '#fff'
+        }).addClass('external-event');
+        event.text(val);
+
+        $('#external-events').prepend(event);
+        ini_events(event);
+        $('#new-event').val('');
+    });
+});
 </script>
+
 
 

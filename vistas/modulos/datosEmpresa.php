@@ -1,7 +1,7 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-            <a data-toggle="tab" href="#" class="active nav-link">
+            <a data-toggle="tab" href="#panel" class="active nav-link">
                 <i class="fas fa-desktop"></i>
                 <p>Panel de Control</p>
             </a>
@@ -60,6 +60,14 @@ if ($_SESSION["ti"] == "off") {
                         <div class="row">
                             <div class="col-md-12">
                                 <?php require "datosEmpresa/listar_empresa.php"; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="panel" class="tab-pane">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php require "datosEmpresa/panel.php"; ?>
                             </div>
                         </div>
                     </div>

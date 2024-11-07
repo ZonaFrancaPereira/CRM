@@ -6,11 +6,11 @@ class ModeloAgenda{
 
      static public function mdlGuardarEvento($datos) {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO eventos (title, start, end, backgroundColor, borderColor, textColor, allDay) VALUES (:title, :start, :end, :backgroundColor, :borderColor, :textColor, :allDay)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO eventos (title, start2, end2, background_color, border_color, text_color, allDay) VALUES (:title, :start2, :end2, :backgroundColor, :borderColor, :textColor, :allDay)");
 
         $stmt->bindParam(":title", $datos["title"], PDO::PARAM_STR);
-        $stmt->bindParam(":start", $datos["start"], PDO::PARAM_STR);
-        $stmt->bindParam(":end", $datos["end"], PDO::PARAM_STR);
+        $stmt->bindParam(":start2", $datos["start"], PDO::PARAM_STR);
+        $stmt->bindParam(":end2", $datos["end"], PDO::PARAM_STR);
         $stmt->bindParam(":backgroundColor", $datos["backgroundColor"], PDO::PARAM_STR);
         $stmt->bindParam(":borderColor", $datos["borderColor"], PDO::PARAM_STR);
         $stmt->bindParam(":textColor", $datos["textColor"], PDO::PARAM_STR);
@@ -36,15 +36,19 @@ class ModeloAgenda{
         return $stmt->execute();
     }
 
-     static public  function mdlObtenerEventos($start, $end) {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM eventos WHERE start BETWEEN :start AND :end");
+    static public function mdlObtenerEventos($start, $end) {
+      // Prepara la consulta SQL
+      $stmt = Conexion::conectar()->prepare("SELECT * FROM eventos WHERE start2 >= :start AND end2 <= :end");
 
-        $stmt->bindParam(":start", $start, PDO::PARAM_STR);
-        $stmt->bindParam(":end", $end, PDO::PARAM_STR);
-        $stmt->execute();
-
-		// Utilizar fetchAll para obtener todos los resultados
-		return $stmt->fetchAll();
-    }
+      // Asigna los parámetros
+      $stmt->bindParam(":start", $start);
+      $stmt->bindParam(":end", $end);
+      
+      // Ejecuta la consulta
+      $stmt->execute();
+      
+      // Devuelve los resultados en un formato de array asociativo
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
  ?>

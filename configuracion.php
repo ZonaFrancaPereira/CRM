@@ -35,7 +35,7 @@
  */
 
 // CONEXIÓN BASE DE DATOS
-CONST BD_HOST = "127.0.0.1";
+CONST BD_HOST = "localhost";
 CONST BD_PUERTO = "3306";
 CONST BD_NOMBRE = "tm";
 CONST BD_USUARIO = "root";

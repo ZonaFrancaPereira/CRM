@@ -13,15 +13,15 @@ class TablaEmpresas
         $valor = $_SESSION['id'];
 
         switch ($especifico) {
-            case 'empresas':
-                $this->mostrarTabla($item, $valor, "empresas");
+            case 'usuario':
+                $this->mostrarTabla($item, $valor, "usuario");
                 break;
         }
     }
 
     private function mostrarTabla($item, $valor, $consulta)
     {
-        $empresas = ControladorEmpresa::ctrMostrarEmpresa($consulta);
+        $empresas = ControladorEmpresa::ctrMostrarEmpresaAsignada($consulta);
         $data = [];
 
         foreach ($empresas as $s) {
@@ -38,22 +38,8 @@ class TablaEmpresas
     {
         switch ($consulta) {
             case 'empresas':
-                $editar = "<button type='button' class='btn btn-outline-info' 
-              data-id='{$s["id"]}' 
-              data-dv='{$s["dv"]}' 
-              data-nombre='{$s["NombreEmpresa"]}' 
-              data-direccion='{$s["DireccionEmpresa"]}' 
-              data-ciudad='{$s["ciudad"]}' 
-              data-telefono='{$s["Telefono"]}' 
-              data-telefono2='{$s["telefono2"]}' 
-              data-nombre-rep='{$s["nombre_rep_legal"]}' 
-              data-correo='{$s["correoElectronico"]}' 
-              data-toggle='modal' 
-              data-target='#modal-editempresa'>Editar</button>";
-
-              $asignar = "<button type='button' class='btn btn-outline-info' data-id='{$s["id"]}' data-toggle='modal' data-target='#modal-asignarempresa'>Asignar</button>";
-
-
+              
+                $asignar = "<button type='button' class='btn btn-outline-info' data-id='{$s["id"]}' data-toggle='modal' data-target='#modal-asignarempresa'>Asignar</button>";
                 return [
                     $s["id"],
                     $s["dv"],
@@ -65,9 +51,21 @@ class TablaEmpresas
                     $s["nombre_rep_legal"],
                     $s["correoElectronico"],
                     $s["id_usuario_fk"],
-                    $editar,
                     $asignar
 
+                ];
+
+            case 'usuario':
+                $perfil = "<a target='_blank' class='btn btn-outline-warning' href='index.php?ruta=perfil&id={$s["id"]}'>Perfil</a>";
+                if ($s["id_usuario_fk"] !== $_SESSION['id']) return null;
+                return [
+                    $s["id"],
+                    $s["NombreEmpresa"],
+                    $s["DireccionEmpresa"],
+                    $s["Telefono"],
+                    $s["nombre_rep_legal"],
+                    $s["correoElectronico"],
+                    $perfil
                 ];
             default:
                 return null;

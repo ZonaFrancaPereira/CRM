@@ -71,11 +71,20 @@ class ControladorEmpresa
       MOSTRAR EMPRESA
       ============================================= */
 
-    static public function ctrMostrarEmpresa($consulta)
+    static public function ctrMostrarEmpresa($item, $valor)
     {
         $tabla = "datosempresa";
 
-        $respuesta = ModeloEmpresas::mdlMostraEmpresas($tabla, $consulta);
+        $respuesta = ModeloEmpresas::mdlMostraEmpresas($tabla, $item, $valor);
+
+        return $respuesta;
+    }
+
+    static public function ctrMostrarEmpresaAsignada($consulta)
+    {
+        $tabla = "datosempresa";
+
+        $respuesta = ModeloEmpresas::mdlMostraEmpresasAsignada($tabla, $consulta);
 
         return $respuesta;
     }
@@ -106,14 +115,14 @@ class ControladorEmpresa
             // Manejar la respuesta del modelo
             if ($respuesta == "ok") {
                 echo '<script>
-                    Swal.fire(
-                        "Actualizado!",
-                        "La información de la empresa ha sido actualizada con éxito.",
-                        "success"
-                    ).then(function() {
-                        document.getElementById("formEditarEmpresa").reset();
-                    });
-                    </script>';
+                Swal.fire(
+                    "Actualizado!",
+                    "La información de la empresa ha sido actualizada con éxito.",
+                    "success"
+                ).then(function() {
+                    window.location = ""; // Redirige a la página "perfil"
+                });
+                </script>';
             } else {
                 echo '<script>
                     Swal.fire(
