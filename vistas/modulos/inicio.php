@@ -49,69 +49,60 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="sticky-top mb-3">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Draggable Events</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="external-events">
-                                    <div class="external-event bg-success">Empresa 1</div>
-                                    <div class="external-event bg-warning">Empresa 2</div>
-                                    <div class="external-event bg-info">Empresa 3</div>
-                                    <div class="external-event bg-primary">Empresa 4</div>
-                                    <div class="external-event bg-danger">Empresa 5</div>
-                                    <div class="checkbox">
-                                        <label for="drop-remove">
-                                            <input type="checkbox" id="drop-remove">
-                                            remove after drop
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Create Event</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-                                    <ul class="fc-color-picker" id="color-chooser">
-                                        <li><a class="text-primary" href="#"><i class="fas fa-square"></i></a></li>
-                                        <li><a class="text-warning" href="#"><i class="fas fa-square"></i></a></li>
-                                        <li><a class="text-success" href="#"><i class="fas fa-square"></i></a></li>
-                                        <li><a class="text-danger" href="#"><i class="fas fa-square"></i></a></li>
-                                        <li><a class="text-muted" href="#"><i class="fas fa-square"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="input-group">
-                                    <input id="new-event" type="text" class="form-control" placeholder="Event Title">
-                                    <div class="input-group-append">
-                                        <button id="add-new-event" type="button" class="btn btn-primary">Add</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="card card-primary">
-                        <div class="card-body p-0">
-                            <div id="calendar"></div>
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+   
+
+            <!-- Calendario -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                    <div class="card-body p-0">
+                        <div id="calendar"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    </section>
-    <!-- /.content -->
+    </div>
+
   </div>
+    <!-- Modal para agregar un evento -->
+<!-- Modal para Crear/Editar Evento -->
+<!-- Modal para Crear/Editar Evento -->
+<div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="eventModalLabel">Crear Evento</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="eventTitle">Título del Evento</label>
+          <input type="text" class="form-control" id="eventTitle" placeholder="Título del Evento">
+        </div>
+        <div class="form-group">
+          <label for="eventStart">Fecha y Hora de Inicio</label>
+          <input type="datetime-local" class="form-control" id="eventStart">
+        </div>
+        <div class="form-group">
+          <label for="eventEnd">Fecha y Hora de Fin</label>
+          <input type="datetime-local" class="form-control" id="eventEnd">
+        </div>
+        <div class="form-group">
+          <label for="eventColor">Color de Fondo</label>
+          <input type="color" class="form-control" id="eventColor" value="#007bff">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" id="deleteEvent" style="display:none;">Eliminar Evento</button>
+        <button type="button" class="btn btn-primary" id="saveEvent">Guardar Evento</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -119,175 +110,201 @@
 </div>
 <script>
 $(function () {
-    function ini_events(ele) {
-        ele.each(function () {
-            var eventObject = {
-                title: $.trim($(this).text())
-            };
-            $(this).data('eventObject', eventObject);
-            $(this).draggable({
-                zIndex: 1070,
-                revert: true,
-                revertDuration: 0
-            });
-        });
-    }
+  var Calendar = FullCalendar.Calendar;
+  var calendarEl = document.getElementById('calendar');
+  var currentEventId = null; // Variable para almacenar el ID del evento cuando se edita
 
-    ini_events($('#external-events div.external-event'));
-
-    var Calendar = FullCalendar.Calendar;
-    var Draggable = FullCalendar.Draggable;
-
-    var containerEl = document.getElementById('external-events');
-    var calendarEl = document.getElementById('calendar');
-
-    new Draggable(containerEl, {
-        itemSelector: '.external-event',
-        eventData: function (eventEl) {
-            return {
-                title: eventEl.innerText.trim(),
-                backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
-                borderColor: window.getComputedStyle(eventEl, null).getPropertyValue('background-color'),
-                textColor: window.getComputedStyle(eventEl, null).getPropertyValue('color')
-            };
-        }
-    });
-
-    var calendar = new Calendar(calendarEl, {
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-        },
-        themeSystem: 'bootstrap',
-        locale: 'es',
-        editable: true,
-        droppable: true,
-        views: {
-            listWeek: {
-                buttonText: 'Lista'
-            }
-        },
-        eventReceive: function (info) {
-            var event = info.event;
-            event.setProp('allDay', true);
-
-            $.ajax({
-                url: 'controladores/agenda.controlador.php',
-                method: 'POST',
-                data: {
-                    action: 'crearEvento',
-                    title: event.title,
-                    start: event.start.toISOString(),
-                    end: event.end ? event.end.toISOString() : null,
-                    backgroundColor: event.backgroundColor,
-                    borderColor: event.borderColor,
-                    textColor: event.textColor,
-                    allDay: event.allDay ? 1 : 0
-                },
-                success: function (response) {
-                    console.log('Respuesta del servidor:', response);
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error en la solicitud AJAX:', error);
-                }
-            });
-        },
-        eventClick: function (info) {
-            if (confirm('¿Deseas eliminar este evento?')) {
-                $.ajax({
-                    url: 'controladores/agenda.controlador.php',
-                    method: 'POST',
-                    data: {
-                        action: 'eliminarEvento',
-                        id: info.event.id
-                    },
-                    success: function (response) {
-                        try {
-                            response = JSON.parse(response);
-                            if (response.status === 'success') {
-                                info.event.remove();
-                                alert('Evento eliminado correctamente.');
-                            } else {
-                                alert('Error al eliminar el evento: ' + response.message);
-                            }
-                        } catch (e) {
-                            console.error('Error al parsear la respuesta:', response);
-                            alert('Error al eliminar el evento.');
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Error al eliminar el evento:', error);
-                        alert('Error al eliminar el evento: ' + error);
-                    }
-                });
-            }
-        },
-        events: function (fetchInfo, successCallback, failureCallback) {
-    // Obtener eventos desde el servidor
-    console.log('Cargando eventos...'); // Verifica que se llame
-    $.ajax({
+  var calendar = new Calendar(calendarEl, {
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    locale: 'es',
+    editable: false,  // No permitir arrastrar y soltar
+    selectable: true, // Habilitar la selección de días
+    themeSystem: 'bootstrap',
+    events: function (fetchInfo, successCallback, failureCallback) {
+      $.ajax({
         url: 'controladores/agenda.controlador.php',
         method: 'GET',
         data: {
-            action: 'obtenerEventos', // Asegúrate de que esto esté presente
-            start: fetchInfo.startStr,
-            end: fetchInfo.endStr
+          action: 'obtenerEventos',
+          start: fetchInfo.startStr,
+          end: fetchInfo.endStr
         },
         success: function (response) {
-            try {
-                var events = JSON.parse(response);
-                if (events.status && events.status === 'error') {
-                    alert('Error al cargar eventos: ' + events.message);
-                } else {
-                    successCallback(events); // Pasar eventos al calendario
-                }
-            } catch (e) {
-                console.error('Error al parsear los eventos:', response);
-                failureCallback('Error al cargar eventos.');
-            }
+          try {
+            var events = JSON.parse(response);
+            successCallback(events);
+          } catch (e) {
+            failureCallback('Error al cargar eventos.');
+          }
         },
         error: function (xhr, status, error) {
-            console.error('Error al cargar los eventos:', error);
-            failureCallback('Error al cargar eventos: ' + error);
+          failureCallback('Error al cargar eventos: ' + error);
         }
-    });
-}
-    });
+      });
+    },
+    // Crear un nuevo evento al hacer clic en un día vacío
+    dateClick: function (info) {
+      // Al hacer clic en un día vacío, se abrirá el modal para crear un evento
+      var selectedDate = info.dateStr; // Fecha seleccionada (en formato 'YYYY-MM-DD')
 
-    calendar.render();
+      // Establecer la fecha de inicio y fin en el modal con la fecha seleccionada
+      $('#eventStart').val(selectedDate + 'T09:00'); // Por defecto, la hora de inicio será a las 9:00 AM
+      $('#eventEnd').val(selectedDate + 'T10:00'); // Por defecto, la hora de fin será a las 10:00 AM
 
-    var currColor = '#3c8dbc';
-    $('#color-chooser > li > a').click(function (e) {
-        e.preventDefault();
-        currColor = $(this).css('color');
-        $('#add-new-event').css({
-            'background-color': currColor,
-            'border-color': currColor
-        });
-    });
+      // Limpiar el campo de título y color de fondo
+      $('#eventTitle').val('');
+      $('#eventColor').val('#007bff'); // Establecer color de fondo por defecto
 
-    $('#add-new-event').click(function (e) {
-        e.preventDefault();
-        var val = $('#new-event').val();
-        if (val.length == 0) {
-            return;
+      // Cambiar título del modal a "Crear Evento"
+      $('#eventModalLabel').text('Crear Evento');
+      $('#deleteEvent').hide(); // Ocultar el botón de eliminar
+
+      // Mostrar el modal
+      $('#eventModal').modal('show');
+
+      // Guardar el evento
+      $('#saveEvent').off('click').on('click', function () {
+        var title = $('#eventTitle').val();
+        var start = $('#eventStart').val();
+        var end = $('#eventEnd').val();
+        var color = $('#eventColor').val();
+
+        if (title && start && end) {
+          var eventData = {
+            title: title,
+            start: start,
+            end: end,
+            backgroundColor: color,
+            borderColor: color,
+            textColor: "#fff"
+          };
+
+          // Añadir evento al calendario
+          calendar.addEvent(eventData);
+
+          // Guardar el evento en la base de datos
+          $.ajax({
+            url: 'controladores/agenda.controlador.php',
+            method: 'POST',
+            data: {
+              action: 'crearEvento',
+              title: title,
+              start: start,
+              end: end,
+              backgroundColor: color,
+              borderColor: color,
+              textColor: "#fff"
+            },
+            success: function (response) {
+              $('#eventModal').modal('hide');
+              console.log('Evento guardado:', response);
+            },
+            error: function (xhr, status, error) {
+              console.error('Error al guardar el evento:', error);
+            }
+          });
+        } else {
+          alert('Por favor, complete todos los campos.');
         }
+      });
+    },
+    // Editar un evento al hacer clic sobre un evento existente
+    eventClick: function (info) {
+      // Al hacer clic en un evento, abrir el modal para editarlo
+      var event = info.event;
 
-        var event = $('<div />');
-        event.css({
-            'background-color': currColor,
-            'border-color': currColor,
-            'color': '#fff'
-        }).addClass('external-event');
-        event.text(val);
+      // Cargar los datos del evento en los campos del modal
+      $('#eventTitle').val(event.title);
+      $('#eventStart').val(event.start.toISOString().slice(0, 16)); // Convertir a formato 'YYYY-MM-DDTHH:MM'
+      $('#eventEnd').val(event.end.toISOString().slice(0, 16)); // Convertir a formato 'YYYY-MM-DDTHH:MM'
+      $('#eventColor').val(event.backgroundColor);
 
-        $('#external-events').prepend(event);
-        ini_events(event);
-        $('#new-event').val('');
-    });
+      // Establecer el ID del evento para poder editarlo después
+      currentEventId = event.id;
+
+      // Cambiar título del modal a "Editar Evento"
+      $('#eventModalLabel').text('Editar Evento');
+      $('#deleteEvent').show(); // Mostrar el botón de eliminar
+
+      // Mostrar el modal
+      $('#eventModal').modal('show');
+
+      // Guardar los cambios en el evento
+      $('#saveEvent').off('click').on('click', function () {
+        var title = $('#eventTitle').val();
+        var start = $('#eventStart').val();
+        var end = $('#eventEnd').val();
+        var color = $('#eventColor').val();
+
+        if (title && start && end) {
+          event.setProp('title', title);
+          event.setStart(start);
+          event.setEnd(end);
+          event.setProp('backgroundColor', color);
+          event.setProp('borderColor', color);
+          event.setProp('textColor', "#fff");
+
+          // Actualizar el evento en la base de datos
+          $.ajax({
+            url: 'controladores/agenda.controlador.php',
+            method: 'POST',
+            data: {
+              action: 'editarEvento',
+              id: currentEventId,
+              title: title,
+              start: start,
+              end: end,
+              backgroundColor: color,
+              borderColor: color,
+              textColor: "#fff"
+            },
+            success: function (response) {
+              $('#eventModal').modal('hide');
+              console.log('Evento editado:', response);
+            },
+            error: function (xhr, status, error) {
+              console.error('Error al editar el evento:', error);
+            }
+          });
+        } else {
+          alert('Por favor, complete todos los campos.');
+        }
+      });
+
+      // Eliminar el evento
+      $('#deleteEvent').off('click').on('click', function () {
+        if (confirm('¿Estás seguro de que quieres eliminar este evento?')) {
+          // Eliminar el evento del calendario
+          event.remove();
+
+          // Eliminar el evento de la base de datos
+          $.ajax({
+            url: 'controladores/agenda.controlador.php',
+            method: 'POST',
+            data: {
+              action: 'eliminarEvento',
+              id: currentEventId
+            },
+            success: function (response) {
+              $('#eventModal').modal('hide');
+              console.log('Evento eliminado:', response);
+            },
+            error: function (xhr, status, error) {
+              console.error('Error al eliminar el evento:', error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+  // Inicializar el calendario
+  calendar.render();
 });
-</script>
 
-
+    </script>
 

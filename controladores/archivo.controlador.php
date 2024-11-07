@@ -94,9 +94,6 @@ class ControladorArchivo {
     }
 
    
-<<<<<<< HEAD
-    public static function ctrDescargarArchivoWord($idArchivo, $idEmpresa) {
-=======
     public static function ctrHandleRequest() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             switch ($_POST['action']) {
@@ -118,44 +115,10 @@ class ControladorArchivo {
     }
 
     public static function ctrDescargarArchivoWord($idArchivo,$idEmpresa) {
->>>>>>> 66e233ce18cf270d87fd6f083b4f68b924c88e9f
         // Obtener el archivo desde la base de datos
         $archivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
     
         if ($archivo) {
-<<<<<<< HEAD
-            // Ruta del archivo
-            $rutaArchivo = $_SERVER['DOCUMENT_ROOT'] . '/' . $archivo["archivo_e"];
-    
-            // Mostrar la ruta en pantalla
-            echo "Ruta del archivo: " . $rutaArchivo;
-    
-            // Verificar si el archivo existe en el servidor
-            if (file_exists($rutaArchivo)) {
-                // Limpia cualquier salida previa
-                ob_clean(); // Limpia el búfer de salida
-                flush(); // Envía la salida actual al navegador
-    
-                // Configura las cabeceras para la descarga
-                header('Content-Description: File Transfer');
-                header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-                header('Content-Disposition: attachment; filename="' . basename($archivo["archivo_e"]) . '"');
-                header('Expires: 0');
-                header('Cache-Control: must-revalidate');
-                header('Pragma: public');
-                header('Content-Length: ' . filesize($rutaArchivo));
-    
-                // Enviar el archivo al navegador para su descarga
-                if (readfile($rutaArchivo) === false) {
-                    echo "Error al leer el archivo.";
-                }
-                exit; // Asegúrate de salir después de enviar el archivo
-            } else {
-                echo "El archivo no existe en el servidor.";
-            }
-        } else {
-            echo "No se encontró el archivo.";
-=======
                 // Crear una instancia de TinyButStrong (TBS)
     $TBS = new clsTinyButStrong; 
     // Instalar el plugin OpenTBS
@@ -196,7 +159,6 @@ class ControladorArchivo {
     }
         } else {
             //echo json_encode(['error' => 'No se encontró el archivo.']);
->>>>>>> 66e233ce18cf270d87fd6f083b4f68b924c88e9f
         }
     }
 }
