@@ -8,32 +8,27 @@
         </li>
 
         <li class="nav-item" name="">
-          <a data-toggle="tab" href="#nuevaempresa" class="nav-link">
-          <i class="nav-icon fas fa-qrcode"></i>
-            <p> Nueva Empresa</p>
-          </a>
+            <a data-toggle="tab" href="#nuevaempresa" class="nav-link">
+                <i class="nav-icon fas fa-qrcode"></i>
+                <p> Nueva Empresa</p>
+            </a>
         </li>
 
         <li class="nav-item" name="">
-          <a data-toggle="tab" href="#listar_empresa" class="nav-link">
-          <i class="nav-icon fas fa-qrcode"></i>
-            <p>Empresas</p>
-          </a>
+            <a data-toggle="tab" href="#listar_empresa" class="nav-link">
+                <i class="nav-icon fas fa-qrcode"></i>
+                <p>Empresas</p>
+            </a>
         </li>
-
     </ul>
 </nav>
 
 <?php
 
 if ($_SESSION["ti"] == "off") {
-
     echo '<script>
-
-    window.location = "inicio";
-
-  </script>';
-
+        window.location = "inicio";
+    </script>';
     return;
 }
 
@@ -64,7 +59,7 @@ if ($_SESSION["ti"] == "off") {
                         </div>
                     </div>
 
-                    <div id="panel" class="tab-pane">
+                    <div id="panel" class="tab-pane active"> <!-- Se añade la clase "active" aquí -->
                         <div class="row">
                             <div class="col-md-12">
                                 <?php require "datosEmpresa/panel.php"; ?>
@@ -78,5 +73,4 @@ if ($_SESSION["ti"] == "off") {
     </div>
 </div>
 </body>
-
 </html>

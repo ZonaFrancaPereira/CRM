@@ -294,7 +294,7 @@ if ($perfil > 0) {
 
                                                         // Enviar la solicitud POST con los parámetros necesarios
                                                         xhr.send('action=descargarArchivoWord&idArchivo=' + idArchivo + '&idEmpresa=' + idEmpresa);
-                                                    }
+                                                    
                                                 </script>
 
 
