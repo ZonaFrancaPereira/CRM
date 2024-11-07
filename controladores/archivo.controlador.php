@@ -94,39 +94,23 @@ class ControladorArchivo {
     }
 
    
-    public static function ctrHandleRequest() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-            switch ($_POST['action']) {
-                case 'descargarArchivoWord':
-                    $idArchivo = $_POST['idArchivo'];
-                    $idEmpresa = $_POST['idEmpresa'];
-                    self::ctrDescargarArchivoWord($idArchivo, $idEmpresa);
-                    break;
-
-                // Otros casos según sea necesario...
-
-                default:
-                    echo json_encode(['error' => 'Acción no válida']);
-                    break;
-            }
-        } else {
-            echo json_encode(['error' => 'Método no permitido']);
-        }
-    }
-
-    public static function ctrDescargarArchivoWord($idArchivo) {
+    public static function ctrDescargarArchivoWord($idArchivo, $idEmpresa) {
         // Obtener el archivo desde la base de datos
         $archivo = ModeloArchivo::mdlObtenerArchivo($idArchivo);
-
+    
         if ($archivo) {
-            // La ruta absoluta del archivo en el servidor local (XAMPP en Windows)
-            $rutaArchivo = $_SERVER['DOCUMENT_ROOT'] . '/CRM/' . $archivo["archivo_e"];
+            // Ruta del archivo
+            $rutaArchivo = $_SERVER['DOCUMENT_ROOT'] . '/' . $archivo["archivo_e"];
+    
+            // Mostrar la ruta en pantalla
+            echo "Ruta del archivo: " . $rutaArchivo;
+    
             // Verificar si el archivo existe en el servidor
             if (file_exists($rutaArchivo)) {
                 // Limpia cualquier salida previa
-                ob_clean(); // Limpia el buffer de salida
-                flush(); // Libera el sistema de salida
-
+                ob_clean(); // Limpia el búfer de salida
+                flush(); // Envía la salida actual al navegador
+    
                 // Configura las cabeceras para la descarga
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
@@ -135,19 +119,27 @@ class ControladorArchivo {
                 header('Cache-Control: must-revalidate');
                 header('Pragma: public');
                 header('Content-Length: ' . filesize($rutaArchivo));
-
+    
                 // Enviar el archivo al navegador para su descarga
-                readfile($rutaArchivo);
-                exit;
+                if (readfile($rutaArchivo) === false) {
+                    echo "Error al leer el archivo.";
+                }
+                exit; // Asegúrate de salir después de enviar el archivo
             } else {
-                echo json_encode(['error' => 'El archivo no existe en el servidor.']);
+                echo "El archivo no existe en el servidor.";
             }
         } else {
-            echo json_encode(['error' => 'No se encontró el archivo.']);
+            echo "No se encontró el archivo.";
         }
     }
 }
+    // Verifica si se ha solicitado la descarga
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] == 'descargarArchivoWord') {
+        $idArchivo = $_POST['idArchivo'];
+        $idEmpresa = $_POST['idEmpresa'];
+        ControladorArchivo::ctrDescargarArchivoWord($idArchivo, $idEmpresa);
+    }
+    
 
-// Manejar la solicitud
-ControladorArchivo::ctrHandleRequest();
+
 ?>

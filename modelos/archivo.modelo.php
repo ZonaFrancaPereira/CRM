@@ -53,13 +53,11 @@ class ModeloArchivo {
     }
 
 
-
-    public static function mdlObtenerArchivo($id_archivo) {
+    public static function mdlObtenerArchivo($idArchivo) {
         $stmt = Conexion::conectar()->prepare("SELECT archivo_e FROM archivos_evaluacion WHERE cod_archivo_e = :cod_archivo_e");
-        $stmt->bindParam(":cod_archivo_e", $id_archivo, PDO::PARAM_INT);
-
+        $stmt->bindParam(":cod_archivo_e", $idArchivo, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Asegúrate de obtener un array asociativo
     }
 
 
