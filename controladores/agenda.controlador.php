@@ -2,7 +2,6 @@
 
 
 class ControladorAgenda {
-
     static public function ctrCrearEvento() {
         if (isset($_POST['title']) && isset($_POST['start'])) {
             $datos = array(
@@ -14,12 +13,21 @@ class ControladorAgenda {
                 "textColor" => $_POST['textColor'],
                 "allDay" => isset($_POST['allDay']) ? 1 : 0
             );
-
+    
             $respuesta = ModeloAgenda::mdlGuardarEvento($datos);
+<<<<<<< HEAD
+    
+            if ($respuesta == "ok") {
+                echo json_encode(['status' => 'success']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Error al guardar el evento.']);
+            }
+=======
 
             echo json_encode(['status' => $respuesta ? 'success' : 'error']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Datos incompletos']);
+>>>>>>> 6f5dd241682f8e54f995f7a7c3a32fd61ff1f0df
         }
     }
 
@@ -27,6 +35,25 @@ class ControladorAgenda {
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
             $respuesta = ModeloAgenda::mdlEliminarEvento($id);
+<<<<<<< HEAD
+    
+            if ($respuesta) {
+                echo json_encode(['status' => 'success']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Error al eliminar el evento.']);
+            }
+        }
+    }
+
+    static public function ctrObtenerEventos() {
+        if (isset($_GET['start']) && isset($_GET['end'])) {
+            $start = $_GET['start'];
+            $end = $_GET['end'];
+    
+            $eventos = ModeloAgenda::mdlObtenerEventos($start, $end);
+    
+            echo json_encode($eventos);  // Asegurarte de devolver los eventos en formato JSON
+=======
 
             echo json_encode(['status' => $respuesta ? 'success' : 'error']);
         } else {
@@ -65,6 +92,7 @@ class ControladorAgenda {
             echo json_encode($eventosFormateados);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Acción no definida']);
+>>>>>>> 6f5dd241682f8e54f995f7a7c3a32fd61ff1f0df
         }
     }
 }
@@ -74,6 +102,28 @@ class ControladorAgenda {
 
 
 
+<<<<<<< HEAD
+// Aquí va el código para manejar las solicitudes AJAX
+// Verificamos si hay una solicitud POST para crear o eliminar eventos
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Para crear un evento
+    if (isset($_POST['title'])) {
+        ControladorAgenda::ctrCrearEvento();
+
+    // Para eliminar un evento
+    } elseif (isset($_POST['id'])) {
+        ControladorAgenda::ctrEliminarEvento();
+    }
+
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    
+    // Para obtener eventos
+    if (isset($_GET['action']) && $_GET['action'] == 'obtenerEventos') {
+        ControladorAgenda::ctrObtenerEventos();
+    }
+}5
+=======
 if (isset($_POST['action'])) {
    
     require_once "../modelos/agenda.modelo.php"; // Incluye el modelo aquí dentro del switch
@@ -102,4 +152,5 @@ if (isset($_POST['action'])) {
 } else {
    // echo json_encode(['status' => 'error', 'message' => 'Método no permitido']);
 }
+>>>>>>> 6f5dd241682f8e54f995f7a7c3a32fd61ff1f0df
 ?>
