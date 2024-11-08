@@ -61,7 +61,7 @@ session_start();
   <link rel="stylesheet" href="vistas/plugins/fullcalendar/main.css">
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+  <aside class="control-sidebar ">
     <!-- Control sidebar content goes here -->
   </aside>
   <!--=====================================
@@ -143,6 +143,7 @@ CUERPO DOCUMENTO
 ======================================-->
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
   <?php
 
