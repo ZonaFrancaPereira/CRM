@@ -12,7 +12,7 @@ if ($_SESSION["datosEmpresa"] == "off") {
             <div class="col-12 col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-                    <li class="breadcrumb-item active">ACPM</li>
+                    <li class="breadcrumb-item active">EMPRESAS</li>
                 </ol>
             </div>
         </div>
@@ -24,28 +24,28 @@ if ($_SESSION["datosEmpresa"] == "off") {
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header bg-info">
+                    <div class="card-header bg-info" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
                         <h3 class="card-title">Empresas</h3>
                     </div>
                     <div class="card-body">
 
-                        <div class="tab-pane show" id="">
+                        <div class="tab-pane show" id="empresas_listar">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-body table-responsive p-0">
-                                            <table class="display table table-striped table-valign-middle" width="100%">
-                                                <thead>
+                                            <table class="display table table-striped table-valign-middle" width="100%" style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                                                <thead style="background-color: #004085; color: white; text-align: center;">
                                                     <tr>
-                                                        <th style="width:10px">Nit</th>
-                                                        <th>Nombre</th>
-                                                        <th>Dirección</th>
-                                                        <th>Ciudad</th>
-                                                        <th>Teléfono</th>
-                                                        <th>Nombre Representante Legal</th>
-                                                        <th>Correo Electrónico</th>
-                                                        <th>Usuario Asignado</th>
-                                                        <th>Asignar</th>
+                                                        <th style="padding: 10px;">Nit</th>
+                                                        <th style="padding: 10px;">Nombre</th>
+                                                        <th style="padding: 10px;">Dirección</th>
+                                                        <th style="padding: 10px;">Ciudad</th>
+                                                        <th style="padding: 10px;">Teléfono</th>
+                                                        <th style="padding: 10px;">Nombre Representante Legal</th>
+                                                        <th style="padding: 10px;">Correo Electrónico</th>
+                                                        <th style="padding: 10px;">Usuario Asignado</th>
+                                                        <th style="padding: 10px;">Asignar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -56,7 +56,6 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                                     $empresas = ControladorEmpresa::ctrMostrarEmpresa($item, $valor);
 
                                                     foreach ($empresas as $key => $value) {
-
                                                         echo '<tr>
                                                             <td>' . $value["id"] . '</td>
                                                             <td>' . $value["NombreEmpresa"] . '</td>
@@ -68,7 +67,20 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                                             <td>' . $value["nombre"] . '</td>
                                                             <td>
                                                                 <div class="btn-group">
-                                                                    <button type="button" class="btn btn-outline-info" data-id="' . $value["id"] . '" data-toggle="modal" data-target="#modal-asignarempresa">Asignar</button>
+                                                                    <button type="button" class="btn" style="
+                                                                        display: inline-block;
+                                                                        border: 2px solid #f39c12; /* Borde dorado */
+                                                                        color: #f39c12; /* Texto dorado */
+                                                                        background-color: #004085; /* Fondo azul */
+                                                                        padding: 8px 15px;
+                                                                        text-decoration: none;
+                                                                        border-radius: 5px;
+                                                                        transition: all 0.3s ease;
+                                                                        font-weight: bold;
+                                                                    "
+                                                                    onmouseover="this.style.backgroundColor="#f39c12"; this.style.color="#004085"; this.style.borderColor="#004085";"
+                                                                    onmouseout="this.style.backgroundColor="#004085"; this.style.color="#f39c12"; this.style.borderColor="#f39c12";"
+                                                                    data-id="' . $value["id"] . '" data-toggle="modal" data-target="#modal-asignarempresa">Asignar</button>
                                                                 </div>
                                                             </td>
                                                         </tr>';
@@ -76,6 +88,8 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                                     ?>
                                                 </tbody>
                                             </table>
+
+
                                         </div>
                                     </div>
                                 </div>

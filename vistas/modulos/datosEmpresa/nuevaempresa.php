@@ -19,14 +19,13 @@ if ($_SESSION["datosEmpresa"] == "off") {
     </div>
 </section>
 
-
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header bg-info">
-                        <h3 class="card-title">Agregar Datos de Empresa </h3>
+                <div class="card shadow-lg">
+                    <div class="card-header" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
+                        <h3 class="card-title text-white">Agregar Datos de Empresa</h3>
                     </div>
                     <div class="card-body">
                         
@@ -109,9 +108,23 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                 </div>
                             </div>
 
-                            <!-- Botón de envío -->
+                            <!-- Botón de envío con estilo similar a "$perfil" -->
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-lg btn-gradient-primary shadow-lg">Guardar Empresa</button>
+                                <button type="submit" class="btn" style="
+                                    display: inline-block;
+                                    border: 2px solid #f39c12; /* Borde dorado */
+                                    color: #f39c12; /* Texto dorado */
+                                    background-color: #004085; /* Fondo azul */
+                                    padding: 8px 15px;
+                                    text-decoration: none;
+                                    border-radius: 5px;
+                                    transition: all 0.3s ease;
+                                    font-weight: bold;
+                                " 
+                                onmouseover="this.style.backgroundColor='#f39c12'; this.style.color='#004085'; this.style.borderColor='#004085';" 
+                                onmouseout="this.style.backgroundColor='#004085'; this.style.color='#f39c12'; this.style.borderColor='#f39c12';">
+                                    Guardar Empresa
+                                </button>
                             </div>
 
                             <?php
@@ -126,31 +139,3 @@ if ($_SESSION["datosEmpresa"] == "off") {
         </div>
     </div>
 </section>
-
-<!-- Custom CSS -->
-<style>
-    .btn-gradient-primary {
-        background: linear-gradient(45deg, #1e3c72, #2a5298);
-        color: white;
-        border: none;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .btn-gradient-primary:hover {
-        background: linear-gradient(45deg, #2a5298, #1e3c72);
-        transform: scale(1.05);
-    }
-
-    .shadow-lg {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
-    }
-
-    .card {
-        border-radius: 15px;
-    }
-
-    .form-control {
-        border-radius: 8px;
-        padding: 10px;
-    }
-</style>

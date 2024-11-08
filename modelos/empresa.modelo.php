@@ -71,38 +71,18 @@ class ModeloEmpresas
 	MOSTRAR EMPRESAS
 	=============================================*/
 
-	public static function mdlMostraEmpresas($tabla, $item, $valor)
+public static function mdlMostraEmpresas($tabla, $item, $valor)
 {
-    try {
-        $conexion = Conexion::conectar();
-        
-        if ($item != null) {
-            $query = "SELECT $tabla.*, usuarios.nombre 
+    // Prepara la consulta SQL para obtener todos los datos de la tabla especificada
+    $stmt = Conexion::conectar()->prepare("SELECT $tabla.*, usuarios.nombre 
                       FROM $tabla 
-                      INNER JOIN usuarios ON usuarios.id = $tabla.id_usuario_fk 
-                      WHERE $item = :$item";
-            $stmt = $conexion->prepare($query);
-            $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-            $stmt->execute();
-            $resultado = $stmt->fetch();
-        } else {
-            $query = "SELECT $tabla.*, usuarios.nombre 
-                      FROM $tabla 
-                      INNER JOIN usuarios ON usuarios.id = $tabla.id_usuario_fk";
-            $stmt = $conexion->prepare($query);
-            $stmt->execute();
-            $resultado = $stmt->fetchAll();
-        }
-
-        return $resultado;
-
-    } catch (PDOException $e) {
-        error_log("Error en la consulta: " . $e->getMessage());
-        return false;
-    } finally {
-        $stmt = null;
-        $conexion = null;
-    }
+                      INNER JOIN usuarios ON usuarios.id = $tabla.id_usuario_fk ");
+    
+    // Ejecuta la consulta
+    $stmt->execute();
+    
+    // Devuelve todos los resultados como un array asociativo
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 

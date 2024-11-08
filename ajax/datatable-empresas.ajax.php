@@ -56,7 +56,22 @@ class TablaEmpresas
                 ];
 
             case 'usuario':
-                $perfil = "<a target='_blank' class='btn btn-outline-warning' href='index.php?ruta=perfil&id={$s["id"]}'>Perfil</a>";
+                $perfil = "<a target='_blank' href='index.php?ruta=perfil&id={$s["id"]}' style='
+                display: inline-block;
+                border: 2px solid #f39c12; /* Borde dorado */
+                color: #f39c12; /* Texto dorado */
+                background-color: #004085; /* Fondo azul */
+                padding: 8px 15px;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+                font-weight: bold;
+            ' 
+            onmouseover=\"this.style.backgroundColor='#f39c12'; this.style.color='#004085'; this.style.borderColor='#004085';\" 
+            onmouseout=\"this.style.backgroundColor='#004085'; this.style.color='#f39c12'; this.style.borderColor='#f39c12';\">
+                Perfil
+            </a>";
+            
                 if ($s["id_usuario_fk"] !== $_SESSION['id']) return null;
                 return [
                     $s["id"],

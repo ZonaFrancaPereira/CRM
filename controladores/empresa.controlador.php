@@ -138,41 +138,53 @@ class ControladorEmpresa
     }
 
     public static function ctrAsignarEmpresa()
-    {
-        if (isset($_POST["asignar_empresa"])) {
-            // Capturar datos desde el formulario
-            $datos = array(
-                "id" => $_POST["id_asignar"],
-                "id_usuario_fk" => $_POST["id_usuario_fk_empresa"]
-            );
+{
+    if (isset($_POST["asignar_empresa"])) {
+        // Capturar datos desde el formulario
+        $datos = array(
+            "id" => $_POST["id_asignar"],
+            "id_usuario_fk" => $_POST["id_usuario_fk_empresa"]
+        );
 
-            // Llamar al modelo para actualizar la fecha y otros datos
-            $respuesta = ModeloEmpresas::mdlAsignarEmpresa($datos);
+        // Llamar al modelo para actualizar la fecha y otros datos
+        $respuesta = ModeloEmpresas::mdlAsignarEmpresa($datos);
 
-            // Manejar la respuesta del modelo
-            if ($respuesta == "ok") {
-                echo '<script>
-                    Swal.fire(
-                        "Asignado!",
-                        "La Empresa ha sido asignada con exito.",
-                        "success"
-                    ).then(function() {
-                        document.getElementById("formEditarEmpresa").reset();
-                    });
-                    </script>';
-            } else {
-                echo '<script>
-                    Swal.fire(
-                        "ERROR!",
-                        "Error al asignar la empresa.",
-                        "error"
-                    ).then(function() {
-                        window.location = ""; // Redirige a la página actual o a la vista correcta
-                    });
-                    </script>';
-            }
+        // Manejar la respuesta del modelo
+        if ($respuesta == "ok") {
+            // Si la asignación fue exitosa, mostrar mensaje y recargar la página dos veces
+            echo '<script>
+                Swal.fire(
+                    "Asignado!",
+                    "La Empresa ha sido asignada con exito.",
+                    "success"
+                ).then(function() {
+                    // Primer recarga
+                    window.location = ""; 
+                    // Segundo recarga (esto ocurre después de la primera recarga)
+                    setTimeout(function(){
+                        window.location = "";
+                    }, 2000); // Este segundo recarga se ejecuta 2 segundos después de la primera
+                });
+            </script>';
+        } else {
+            // Si hubo un error al asignar la empresa, mostrar mensaje de error
+            echo '<script>
+                Swal.fire(
+                    "ERROR!",
+                    "Error al asignar la empresa.",
+                    "error"
+                ).then(function() {
+                    // Primer recarga
+                    window.location = ""; 
+                    // Segundo recarga (esto ocurre después de la primera recarga)
+                    setTimeout(function(){
+                        window.location = "";
+                    }, 2000); // Este segundo recarga se ejecuta 2 segundos después de la primera
+                });
+            </script>';
         }
     }
+}
 
 
 }
