@@ -226,6 +226,7 @@ CUERPO DOCUMENTO
   <script src="vistas/js/perfiles.js"></script>
   <script src="vistas/js/ti.js"></script>
   <script src="vistas/js/empresa.js"></script>
+  <script src="vistas/js/categoria.js"></script>
 
   <script>
     $(document).ready(function() {

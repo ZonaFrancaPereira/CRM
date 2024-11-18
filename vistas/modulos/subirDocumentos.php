@@ -8,6 +8,20 @@
             </a>
         </li>
 
+        <li class="nav-item" name="">
+            <a data-toggle="tab" href="#crear_categorias" class="nav-link">
+                <i class="nav-icon fas fa-qrcode"></i>
+                <p> Crear Categorias</p>
+            </a>
+        </li>
+
+        <li class="nav-item" name="">
+            <a data-toggle="tab" href="#categorias" class="nav-link">
+                <i class="nav-icon fas fa-qrcode"></i>
+                <p> Categorias</p>
+            </a>
+        </li>
+
     </ul>
 </nav>
 
@@ -35,6 +49,22 @@ if ($_SESSION["ti"] == "off") {
                         <div class="row">
                             <div class="col-md-12">
                                 <?php require "subidaDocumentos/subir_documentos.php"; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="crear_categorias" class="tab-pane">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php require "subidaDocumentos/crear_categorias.php"; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="categorias" class="tab-pane">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php require "subidaDocumentos/categorias.php"; ?>
                             </div>
                         </div>
                     </div>
