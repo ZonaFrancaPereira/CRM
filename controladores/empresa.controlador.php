@@ -80,6 +80,10 @@ class ControladorEmpresa
         return $respuesta;
     }
 
+/* =============================================
+      MOSTRAR EMPRESA
+      ============================================= */
+
     static public function ctrMostrarEmpresaAsignada($consulta)
     {
         $tabla = "datosempresa";

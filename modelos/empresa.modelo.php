@@ -86,7 +86,7 @@ public static function mdlMostraEmpresas($tabla, $item, $valor)
 }
 
 
-	public static function mdlMostraEmpresasAsignada($tabla, $consulta)
+	public static function mdlMostrarEmpresas($tabla, $consulta)
 	{
 		switch ($consulta) {
 			

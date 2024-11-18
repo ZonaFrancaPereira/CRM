@@ -80,7 +80,22 @@
       <div class="modal-body">
         <div class="form-group">
           <label for="eventTitle">Título del Evento</label>
-          <input type="text" class="form-control" id="eventTitle" placeholder="Título del Evento">
+         
+          <label for="">Asignar Empresa</label>
+                                                <input list="usuarios" type="text" class="form-control" id="eventTitle" required>
+                                                <datalist id="usuarios">
+                                                    <?php
+                                                    if ($usuario["id"] <> 0) {
+                                                        echo '<option value="' . $value["id"] . '"> ' . $value["NombreEmpresa"] . ' </option>';
+                                                    }
+                                                    $item = null;
+                                                    $valor = null;
+                                                    $usuario = ControladorEmpresa::ctrMostrarEmpresaAsignada($item, $valor);
+                                                    foreach ($usuario as $key => $value) {
+                                                        echo '<option value="' . $value["id"] . '"> ' . $value["NombreEmpresa"] . ' </option>';
+                                                    }
+                                                    ?>
+                                                </datalist>
         </div>
         <div class="form-group">
           <label for="eventStart">Fecha y Hora de Inicio</label>
