@@ -25,6 +25,10 @@
           <a href="datosEmpresa" class="nav-link">Empresa</a>
         </li>
 
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="subirDocumentos" class="nav-link">Documentos</a>
+        </li>
+
         
         <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Parametrizar</a>
