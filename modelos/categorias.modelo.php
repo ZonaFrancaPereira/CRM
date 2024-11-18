@@ -91,6 +91,79 @@ class ModeloCategorias
         }
     }
 
+       /* =============================================
+      GUARDAR ARCHIO DE CATEGORIAS
+      ============================================= */
+
+      public static function mdlSubirDocumentosEmpresa($tabla, $datos)
+{
+    try {
+        $pdo = Conexion::conectar();
+
+        $stmt = $pdo->prepare("INSERT INTO $tabla (
+            id_empresa_fk, 
+            id_categoria_fk, 
+            ruta_archivos_empresas, 
+            tipo_archivo_empresa
+        ) VALUES (
+            :id_empresa_fk, 
+            :id_categoria_fk, 
+            :ruta_archivos_empresas, 
+            :tipo_archivo_empresa
+        )");
+
+        $stmt->bindParam(":id_empresa_fk", $datos["id_empresa_fk"], PDO::PARAM_INT);
+        $stmt->bindParam(":id_categoria_fk", $datos["id_categoria_fk"], PDO::PARAM_INT);
+        $stmt->bindParam(":ruta_archivos_empresas", $datos["ruta_archivos_empresas"], PDO::PARAM_STR);
+        $stmt->bindParam(":tipo_archivo_empresa", $datos["tipo_archivo_empresa"], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            return "ok";
+        } else {
+            error_log(print_r($stmt->errorInfo(), true));
+            return $stmt->errorInfo();
+        }
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return "error: " . $e->getMessage();
+    }
+}
+
+  /* =============================================
+      MOSTRAR TODAS ARCHIVOS DE LA EMPRESA
+      ============================================= */
+
+      public static function mdlMostrarArchivosEmpresas($tabla, $item, $valor)
+      {
+          // Capturamos el id desde la URL de manera segura
+          $perfil = isset($_GET['id']) ? intval($_GET['id']) : 0;
+      
+          // Si no hay un id válido, retornamos un array vacío
+          if ($perfil == 0) {
+              return [];
+          }
+      
+          // Consulta SQL con parámetros preparados para evitar inyecciones
+          $stmt = Conexion::conectar()->prepare(
+              "SELECT 
+                  a.*, 
+                  c.nombre_categoria 
+              FROM $tabla a 
+              INNER JOIN categorias c 
+                  ON a.id_categoria_fk = c.id_categoria 
+              WHERE a.id_empresa_fk = :perfil"
+          );
+      
+          // Enlazamos el parámetro de manera segura
+          $stmt->bindParam(':perfil', $perfil, PDO::PARAM_INT);
+      
+          // Ejecutamos la consulta
+          $stmt->execute();
+      
+          // Retornamos los resultados de la consulta
+          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      }
+      
 
 
 }

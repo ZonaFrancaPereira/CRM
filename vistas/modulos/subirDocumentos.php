@@ -15,13 +15,6 @@
             </a>
         </li>
 
-        <li class="nav-item" name="">
-            <a data-toggle="tab" href="#categorias" class="nav-link">
-                <i class="nav-icon fas fa-qrcode"></i>
-                <p> Categorias</p>
-            </a>
-        </li>
-
     </ul>
 </nav>
 
@@ -45,7 +38,7 @@ if ($_SESSION["ti"] == "off") {
             <div class="container-fluid">
                 <div class="tab-content card">
 
-                    <div id="subir_documentacion" class="tab-pane">
+                    <div id="subir_documentacion" class="tab-pane active">
                         <div class="row">
                             <div class="col-md-12">
                                 <?php require "subidaDocumentos/subir_documentos.php"; ?>
@@ -61,13 +54,6 @@ if ($_SESSION["ti"] == "off") {
                         </div>
                     </div>
 
-                    <div id="categorias" class="tab-pane">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <?php require "subidaDocumentos/categorias.php"; ?>
-                            </div>
-                        </div>
-                    </div>
 
 
                 </div>

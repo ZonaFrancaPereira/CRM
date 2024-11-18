@@ -110,41 +110,82 @@ class ControladorCategorias{
         /* =============================================
       SUBIR DOCUMENTOS
       ============================================= */
-    public static function ctrSubirDocumentosEmpresa()
-    {
-        if (isset($_POST['eliminar_categoria'])) {
-            $tabla = "archivos_empresa";
-            $datos = array(
-                "nombre_categoria" => $_POST["nombre_categoria"]
-            );
-    
-            // Llamar al modelo para eliminar la categoría
-            $respuesta = ModeloCategorias::mdlEliminarCategoria($tabla, $datos);
-    
-            // Manejar la respuesta del modelo
-            if ($respuesta == "ok") {
-                echo '<script>
-                    Swal.fire(
-                        "Eliminado!",
-                        "La categoría ha sido eliminada con éxito.",
-                        "success"
-                    ).then(function() {
-                        document.getElementById("form_crear_categorias").reset(); // Reemplaza con el ID correcto de tu formulario
-                        $("#crear_categorias").addClass("active");
-                        });
-                    </script>';
-            } else {
-                echo '<script>
-                    Swal.fire(
-                        "ERROR!",
-                        "Hubo un problema al eliminar la categoría.",
-                        "error"
-                    );
-                    </script>';
-            }
-        }
-    }
+      public static function ctrSubirDocumentosEmpresa()
+      {
+          if (isset($_POST['id_empresa_fk']) && isset($_FILES['ruta_archivos_empresas'])) {
+              // Ruta donde se guardará el archivo
+              $directorio = "vistas/files/EMPRESAS/";
+      
+              // Verificar si el directorio existe, si no, crearlo
+              if (!file_exists($directorio)) {
+                  mkdir($directorio, 0755, true); // Crear directorio con permisos
+              }
+      
+              // Obtener información del archivo
+              $archivo = $_FILES['ruta_archivos_empresas'];
+              $nombreArchivo = $archivo['name'];
+              $rutaArchivo = $directorio . basename($nombreArchivo);
+      
+              // Mover el archivo cargado al directorio
+              if (move_uploaded_file($archivo['tmp_name'], $rutaArchivo)) {
+                  // Datos para el modelo
+                  $tabla = "archivos_empresa";
+                  $datos = array(
+                      "id_empresa_fk" => $_POST["id_empresa_fk"],
+                      "id_categoria_fk" => $_POST["id_categoria_fk"],
+                      "ruta_archivos_empresas" => $rutaArchivo, // Ruta completa guardada en la base de datos
+                      "tipo_archivo_empresa" => $_POST["tipo_archivo_empresa"]
+                  );
+      
+                  // Llamar al modelo
+                  $respuesta = ModeloCategorias::mdlSubirDocumentosEmpresa($tabla, $datos);
+      
+                  // Manejar la respuesta del modelo
+                  if ($respuesta == "ok") {
+                      echo '<script>
+                          Swal.fire(
+                              "Guardado!",
+                              "El archivo se ha guardado exitosamente",
+                              "success"
+                          ).then(function() {
+                              document.getElementById("form_subir_documentos").reset();
+                          });
+                      </script>';
+                  } else {
+                      echo '<script>
+                          Swal.fire(
+                              "ERROR!",
+                              "Hubo un problema al guardar los datos.",
+                              "error"
+                          );
+                      </script>';
+                  }
+              } else {
+                  echo '<script>
+                      Swal.fire(
+                          "ERROR!",
+                          "No se pudo mover el archivo al servidor.",
+                          "error"
+                      );
+                  </script>';
+              }
+          }
+      }
+      
+      
 
+   /* =============================================
+      MOSTRAR ARCHIVOS EMPRESAS
+      ============================================= */
+
+      static public function ctrMostrarArchivosEmpresas($item, $valor)
+      {
+          $tabla = "archivos_empresa";
+  
+          $respuesta = ModeloCategorias::mdlMostrarArchivosEmpresas($tabla,$item, $valor);
+  
+          return $respuesta;
+      }
 
 
 
