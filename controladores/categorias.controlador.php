@@ -3,6 +3,10 @@
 
 class ControladorCategorias{
 
+
+        /* =============================================
+     CREAR CATEGORIAS
+      ============================================= */
     public static function ctrCrearCategorias()
     {
         if (isset($_POST["nombre_categoria"])) {
@@ -54,9 +58,24 @@ class ControladorCategorias{
           return $respuesta;
       }
 
+        /* =============================================
+      MOSTRAR CATEGORIA
+      ============================================= */
 
+      static public function ctrMostrarCategoria($item, $valor)
+      {
+          $tabla = "categorias";
+  
+          $respuesta = ModeloCategorias::mdlMostraCategoria($tabla, $item, $valor);
 
-      public static function ctrEliminarCategoria() {
+          return $respuesta;
+      }
+
+    /* =============================================
+      ELIMINAR CATEGORIAS
+      ============================================= */
+      public static function ctrEliminarCategoria() 
+      {
         if (isset($_POST['eliminar_categoria'])) {
             $id_categoria = $_POST['id_categoria'];
     
@@ -85,7 +104,48 @@ class ControladorCategorias{
                     </script>';
             }
         }
-    }
+      }
+
+
+        /* =============================================
+      SUBIR DOCUMENTOS
+      ============================================= */
+    public static function ctrSubirDocumentosEmpresa()
+    {
+        if (isset($_POST['eliminar_categoria'])) {
+            $tabla = "archivos_empresa";
+            $datos = array(
+                "nombre_categoria" => $_POST["nombre_categoria"]
+            );
     
+            // Llamar al modelo para eliminar la categoría
+            $respuesta = ModeloCategorias::mdlEliminarCategoria($tabla, $datos);
+    
+            // Manejar la respuesta del modelo
+            if ($respuesta == "ok") {
+                echo '<script>
+                    Swal.fire(
+                        "Eliminado!",
+                        "La categoría ha sido eliminada con éxito.",
+                        "success"
+                    ).then(function() {
+                        document.getElementById("form_crear_categorias").reset(); // Reemplaza con el ID correcto de tu formulario
+                        $("#crear_categorias").addClass("active");
+                        });
+                    </script>';
+            } else {
+                echo '<script>
+                    Swal.fire(
+                        "ERROR!",
+                        "Hubo un problema al eliminar la categoría.",
+                        "error"
+                    );
+                    </script>';
+            }
+        }
+    }
+
+
+
 
 }
