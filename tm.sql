@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2024 a las 15:12:15
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+-- Tiempo de generación: 20-11-2024 a las 17:15:32
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,40 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `archivos_empresa`
+--
+
+CREATE TABLE `archivos_empresa` (
+  `id_archivos` int(11) NOT NULL,
+  `id_empresa_fk` int(100) NOT NULL,
+  `id_categoria_fk` int(11) NOT NULL,
+  `ruta_archivos_empresas` varchar(300) DEFAULT NULL,
+  `nombre_archivo` varchar(200) DEFAULT NULL,
+  `tipo_archivo_empresa` enum('Excel','Word','Pdf','') DEFAULT NULL,
+  `estado_archivo` enum('Activo','Inactivo') DEFAULT NULL,
+  `fecha_archivo` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `archivos_empresa`
+--
+
+INSERT INTO `archivos_empresa` (`id_archivos`, `id_empresa_fk`, `id_categoria_fk`, `ruta_archivos_empresas`, `nombre_archivo`, `tipo_archivo_empresa`, `estado_archivo`, `fecha_archivo`) VALUES
+(1, 900910663, 1, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].docx', NULL, 'Excel', 'Activo', '2024-12-04'),
+(2, 901238036, 10, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].docx', NULL, 'Excel', 'Inactivo', '2024-11-19'),
+(3, 900910663, 1, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].docx', NULL, 'Word', 'Inactivo', '2024-11-19'),
+(4, 900910663, 1, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].pdf', NULL, 'Pdf', 'Activo', '2024-11-27'),
+(5, 900910663, 10, 'vistas/files/EMPRESAS/Anexo 3 - Ejercicio Tarea 3.pdf', NULL, 'Pdf', 'Inactivo', '2024-11-19'),
+(6, 900910817, 10, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].pdf', NULL, 'Pdf', 'Activo', NULL),
+(7, 900910663, 1, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].pdf', NULL, 'Pdf', 'Activo', '2024-11-29'),
+(8, 900909789, 10, 'vistas/files/EMPRESAS/PROGRAMACIÓN AUXILIAR TI 25-10-2024.xlsx', NULL, 'Excel', 'Activo', NULL),
+(9, 900910663, 10, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].docx', 'ESTADOS FINANCIEROS', 'Excel', 'Activo', NULL),
+(10, 900910817, 10, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].docx', 'ju', 'Excel', 'Activo', NULL),
+(11, 900910663, 10, 'vistas/files/EMPRESAS/Nuevo documento (12)[2].docx', 'lk', 'Excel', 'Activo', NULL);
 
 -- --------------------------------------------------------
 
@@ -39,7 +73,29 @@ CREATE TABLE `archivos_evaluacion` (
 --
 
 INSERT INTO `archivos_evaluacion` (`cod_archivo_e`, `nombre_archivo_e`, `archivo_e`, `tipo_archivo_e`) VALUES
-(5, '', 'vistas/archivos/Plantilla_Colegiado.docx', 'word');
+(1, 'dd', 'vistas/archivos/Fase 2 - Perspectivas sociales_Yuliana_Melissa_Montoya.docx', 'word'),
+(2, 'sds', 'vistas/archivos/Anexo 1 - Ejercicio Tarea 1 (1).docx', 'word'),
+(3, '', 'vistas/archivos/extensiones.docx', 'word'),
+(4, 'prueba', 'vistas/archivos/Anexo 2 - Fase 3 - Reflexión ético-ciudadana.docx', 'word');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id_categoria` int(11) NOT NULL,
+  `nombre_categoria` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`id_categoria`, `nombre_categoria`) VALUES
+(1, 'VALOR'),
+(10, 'VENCIMIENTOS');
 
 -- --------------------------------------------------------
 
@@ -67,8 +123,10 @@ INSERT INTO `clases` (`id`, `clase`) VALUES
 (11, 'modelos/bitacora.modelo.php'),
 (40, 'controladores/agenda.controlador.php'),
 (41, 'modelos/agenda.modelo.php'),
-(42, 'modelos/archivo.modelo.php'),
-(43, 'controladores/archivo.controlador.php');
+(42, 'controladores/archivo.controlador.php'),
+(43, 'modelos/archivo.modelo.php'),
+(44, 'modelos/categorias.modelo.php'),
+(45, 'controladores/categorias.controlador.php');
 
 -- --------------------------------------------------------
 
@@ -119,8 +177,12 @@ CREATE TABLE `datosempresa` (
 --
 
 INSERT INTO `datosempresa` (`id`, `dv`, `NombreEmpresa`, `DireccionEmpresa`, `ciudad`, `Telefono`, `telefono2`, `nombre_rep_legal`, `fecha_nap_red_legal`, `correoElectronico`, `fecha_inicio_contrato`, `id_usuario_fk`) VALUES
-(0, 0, 'HOME MASTERY SAS', '', '', '', 0, '', '0000-00-00', '', '0000-00-00', 2),
+(0, 0, 'HOME MASTERY SAS', '', '', '', 0, '', '0000-00-00', '', '0000-00-00', 3),
 (1, 1, '1', '1', '1', '1', 1, '1', '2024-09-27', '2', '2024-09-27', 2),
+(2, 2, '2', '2', '2', '2', 2, '15', '2024-10-07', '2', '2024-10-31', 3),
+(5, 5, '5', '5', '5', 'q', 55, '5', '2024-11-28', '5', '2024-11-15', 1),
+(15, 1, '15', '15', '15', '51', 1, '1', '2024-12-03', '1', '2024-11-20', NULL),
+(444, 4, '4', '4', '4', '4', 4, '4', '2024-11-08', '4', '2024-11-15', NULL),
 (72043322, 3, 'SERNA GIRALDO ARGIRO DE JESUS ', 'CALLE 17 # 7-34 PISO 2', 'PEREIRA', '3250824', 2147483647, 'ARGIRO DE JESUS SERNA GIRALDO', '2024-09-03', 'argirosernagiraldo@gmail.com', '0000-00-00', 2),
 (800197111, 7, 'COOPERATIVA DE ENTIDADES DE SALUD DEL RISARALDA COODESURIS', 'CRA 13 # 87-298 BARRIO BELMONTE ', 'PEREIRA', '3515466', 0, 'MIGUEL ANGEL RENDON MONCADA', '0000-00-00', 'contabilidad@coodesuris.com', '0000-00-00', 2),
 (816008012, 5, 'C M G  IMPORTACIONES SAS      ', 'CRA 14 # 103-61 BODEGA 14 TIERRA BUENA', 'PEREIRA', '3155545', 2147483647, 'LUIS FERNANDO GUTIERRES BRAVO', '0000-00-00', 'cmgautopartes@etp.net.co', '0000-00-00', 2),
@@ -129,6 +191,7 @@ INSERT INTO `datosempresa` (`id`, `dv`, `NombreEmpresa`, `DireccionEmpresa`, `ci
 (900129551, 7, 'HOME TERRITORY SAS            ', 'CALLE 82 # 20-40', 'BOGOTA', '6160492', 2147483647, 'ALEJANDRA RESTREPO CADAVID', '0000-00-00', 'administracion@pro-aqua.co', '0000-00-00', 2),
 (900147334, 1, 'COMERCIALIZADORA PROQUIMEL LTDA ', 'CRA 6 # 16-82 BARRIO EL LLANO', 'CARTAGO', '3176428429', 2147483647, 'DAVID VALENCIA QUINTERO', '0000-00-00', 'proquimel.cartago@gmail.com', '0000-00-00', 2),
 (900303570, 0, 'SOLUCIONES ARQUITECTONICAS EJE CAFETERO SAS', 'AV 30 AGOSTO 121 -16', 'PEREIRA', '3408883', 2147483647, 'CARLOS EDUARDO DELGADO VALENCIA', '0000-00-00', 'comercialsoluciones.arq@gmail.com', '0000-00-00', 2),
+(900315215, 6, 'juam', 'juuio', 'sdxdc', 'czsdszc', 0, 'dc', '2024-11-20', 'xcd', '2024-11-06', NULL),
 (900413336, 7, 'CACHARRERIA Y VARIEDADES ZONA  SAS', 'CALLE 17 # 7 -26 PISO 2', 'PEREIRA', '3250824', 2147483647, 'EDISON JOHAN SERNA ARISTIZABAL', '0000-00-00', 'contabilidadzfpereira@gmail.com', '0000-00-00', 2),
 (900418896, 2, 'FANTASIAS Y VARIEDADES YULY SAS', 'CALLE 17 # 7 -28 PISO 2', 'PEREIRA', '3332083', 2147483647, 'MARIA AMPARO ARISTIZABAL RAMIREZ', '0000-00-00', 'variedadesyulysas@hotmail.com', '0000-00-00', 2),
 (900565867, 8, 'ASELOG ASESORIAS Y LOGISTICA ZF SAS', 'VIA LA VIRGINIA CAIMALITO ZONA FRANCA INTERNACIONAL', 'PEREIRA', '3158527742', 3163438, 'DORA LORENA PINZON MARTINEZ', '0000-00-00', 'gerencia@aselogzf.com', '0000-00-00', 2),
@@ -139,7 +202,7 @@ INSERT INTO `datosempresa` (`id`, `dv`, `NombreEmpresa`, `DireccionEmpresa`, `ci
 (900910817, 1, 'HOME BM SAS', 'CALLE 82 # 20-40', 'BOGOTA', '3143700277', 0, 'JACQUELINE MURCIA GARCIA', '0000-00-00', 'homebmsas@gmail.com', '0000-00-00', 1),
 (901062742, 0, 'MEDIUM CONSULTORIA Y PROYECTOS SAS', 'CRA 16 BIS # 9-28 BARRIO PINARES', 'PEREIRA', '3133359', 2147483647, 'JULIAN  ALBERTO VILLEGAS FLORES', '0000-00-00', 'gerencia@mediumsas.com', '0000-00-00', 1),
 (901111107, 4, 'HOME LION SAS                 ', 'CALLE 48 SUR 86 60 TORRE 28 AP 4109', 'BOGOTA', '3107917855', 0, 'DAVID ENRIQUE GONZALES FERRER', '0000-00-00', 'homelionsas@gmail.com', '0000-00-00', 1),
-(901124002, 6, 'HOME POWER SAS', 'CRA 7 B # 135-77 TORRE 2 APTO 607', 'BOGOTA', '3004313956', 0, 'VIVIANA MORA ACU?A', '0000-00-00', 'viv25mora@gmail.com', '0000-00-00', 1),
+(901124002, 6, 'HOME POWER SAS', 'CRA 7 B # 135-77 TORRE 2 APTO 607', 'BOGOTA', '3004313956', 0, 'VIVIANA MORA ACU?A', '0000-00-00', 'viv25mora@gmail.com', '0000-00-00', 2),
 (901219185, 4, 'INUT SAS                      ', 'CONDOMINIO CAMPESTRE CERROS DE ALHAMBRA CASA 1A', 'MANIZALES', '3215509680', 2147483647, 'ADRIANA TORRES NATES', '0000-00-00', 'juadma@hotmail.com', '0000-00-00', 1),
 (901238036, 6, 'HOME TOP SAS                  ', 'CALLE 58 # 27-29 BARRIO LOS ANDES', 'BARRANQUILLA', '3016515072', 0, 'WILMER JOSE SOBRINO CAMACHO', '0000-00-00', 'hometopsas@gmail.com', '0000-00-00', 1),
 (901244483, 1, 'HOME SALUDABLE SAS', 'CALLE 10 # 32-16 APTO 501 BARRIO LA AURORA', 'PASTO', '3206872821', 0, 'PAOLA ANDREA PATI?O CABRERA', '0000-00-00', 'paopatino0311@hotmail.com', '0000-00-00', 1),
@@ -152,16 +215,16 @@ INSERT INTO `datosempresa` (`id`, `dv`, `NombreEmpresa`, `DireccionEmpresa`, `ci
 (901480830, 3, 'HOME FULL SAS', 'CALLE 10 NORTE 14-57', 'ARMENIA', '3106159739', 0, 'LUIS EDUARDO GONZALES VERA', '0000-00-00', 'homefullsas@gmail.com', '0000-00-00', 1),
 (901487429, 4, 'HOME LA SABANA SAS', 'CALLE 82 # 20-40', 'BOGOTA', '3157079015', 0, 'CARLOS ALEXANDER HERRERA', '0000-00-00', 'cherrerahomeprestigesas@gmail.com', '0000-00-00', 1),
 (901503664, 8, 'DU BLE SAS', 'CRA 9 # 8 -15 LOTE 3  ZONA INDUSTRIAL LA BADEA ', 'DOSQUEBRADAS', '3155300339', 0, 'JACQUELINE SALAZAR PEREZ', '0000-00-00', 'gerencia@loly.com.co', '0000-00-00', 1),
-(901503847, 9, 'HOME VICTORY ED SAS', 'CRA 2 # 32-49 TORRE 1 OF 206 ED QUINTA SANTANA', 'TUNJA', '3138499755', 2147483647, 'EDGAR ALFONSO FUENTES FERNANDEZ', '0000-00-00', 'homevictoryed@gmail.com', '0000-00-00', 1),
-(901536337, 6, 'SYNERGIA OCUPACIONAL SAS', 'CALLE 11 #12B - 26 CIRCUNVALAR', 'PEREIRA', '3113894162', 2147483647, 'JAQUELINE CRISTANCHO PULIDO', '0000-00-00', 'macrisaralda@gmail.com', '0000-00-00', 1),
+(901503847, 9, 'HOME VICTORY ED SAS', 'CRA 2 # 32-49 TORRE 1 OF 206 ED QUINTA SANTANA', 'TUNJA', '3138499755', 2147483647, 'EDGAR ALFONSO FUENTES FERNANDEZ', '0000-00-00', 'homevictoryed@gmail.com', '0000-00-00', 3),
+(901536337, 6, 'SYNERGIA OCUPACIONAL SAS', 'CALLE 11 #12B - 26 CIRCUNVALAR', 'PEREIRA', '3113894162', 2147483647, 'JAQUELINE CRISTANCHO PULIDO', '0000-00-00', 'macrisaralda@gmail.com', '0000-00-00', 3),
 (901552905, 7, 'HOME LIBERTY SAS', 'CALLE 113 # 50-27', 'BOGOTA', '3106590230', 0, 'DEIVIS KARINA GALVIS CAMARGO', '0000-00-00', 'homelibertysas@gmail.com', '0000-00-00', 1),
-(901561066, 0, 'HOME AMATISTA SAS', 'CRA 49 B # 93-38', 'BOGOTA', '3012403325', 0, 'ENNYS MAIRYN QUIROGA HERRERA', '0000-00-00', 'homeamatista.eq@gmail.com', '0000-00-00', 1),
+(901561066, 0, 'HOME AMATISTA SAS', 'CRA 49 B # 93-38', 'BOGOTA', '3012403325', 0, 'ENNYS MAIRYN QUIROGA HERRERA', '0000-00-00', 'homeamatista.eq@gmail.com', '0000-00-00', 2),
 (901562973, 0, 'HOME ANGELS SAS', 'CRA 49 B # 93-38', 'BOGOTA', '3222167675', 0, 'DANIRE MATA TOVAR', '0000-00-00', 'homeangels25@gmail.com', '0000-00-00', 1),
 (901671111, 6, 'HOME EXPERIENCE SAS', 'CALLE 82 # 20-40', 'BOGOTA', '3197272378', 0, 'JULIANA ANDREA SERNA DEVIA', '0000-00-00', 'gerenciahomeexperience@gmail.com', '0000-00-00', 1),
 (901694205, 9, 'HOME ASSA SAS', 'CRA 20 # 21- 29 APTO 202 BARRIO PROVIDENCIA', 'PEREIRA', '3135125392', 0, 'RAY ASHAEL APONTE PULGAR', '0000-00-00', 'apontepulgarray@gmail.com', '0000-00-00', 1),
 (901779441, 7, 'HOME SMART BY POWER SAS', 'CL 82 # 20-40', 'BOGOTA', '3104671341', 0, 'DIEGO FERNANDO HENAO BELTRAN', '0000-00-00', 'homesmartbypower@gmail.com', '0000-00-00', 1),
 (901796184, 0, 'GARCIA CIFUENTES MEDICINA DEL TRABAJO SAS', 'CR 5 18 -33 CS 601', 'PEREIRA', '3006545846', 3469000, 'BEATRIZ ELENA GARCIA CARDONA', '0000-00-00', 'garciacifuentessst@gmail.com', '0000-00-00', 1),
-(901806453, 1, 'PEOPLE MOVIL S.A.S.', 'CR 7 #17-21 PASAJE COMERCIAL ZONA FRANCA', 'PEREIRA', '3183256440', 0, 'JAIME ALBERTO CASTA?O QUINTERO', '0000-00-00', '', '0000-00-00', 1);
+(901806453, 1, 'PEOPLE MOVIL S.A.S.', 'CR 7 #17-21 PASAJE COMERCIAL ZONA FRANCA', 'PEREIRA', '3183256440', 0, 'JAIME ALBERTO CASTA?O QUINTERO', '0000-00-00', '', '0000-00-00', 2);
 
 -- --------------------------------------------------------
 
@@ -171,34 +234,14 @@ INSERT INTO `datosempresa` (`id`, `dv`, `NombreEmpresa`, `DireccionEmpresa`, `ci
 
 CREATE TABLE `eventos` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `start2` datetime DEFAULT NULL,
-  `end2` datetime DEFAULT NULL,
-  `background_color` varchar(7) DEFAULT NULL,
-  `border_color` varchar(7) DEFAULT NULL,
-  `text_color` varchar(7) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `background_color` varchar(7) NOT NULL,
+  `border_color` varchar(7) NOT NULL,
+  `text_color` varchar(7) NOT NULL,
   `allDay` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `eventos`
---
-
-INSERT INTO `eventos` (`id`, `title`, `start2`, `end2`, `background_color`, `border_color`, `text_color`, `allDay`) VALUES
-(32, 'Empresa 5', '2024-10-26 05:00:00', '0000-00-00 00:00:00', 'rgb(220', 'rgb(220', 'rgb(255', 1),
-(38, 'Empresa 4', '2024-09-29 05:00:00', '0000-00-00 00:00:00', 'rgb(0, ', 'rgb(0, ', 'rgb(255', 1),
-(40, 'Empresa 4', '2024-09-29 05:00:00', '0000-00-00 00:00:00', 'rgb(0, ', 'rgb(0, ', 'rgb(255', 1),
-(41, 'Empresa 2', '2024-09-29 05:00:00', '0000-00-00 00:00:00', 'rgb(255', 'rgb(255', 'rgb(31,', 1),
-(42, 'Empresa 1', '2024-09-29 05:00:00', '0000-00-00 00:00:00', 'rgb(40,', 'rgb(40,', 'rgb(255', 1),
-(43, 'Empresa 4', '2024-09-30 05:00:00', '0000-00-00 00:00:00', 'rgb(0, ', 'rgb(0, ', 'rgb(255', 1),
-(44, 'Empresa 3', '2024-10-01 05:00:00', '0000-00-00 00:00:00', 'rgb(23,', 'rgb(23,', 'rgb(255', 1),
-(45, 'Empresa 5', '2024-10-01 05:00:00', '0000-00-00 00:00:00', 'rgb(220', 'rgb(220', 'rgb(255', 1),
-(46, 'Empresa 2', '2024-09-30 05:00:00', '0000-00-00 00:00:00', 'rgb(255', 'rgb(255', 'rgb(31,', 1),
-(47, 'Empresa 1', '2024-10-03 05:00:00', '0000-00-00 00:00:00', 'rgb(40,', 'rgb(40,', 'rgb(255', 1),
-(48, 'Empresa 4', '2024-10-02 05:00:00', '0000-00-00 00:00:00', 'rgb(0, ', 'rgb(0, ', 'rgb(255', 1),
-(49, 'Empresa 5', '2024-10-08 05:00:00', '0000-00-00 00:00:00', 'rgb(220', 'rgb(220', 'rgb(255', 1),
-(50, 'Empresa 4', '2024-10-09 05:00:00', '0000-00-00 00:00:00', 'rgb(0, ', 'rgb(0, ', 'rgb(255', 1),
-(51, 'Empresa 3', '2024-10-08 05:00:00', '0000-00-00 00:00:00', 'rgb(23,', 'rgb(23,', 'rgb(255', 1);
 
 -- --------------------------------------------------------
 
@@ -303,8 +346,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre`, `apellidos_usuario`, `correo_usuario`, `password`, `perfil`, `firma`, `estado`, `id_cargo_fk`, `id_proceso_fk`, `ultimo_login`, `fecha`, `intentos`) VALUES
-(1, 'Administrador', '', 'admin', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 1, 'vistas/img/usuarios/admin/489.jpg', 1, 2, 2, '2024-10-26 11:08:04', '2020-04-28 06:20:56', 2),
-(2, 'vendedor', '', 'vendedor', '$2a$07$asxx54ahjppf45sd87a5auF3SxTPxKrykQWP2opioJ/PI/QjcniEW', 4, '', 1, 2, 2, '2022-08-02 14:02:24', '2022-08-03 02:07:21', NULL),
+(1, 'Administrador', '', 'admin', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 1, 'vistas/img/usuarios/admin/489.jpg', 1, 2, 2, '2024-11-20 11:14:10', '2020-04-28 06:20:56', 2),
 (3, 'vendedor', '', 'vendedor', '$2a$07$asxx54ahjppf45sd87a5auF3SxTPxKrykQWP2opioJ/PI/QjcniEW', 4, '', 1, 2, 2, '2022-08-02 14:02:24', '2022-08-03 02:07:21', NULL);
 
 --
@@ -312,10 +354,24 @@ INSERT INTO `usuarios` (`id`, `nombre`, `apellidos_usuario`, `correo_usuario`, `
 --
 
 --
+-- Indices de la tabla `archivos_empresa`
+--
+ALTER TABLE `archivos_empresa`
+  ADD PRIMARY KEY (`id_archivos`),
+  ADD KEY `id_empresa_fk` (`id_empresa_fk`,`id_categoria_fk`),
+  ADD KEY `id_categoria_fk` (`id_categoria_fk`);
+
+--
 -- Indices de la tabla `archivos_evaluacion`
 --
 ALTER TABLE `archivos_evaluacion`
   ADD PRIMARY KEY (`cod_archivo_e`);
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id_categoria`);
 
 --
 -- Indices de la tabla `clases`
@@ -353,26 +409,45 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `archivos_empresa`
+--
+ALTER TABLE `archivos_empresa`
+  MODIFY `id_archivos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT de la tabla `archivos_evaluacion`
 --
 ALTER TABLE `archivos_evaluacion`
-  MODIFY `cod_archivo_e` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cod_archivo_e` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `clases`
 --
 ALTER TABLE `clases`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `archivos_empresa`
+--
+ALTER TABLE `archivos_empresa`
+  ADD CONSTRAINT `archivos_empresa_ibfk_1` FOREIGN KEY (`id_categoria_fk`) REFERENCES `categorias` (`id_categoria`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `archivos_empresa_ibfk_2` FOREIGN KEY (`id_empresa_fk`) REFERENCES `datosempresa` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `datosempresa`

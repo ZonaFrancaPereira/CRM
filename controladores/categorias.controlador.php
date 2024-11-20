@@ -134,7 +134,9 @@ class ControladorCategorias{
                       "id_empresa_fk" => $_POST["id_empresa_fk"],
                       "id_categoria_fk" => $_POST["id_categoria_fk"],
                       "ruta_archivos_empresas" => $rutaArchivo, // Ruta completa guardada en la base de datos
-                      "tipo_archivo_empresa" => $_POST["tipo_archivo_empresa"]
+                      "nombre_archivo" => $_POST["nombre_archivo"],
+                      "tipo_archivo_empresa" => $_POST["tipo_archivo_empresa"],
+                      "estado_archivo" => "Activo" // Configuración automática
                   );
       
                   // Llamar al modelo
@@ -188,5 +190,61 @@ class ControladorCategorias{
       }
 
 
+         /* =============================================
+      MOSTRAR ARCHIVOS DE LAS EMPRESAS PARA ACTIVARLOS
+      ============================================= */
+
+      static public function ctrMostrarArchivosEmpresa($consulta)
+      {
+          $tabla = "archivos_empresa";
+  
+          $respuesta = ModeloCategorias::mdlMostrarArchivosEmpresa($tabla,$consulta);
+  
+          return $respuesta;
+      }
+
+              /* =============================================
+     CREAR CATEGORIAS
+      ============================================= */
+      public static function ctrAsignarFecha()
+      {
+          if (isset($_POST["fecha_archivo"]) && isset($_POST["id_archivos"])) {
+              // Capturar datos desde el formulario
+              $tabla = "archivos_empresa";
+              $datos = array(
+                  "id_archivos" => $_POST["id_archivos"],
+                  "fecha_archivo" => $_POST["fecha_archivo"]
+              );
+      
+              // Llamar al modelo para actualizar la fecha
+              $respuesta = ModeloCategorias::mdlAsignarFecha($datos, $tabla);
+      
+              // Manejar la respuesta del modelo
+              if ($respuesta == "ok") {
+                  echo '<script>
+                      Swal.fire(
+                          "Actualizado!",
+                          "Se ha asignado una fecha de visualización al documento.",
+                          "success"
+                      ).then(function() {
+                          document.getElementById("formAsignarFecha").reset(); // Restablecer formulario
+                          $("#documentos_empresa").addClass("active"); // Actualizar vista
+                      });
+                  </script>';
+              } else {
+                  echo '<script>
+                      Swal.fire(
+                          "ERROR!",
+                          "Error al actualizar la información del documento.",
+                          "error"
+                      ).then(function() {
+                          window.location = ""; // Redirige a la página actual
+                      });
+                  </script>';
+              }
+          }
+      }
+      
+      
 
 }

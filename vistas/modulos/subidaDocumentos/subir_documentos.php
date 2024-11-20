@@ -68,6 +68,11 @@ if ($_SESSION["datosEmpresa"] == "off") {
                             </div>
 
                             <div class="form-group">
+                                <label for="nombre_archivo" class="font-weight-bold">Nombre del Documento</label>
+                                <input type="text" class="form-control" id="nombre_archivo" name="nombre_archivo" required>
+                            </div>
+
+                            <div class="form-group">
                                 <label>Tipo de Archivo</label>
                                 <select class="form-control" id="tipo_archivo_empresa" name="tipo_archivo_empresa" required>
                                     <option value="Excel">Excel</option>
