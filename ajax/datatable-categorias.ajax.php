@@ -21,7 +21,7 @@ class TablaCategorias
 
     private function mostrarTabla($item, $valor, $consulta)
     {
-        $categorias = ControladorCategorias::ctrMostrarCategorias($consulta);
+        $categorias = ControladorCategorias::ctrMostrarCategorias($consulta,);
         $data = [];
 
         foreach ($categorias as $s) {
@@ -46,7 +46,7 @@ class TablaCategorias
                 return [
                     $s["id_categoria"],
                     $s["nombre_categoria"],
-                    "<div style='display: flex; justify-content: center;'>{$eliminar_categoria}</div>"  // Centrado de la celda
+                    "<div style='display: flex; justify-content: center;'>{$eliminar_categoria}</div>" 
 
                 ];
 

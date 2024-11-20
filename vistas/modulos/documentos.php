@@ -2,19 +2,35 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item active" role="presentation">
-            <a data-toggle="tab" href="#archivos" class="nav-link active">
+            <a data-toggle="tab" href="#archivos" class="nav-link active" style="color: #FFD700; font-size: 1.0rem;">
                 <i class="nav-icon far fa-smile-wink"></i>
                 <p>Agregar Archivos</p>
             </a>
         </li>
         <li class="nav-item" role="presentation">
-            <a data-toggle="tab" href="#biblioteca" class="nav-link">
+            <a data-toggle="tab" href="#biblioteca" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
                 <i class="nav-icon far fa-smile-wink"></i>
                 <p>Biblioteca</p>
             </a>
         </li>
     </ul>
 </nav>
+
+<!-- Agrega el CSS personalizado -->
+<style>
+    /* Estilo para eliminar el fondo azul en enlaces activos */
+    .nav-link.active {
+        background-color: transparent !important;  /* Sin fondo */
+        color: #FFD700 !important;  /* Color dorado cuando está activo */
+    }
+
+    /* Estilo para el estado de hover */
+    .nav-link:hover {
+        background-color: #FFD700 !important;  /* Fondo dorado al pasar el ratón */
+        color: #003366 !important;  /* Color azul al hacer hover */
+    }
+</style>
+
 <!-- /.sidebar-menu -->
 </aside>
 

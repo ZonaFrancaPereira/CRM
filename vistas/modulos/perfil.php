@@ -173,77 +173,77 @@ if ($perfil > 0) {
 
                                         <div class="card-body bg-light">
                                             <div class="tab-content">
-                                            <div class="active tab-pane" id="activity">
-    <!-- Post -->
-    <div class="post">
-        <div class="user-block d-flex flex-wrap align-items-center mb-3">
-            <img class="img-circle img-bordered-sm mr-2" src="vistas/img/plantilla/icono-blanco.png" alt="user image" style="border: 2px solid #1e3c72;">
-            <div class="flex-grow-1">
-                <span class="username font-weight-bold">
-                    <a href="#" style="color: #1e3c72;"><?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?></a>
-                    <a href="#" class="btn-tool text-secondary float-right"><i class="fas fa-times"></i></a>
-                </span>
-                <span class="description text-muted d-block" style="color: #2a5298;"><?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($digito, ENT_QUOTES, 'UTF-8'); ?></span>
-            </div>
-        </div>
+                                                <div class="active tab-pane" id="activity">
+                                                    <!-- Post -->
+                                                    <div class="post">
+                                                        <div class="user-block d-flex flex-wrap align-items-center mb-3">
+                                                            <img class="img-circle img-bordered-sm mr-2" src="vistas/img/plantilla/icono-blanco.png" alt="user image" style="border: 2px solid #1e3c72;">
+                                                            <div class="flex-grow-1">
+                                                                <span class="username font-weight-bold">
+                                                                    <a href="#" style="color: #1e3c72;"><?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?></a>
+                                                                    <a href="#" class="btn-tool text-secondary float-right"><i class="fas fa-times"></i></a>
+                                                                </span>
+                                                                <span class="description text-muted d-block" style="color: #2a5298;"><?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($digito, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                            </div>
+                                                        </div>
 
-        <!-- Info Container -->
-        <div class="info-container p-3 rounded-lg" style="background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <ul class="list-unstyled mb-4">
-                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
-                    <strong><i class="fas fa-user-tie mr-1"></i> Representante Legal:</strong>
-                    <span class="text-dark"><?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?></span>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
-                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Dirección:</strong>
-                    <span class="text-dark"><?php echo htmlspecialchars($direccion, ENT_QUOTES, 'UTF-8'); ?></span>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
-                    <strong><i class="fas fa-city mr-1"></i> Ciudad:</strong>
-                    <span class="text-dark"><?php echo htmlspecialchars($ciudad, ENT_QUOTES, 'UTF-8'); ?></span>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
-                    <strong><i class="fas fa-phone mr-1"></i> Teléfono 1:</strong>
-                    <span class="text-dark"><?php echo htmlspecialchars($telefono1, ENT_QUOTES, 'UTF-8'); ?></span>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
-                    <strong><i class="fas fa-phone mr-1"></i> Teléfono 2:</strong>
-                    <span class="text-dark"><?php echo htmlspecialchars($telefono2, ENT_QUOTES, 'UTF-8'); ?></span>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
-                    <strong><i class="fas fa-calendar-day mr-1"></i> Fecha de Nacimiento del Representante Legal:</strong>
-                    <span class="text-dark"><?php echo htmlspecialchars($fecha_nacimiento, ENT_QUOTES, 'UTF-8'); ?></span>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
-                    <strong><i class="fas fa-envelope mr-1"></i> Correo Electrónico:</strong>
-                    <span class="text-dark"><?php echo htmlspecialchars($correo, ENT_QUOTES, 'UTF-8'); ?></span>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
-                    <strong><i class="fas fa-calendar-alt mr-1"></i> Fecha de Inicio de Contrato:</strong>
-                    <span class="text-dark"><?php echo htmlspecialchars($fecha_contrato, ENT_QUOTES, 'UTF-8'); ?></span>
-                </li>
-            </ul>
+                                                        <!-- Info Container -->
+                                                        <div class="info-container p-3 rounded-lg" style="background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                                            <ul class="list-unstyled mb-4">
+                                                                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                                                    <strong><i class="fas fa-user-tie mr-1"></i> Representante Legal:</strong>
+                                                                    <span class="text-dark"><?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                                </li>
+                                                                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                                                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Dirección:</strong>
+                                                                    <span class="text-dark"><?php echo htmlspecialchars($direccion, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                                </li>
+                                                                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                                                    <strong><i class="fas fa-city mr-1"></i> Ciudad:</strong>
+                                                                    <span class="text-dark"><?php echo htmlspecialchars($ciudad, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                                </li>
+                                                                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                                                    <strong><i class="fas fa-phone mr-1"></i> Teléfono 1:</strong>
+                                                                    <span class="text-dark"><?php echo htmlspecialchars($telefono1, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                                </li>
+                                                                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                                                    <strong><i class="fas fa-phone mr-1"></i> Teléfono 2:</strong>
+                                                                    <span class="text-dark"><?php echo htmlspecialchars($telefono2, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                                </li>
+                                                                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                                                    <strong><i class="fas fa-calendar-day mr-1"></i> Fecha de Nacimiento del Representante Legal:</strong>
+                                                                    <span class="text-dark"><?php echo htmlspecialchars($fecha_nacimiento, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                                </li>
+                                                                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                                                    <strong><i class="fas fa-envelope mr-1"></i> Correo Electrónico:</strong>
+                                                                    <span class="text-dark"><?php echo htmlspecialchars($correo, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                                </li>
+                                                                <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
+                                                                    <strong><i class="fas fa-calendar-alt mr-1"></i> Fecha de Inicio de Contrato:</strong>
+                                                                    <span class="text-dark"><?php echo htmlspecialchars($fecha_contrato, ENT_QUOTES, 'UTF-8'); ?></span>
+                                                                </li>
+                                                            </ul>
 
-            <button type="submit"
-                class="btn mt-3"
-                style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float: right;"
-                data-representante-legal="<?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?>"
-                data-id="<?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8'); ?>"
-                data-dv=" <?php echo htmlspecialchars($digito, ENT_QUOTES, 'UTF-8'); ?>"
-                data-nombre="<?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?>"
-                data-direccion="<?php echo htmlspecialchars($direccion, ENT_QUOTES, 'UTF-8'); ?>"
-                data-ciudad="<?php echo htmlspecialchars($ciudad, ENT_QUOTES, 'UTF-8'); ?>"
-                data-telefono="<?php echo htmlspecialchars($telefono1, ENT_QUOTES, 'UTF-8'); ?>"
-                data-telefono2="<?php echo htmlspecialchars($telefono2, ENT_QUOTES, 'UTF-8'); ?>"
-                data-nombre-rep="<?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?>"
-                data-correo="<?php echo htmlspecialchars($correo, ENT_QUOTES, 'UTF-8'); ?>"
-                data-toggle="modal"
-                data-target="#modal-editempresa">
-                Actualizar Empresa
-            </button>
-        </div>
-    </div>
-</div>
+                                                            <button type="submit"
+                                                                class="btn mt-3"
+                                                                style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float: right;"
+                                                                data-representante-legal="<?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-id="<?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-dv=" <?php echo htmlspecialchars($digito, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-nombre="<?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-direccion="<?php echo htmlspecialchars($direccion, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-ciudad="<?php echo htmlspecialchars($ciudad, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-telefono="<?php echo htmlspecialchars($telefono1, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-telefono2="<?php echo htmlspecialchars($telefono2, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-nombre-rep="<?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-correo="<?php echo htmlspecialchars($correo, ENT_QUOTES, 'UTF-8'); ?>"
+                                                                data-toggle="modal"
+                                                                data-target="#modal-editempresa">
+                                                                Actualizar Empresa
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 <div class="tab-pane" id="documentos">
                                                     <table class="display table table-bordered table-striped dt-responsive" width="100%">
@@ -251,7 +251,6 @@ if ($perfil > 0) {
                                                             <tr>
                                                                 <th style="width:10px">#</th>
                                                                 <th>Nombre Archivo</th>
-                                                                <th>Tipo Archivo</th>
                                                                 <th>Acciones</th>
                                                             </tr>
                                                         </thead>
@@ -259,72 +258,34 @@ if ($perfil > 0) {
                                                             <?php
                                                             $item = null;
                                                             $valor = null;
-
                                                             // Obtener la lista de archivos desde el controlador
-                                                            $archivos = ControladorArchivo::ctrMostrarArchivos($item, $valor);
+                                                            $archivos = ControladorCategorias::ctrMostrarArchivosEmpresas($item, $valor);
 
                                                             // Mostrar cada archivo en la tabla
+                                                            // Mostrar cada archivo en la tabla
                                                             foreach ($archivos as $key => $value) {
+                                                                // Obtén el nombre del archivo desde la base de datos
+                                                                $archivo = htmlspecialchars($value["ruta_archivos_empresas"]);
+                                                                // Genera la ruta correcta solo con la parte relativa a la carpeta EMPRESAS
+                                                                $rutaArchivo = $archivo; // Ya debe ser una ruta válida, como 'EMPRESAS/archivo.pdf'
+
                                                                 echo '<tr>
-                                                                            <td>' . ($key + 1) . '</td>
-                                                                            <td>' . htmlspecialchars($value["nombre_archivo_e"]) . '</td>
-                                                                            <td>' . htmlspecialchars($value["tipo_archivo_e"]) . '</td>
-                                                                            <td>
-                                                                                <div class="btn-group">
-                                                                                    <!-- Botón Editar Archivo -->
-                                                                                    <button class="btn btn-warning btnEditarArchivo" idArchivo="' . htmlspecialchars($value["cod_archivo_e"]) . '" data-toggle="modal" data-target="#modalEditarArchivo">
-                                                                                        <i class="fa fa-edit"></i>
-                                                                                    </button>
-
-                                                                                    <!-- Botón Descargar Archivo -->
-                                                                                    <button class="btn bg-success" onclick="descargarArchivo(' . htmlspecialchars($value["cod_archivo_e"]) . ', ' . htmlspecialchars($perfil) . ')">
-                                                                                        <i class="fa fa-download"></i>
-                                                                                    </button>
-
-                                                                                    <!-- Botón Eliminar Archivo -->
-                                                                                    <button class="btn btn-danger btnEliminarArchivo" idArchivo="' . htmlspecialchars($value["cod_archivo_e"]) . '">
-                                                                                        <i class="fa fa-times"></i>
-                                                                                    </button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>';
+                                                                        <td>' . htmlspecialchars($value["id_archivos"]) . '</td>
+                                                                        <td>' . htmlspecialchars($value["nombre_categoria"]) . '</td>
+                                                                        <td>
+                                                                            <div class="btn-group">
+                                                                                <!-- Botón Descargar Archivo -->
+                                                                                <button class="btn bg-success" onclick="descargarArchivo(\'' . $rutaArchivo . '\')">
+                                                                                    <i class="fa fa-download"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>';
                                                             }
                                                             ?>
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <script>
-                                                    function descargarArchivo(idArchivo, idEmpresa) {
-                                                        var xhr = new XMLHttpRequest();
-                                                        xhr.open('POST', 'controladores/archivo.controlador.php', true);
-                                                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                                                        xhr.responseType = 'blob'; // Esperamos un Blob
-
-                                                        xhr.onload = function() {
-                                                            if (xhr.status === 200) {
-                                                                var blob = new Blob([xhr.response], {
-                                                                    type: 'application/octet-stream'
-                                                                });
-                                                                var link = document.createElement('a');
-                                                                link.href = window.URL.createObjectURL(blob);
-                                                                link.download = "archivo_" + idArchivo + ".docx"; // Nombre del archivo
-                                                                link.click();
-                                                            } else {
-                                                                console.error("Error en la descarga del archivo: " + xhr.statusText);
-                                                            }
-                                                        };
-
-                                                        xhr.onerror = function() {
-                                                            console.error("Error en la solicitud.");
-                                                        };
-
-                                                        xhr.send('action=descargarArchivoWord&idArchivo=' + idArchivo + '&idEmpresa=' + idEmpresa);
-                                                    }
-
-                                                    // Enviar la solicitud POST con los parámetros necesarios
-                                                    xhr.send('action=descargarArchivoWord&idArchivo=' + idArchivo + '&idEmpresa=' + idEmpresa);
-                                                </script>
 
                                                 <div class="tab-pane" id="settings">
                                                     <form class="form-horizontal">
@@ -385,9 +346,6 @@ if ($perfil > 0) {
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-
-
-
                                                             <div class="modal-body">
                                                                 <form id="formEditarEmpresa" method="POST" enctype="multipart/form-data">
                                                                     <div class="form-group">
@@ -426,8 +384,8 @@ if ($perfil > 0) {
                                                                         <label for="correo_empresa">Correo Electrónico Empresa</label>
                                                                         <input type="text" class="form-control" id="correo_empresa" name="correo_empresa" required>
                                                                     </div>
-                                                                    <button  style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float:right;"
-                                                                    type="submit" class="btn btn-primary" name="actualizar_empresa" id="actualizar_empresa">Actualizar Empresa</button>
+                                                                    <button style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float:right;"
+                                                                        type="submit" class="btn btn-primary" name="actualizar_empresa" id="actualizar_empresa">Actualizar Empresa</button>
 
                                                                     <?php
                                                                     $ActualizarEmpresa = new ControladorEmpresa();
@@ -468,3 +426,26 @@ if ($perfil > 0) {
         transform: scale(1.05);
     }
 </style>
+<script>
+    function descargarArchivo(rutaArchivo) {
+        // Verificar si la ruta ya incluye 'vistas/files/', si es así, no agregarla
+        var prefijo = 'vistas/files/';
+        if (!rutaArchivo.startsWith(prefijo)) {
+            // Si no tiene el prefijo 'vistas/files/', agregarlo
+            rutaArchivo = prefijo + rutaArchivo;
+        }
+
+        // Crear un enlace dinámico para descargar el archivo
+        var enlace = document.createElement('a');
+        // Concatenar la ruta completa con el prefijo 'CRM/' para generar la URL correcta
+        enlace.href = '/CRM/' + rutaArchivo; // Ahora la ruta se forma correctamente
+        enlace.download = rutaArchivo.substring(rutaArchivo.lastIndexOf('/') + 1); // Extrae el nombre del archivo
+
+        // Agregar el enlace al documento y hacer clic para descargar
+        document.body.appendChild(enlace);
+        enlace.click();
+
+        // Eliminar el enlace del DOM después de usarlo
+        document.body.removeChild(enlace);
+    }
+</script>

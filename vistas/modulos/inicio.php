@@ -1,28 +1,50 @@
  
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+<!-- Sidebar Menu -->
+<nav class="mt-2">
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-        <li class="nav-item En_linea 1" role="presentation">
-          <a data-toggle="tab" href="#acpm" class="nav-link">
-            <i class="nav-icon far fa-smile-wink"></i>
-            <p>
-              Novedades
-            </p>
-          </a>
-        </li>
-        <li class="nav-item En_linea 1" role="presentation">
-          <a data-toggle="tab" href="#acpm" class="nav-link">
-            <i class="nav-icon far fa-smile-wink"></i>
-            <p>
-             Enviar Comentario
-            </p>
-          </a>
-        </li>
+    <li class="nav-item En_linea 1" role="presentation">
+      <a data-toggle="tab" href="#acpm" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
+        <i class="nav-icon far fa-smile-wink"></i>
+        <p>
+          Novedades
+        </p>
+      </a>
+    </li>
+    
+    <li class="nav-item En_linea 1" role="presentation">
+      <a data-toggle="tab" href="#acpm" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
+        <i class="nav-icon far fa-smile-wink"></i>
+        <p>
+          Enviar Comentario
+        </p>
+      </a>
+    </li>
 
-      </ul>
+  </ul>
 
-    </nav>
+  <!-- Estilos dentro del nav -->
+  <style>
+    /* Estilo para eliminar el fondo azul en enlaces activos */
+    .nav-link.active {
+      background-color: transparent !important; /* Sin fondo */
+      color: #FFD700 !important; /* Color dorado cuando está activo */
+    }
+
+    /* Estilo para el estado de hover */
+    .nav-link:hover {
+      background-color: #FFD700 !important; /* Fondo dorado al pasar el ratón */
+      color: #003366 !important; /* Color azul al hacer hover */
+    }
+
+    /* Estilo para los elementos en la lista (opcional) */
+    .nav-item {
+      padding: 5px 0;
+    }
+  </style>
+
+</nav>
+
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
