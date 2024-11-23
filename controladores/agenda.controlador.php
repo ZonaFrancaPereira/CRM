@@ -2,7 +2,6 @@
 
 
 class ControladorAgenda {
-
     static public function ctrCrearEvento() {
         if (isset($_POST['title']) && isset($_POST['start'])) {
             $datos = array(
@@ -14,7 +13,7 @@ class ControladorAgenda {
                 "textColor" => $_POST['textColor'],
                 "allDay" => isset($_POST['allDay']) ? 1 : 0
             );
-
+    
             $respuesta = ModeloAgenda::mdlGuardarEvento($datos);
 
             echo json_encode(['status' => $respuesta ? 'success' : 'error']);

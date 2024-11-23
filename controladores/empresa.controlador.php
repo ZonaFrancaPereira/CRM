@@ -80,6 +80,10 @@ class ControladorEmpresa
         return $respuesta;
     }
 
+/* =============================================
+      MOSTRAR EMPRESA
+      ============================================= */
+
     static public function ctrMostrarEmpresaAsignada($consulta)
     {
         $tabla = "datosempresa";
@@ -137,6 +141,9 @@ class ControladorEmpresa
         }
     }
 
+        /* =============================================
+      ASIGNAR EMPRESA
+      ============================================= */
     public static function ctrAsignarEmpresa()
     {
         if (isset($_POST["asignar_empresa"])) {
@@ -151,25 +158,37 @@ class ControladorEmpresa
 
             // Manejar la respuesta del modelo
             if ($respuesta == "ok") {
+                // Si la asignación fue exitosa, mostrar mensaje y recargar la página dos veces
                 echo '<script>
                     Swal.fire(
                         "Asignado!",
                         "La Empresa ha sido asignada con exito.",
                         "success"
                     ).then(function() {
-                        document.getElementById("formEditarEmpresa").reset();
+                        // Primer recarga
+                        window.location = ""; 
+                        // Segundo recarga (esto ocurre después de la primera recarga)
+                        setTimeout(function(){
+                            window.location = "";
+                        }, 2000); // Este segundo recarga se ejecuta 2 segundos después de la primera
                     });
-                    </script>';
+                </script>';
             } else {
+                // Si hubo un error al asignar la empresa, mostrar mensaje de error
                 echo '<script>
                     Swal.fire(
                         "ERROR!",
                         "Error al asignar la empresa.",
                         "error"
                     ).then(function() {
-                        window.location = ""; // Redirige a la página actual o a la vista correcta
+                        // Primer recarga
+                        window.location = ""; 
+                        // Segundo recarga (esto ocurre después de la primera recarga)
+                        setTimeout(function(){
+                            window.location = "";
+                        }, 2000); // Este segundo recarga se ejecuta 2 segundos después de la primera
                     });
-                    </script>';
+                </script>';
             }
         }
     }

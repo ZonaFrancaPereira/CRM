@@ -61,7 +61,7 @@ session_start();
   <link rel="stylesheet" href="vistas/plugins/fullcalendar/main.css">
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+  <aside class="control-sidebar ">
     <!-- Control sidebar content goes here -->
   </aside>
   <!--=====================================
@@ -142,7 +142,8 @@ session_start();
 CUERPO DOCUMENTO
 ======================================-->
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+
 
   <?php
 
@@ -186,6 +187,7 @@ CUERPO DOCUMENTO
         $_GET["ruta"] == "ti" ||
         $_GET["ruta"] == "datosEmpresa" ||
         $_GET["ruta"] == "documentos" ||
+        $_GET["ruta"] == "subirDocumentos" ||
         $_GET["ruta"] == "perfil" ||
         $_GET["ruta"] == "descargar" ||
         $_GET["ruta"] == "salir"
@@ -224,6 +226,7 @@ CUERPO DOCUMENTO
   <script src="vistas/js/perfiles.js"></script>
   <script src="vistas/js/ti.js"></script>
   <script src="vistas/js/empresa.js"></script>
+  <script src="vistas/js/categoria.js"></script>
 
   <script>
     $(document).ready(function() {

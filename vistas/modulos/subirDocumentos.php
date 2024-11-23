@@ -1,25 +1,27 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
-            <a data-toggle="tab" href="#panel" class="active nav-link" style="color: #FFD700; font-size: 1.0rem;">
-                <i class="fas fa-desktop"></i>
-                <p>Panel de Control</p>
+
+        <li class="nav-item" name="">
+            <a data-toggle="tab" href="#subir_documentacion" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
+                <i class="nav-icon fas fa-qrcode"></i>
+                <p> Subir Documentos</p>
             </a>
         </li>
 
         <li class="nav-item" name="">
-            <a data-toggle="tab" href="#nuevaempresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
+            <a data-toggle="tab" href="#crear_categorias" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
                 <i class="nav-icon fas fa-qrcode"></i>
-                <p> Nueva Empresa</p>
+                <p> Crear Categorias</p>
             </a>
         </li>
 
         <li class="nav-item" name="">
-            <a data-toggle="tab" href="#listar_empresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
+            <a data-toggle="tab" href="#documentos_empresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
                 <i class="nav-icon fas fa-qrcode"></i>
-                <p>Empresas</p>
+                <p> Documentos Empresa</p>
             </a>
         </li>
+
     </ul>
     
     <!-- Estilos dentro del nav -->
@@ -60,29 +62,31 @@ if ($_SESSION["ti"] == "off") {
             <div class="container-fluid">
                 <div class="tab-content card">
 
-                    <div id="nuevaempresa" class="tab-pane">
+                    <div id="subir_documentacion" class="tab-pane active">
                         <div class="row">
                             <div class="col-md-12">
-                                <?php require "datosEmpresa/nuevaempresa.php"; ?>
+                                <?php require "subidaDocumentos/subir_documentos.php"; ?>
                             </div>
                         </div>
                     </div>
 
-                    <div id="listar_empresa" class="tab-pane">
+                    <div id="crear_categorias" class="tab-pane">
                         <div class="row">
                             <div class="col-md-12">
-                                <?php require "datosEmpresa/listar_empresa.php"; ?>
+                                <?php require "subidaDocumentos/crear_categorias.php"; ?>
                             </div>
                         </div>
                     </div>
 
-                    <div id="panel" class="tab-pane active"> <!-- Se añade la clase "active" aquí -->
+                    <div id="documentos_empresa" class="tab-pane">
                         <div class="row">
                             <div class="col-md-12">
-                                <?php require "datosEmpresa/panel.php"; ?>
+                                <?php require "subidaDocumentos/documentos_empresa.php"; ?>
                             </div>
                         </div>
                     </div>
+
+
 
                 </div>
             </div>
