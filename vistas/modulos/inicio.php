@@ -108,17 +108,15 @@
 
            <label for="">Asignar Empresa</label>
           
-           <input list="empresas" id="id_usuario_fk_empresa" name="id_usuario_fk_empresa" class="form-control" placeholder="Nombre del responsable" required>
+           <input list="empresas" id="eventTitle" name="id_usuario_fk_empresa" class="form-control" placeholder="Nombre del responsable" required>
            <datalist id="empresas">
              <?php
-              if ($usuario["id"] <> 0) {
-                echo '<option value="' . $value["id"] . '"> ' . $value["nombre"] . ' ' . $value["apellidos_usuario"] . ' </option>';
-              }
+             
               $item = null;
               $valor = null;
-              $usuario = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+              $usuario = ControladorEmpresa::ctrMostrarEmpresa($item, $valor);
               foreach ($usuario as $key => $value) {
-                echo '<option value="' . $value["id"] . '"> ' . $value["nombre"] . ' ' . $value["apellidos_usuario"] . ' </option>';
+                echo '<option value="' . $value["id"] . '"> ' . $value["NombreEmpresa"] . '  </option>';
               }
               ?>
            </datalist>
