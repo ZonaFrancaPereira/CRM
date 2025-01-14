@@ -139,14 +139,7 @@ if ($perfil > 0) {
                                             </ul>
                                         </div>
                                     </div>
-
-
-
-
                                 </div>
-
-
-
                                 <div class="col-md-9">
                                     <div class="card shadow-lg border-0 rounded-lg">
 
@@ -165,7 +158,7 @@ if ($perfil > 0) {
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#settings" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 15px 25px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); transform: scale(1);">
-                                                        <i class="fas fa-cog"></i> Configuración
+                                                        <i class="fas fa-cog"></i> Subir Documentos
                                                     </a>
                                                 </li>
                                             </ul>
@@ -250,6 +243,7 @@ if ($perfil > 0) {
                                                         <thead>
                                                             <tr>
                                                                 <th style="width:10px">#</th>
+                                                                <th>Categoria</th>
                                                                 <th>Nombre Archivo</th>
                                                                 <th>Acciones</th>
                                                             </tr>
@@ -272,6 +266,7 @@ if ($perfil > 0) {
                                                                 echo '<tr>
                                                                         <td>' . htmlspecialchars($value["id_archivos"]) . '</td>
                                                                         <td>' . htmlspecialchars($value["nombre_categoria"]) . '</td>
+                                                                        <td>' . htmlspecialchars($value["nombre_archivo"]) . '</td>
                                                                         <td>
                                                                             <div class="btn-group">
                                                                                 <!-- Botón Descargar Archivo -->
@@ -288,51 +283,50 @@ if ($perfil > 0) {
                                                 </div>
 
                                                 <div class="tab-pane" id="settings">
-                                                    <form class="form-horizontal">
-                                                        <div class="form-group row">
-                                                            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="email" class="form-control" id="inputName" placeholder="Name">
-                                                            </div>
+                                                    <form id="form_subir_documentos" method="POST" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id_empresa_fk" class="font-weight-bold">Nombre de la Empresa</label>
+                                                            <input type="text" id="id_empresa_fk" name="id_empresa_fk" class="form-control" value="<?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8'); ?>"  placeholder="Ingrese el nit de la empresa" readonly>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label for="id_categoria_fk" class="font-weight-bold">Nombre de la Categoria</label>
+                                                            <input list="categoria" id="id_categoria_fk" name="id_categoria_fk" class="form-control" placeholder="Ingrese el id de la categoria" required>
+                                                            <datalist id="categoria">
+                                                                <?php
+                                                                $item = null;
+                                                                $valor = null;
+                                                                $idcategoria = ControladorCategorias::ctrMostrarCategoria($item, $valor);
+
+                                                                foreach ($idcategoria as $key => $value) {
+                                                                    echo '<option value="' . $value["id_categoria"] . '"> ' . $value["nombre_categoria"] . ' </option>';
+                                                                }
+                                                                ?>
+                                                            </datalist>
+
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label for="ruta_archivos_empresas" class="font-weight-bold">Subir Archivo</label>
+                                                            <input type="file" class="form-control" id="ruta_archivos_empresas" name="ruta_archivos_empresas" required>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                                                            <div class="col-sm-10">
-                                                                <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                                                            </div>
+
+                                                        <div class="form-group">
+                                                            <label for="nombre_archivo" class="font-weight-bold">Nombre del Documento</label>
+                                                            <input type="text" class="form-control" id="nombre_archivo" name="nombre_archivo" required>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                                                            </div>
+
+                                                        <div class="form-group">
+                                                            <label>Tipo de Archivo</label>
+                                                            <select class="form-control" id="tipo_archivo_empresa" name="tipo_archivo_empresa" required>
+                                                                <option value="Excel">Excel</option>
+                                                                <option value="Word">Word</option>
+                                                                <option value="Pdf">Pdf</option>
+                                                            </select>
                                                         </div>
-                                                        <div class="form-group row">
-                                                            <div class="offset-sm-2 col-sm-10">
-                                                                <div class="checkbox">
-                                                                    <label>
-                                                                        <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <div class="offset-sm-2 col-sm-10">
-                                                                <button type="submit" class="btn btn-danger">Submit</button>
-                                                            </div>
-                                                        </div>
+                                                        <button type="submit" class="btn text-white font-weight-bold" style="background-color: #004085; border-radius: 5px;">Guardar</button>
+                                                        <?php
+                                                        $SubirDocumentos = new ControladorCategorias();
+                                                        $SubirDocumentos->ctrSubirDocumentosEmpresa();
+                                                        ?>
                                                     </form>
                                                 </div>
                                                 <div class="modal fade" id="modal-editempresa" tabindex="-1" role="dialog" aria-labelledby="modalEditarEmpresaLabel" aria-hidden="true">
