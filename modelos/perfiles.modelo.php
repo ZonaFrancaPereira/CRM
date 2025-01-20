@@ -11,138 +11,48 @@ class ModeloPerfiles
 
 	static public function mdlMostrarPerfiles($tabla, $item, $valor)
 	{
-
 		if ($item != null) {
-
-			$stmt = Conexion::conectar()->prepare("SELECT perfil
-                                                                        ,descripcion
-
-                                                                         ,(case when ModuloTI='on' then 'on'
-                                                                                       else 'off'
-                                                                                       end) as ModuloTI,
-																					   (case when AdminUsuarios='on' then 'on' else 'off' end) as AdminUsuarios,
-(case when VerUsuarios='on' then 'on' else 'off' end) as VerUsuarios,
-(case when EstadoUsuarios='on' then 'on' else 'off' end) as EstadoUsuarios,
-(case when AdminPerfiles='on' then 'on' else 'off' end) as AdminPerfiles,
-(case when AdminMantenimientos='on' then 'on' else 'off' end) as AdminMantenimientos,
-(case when InventarioEquipos='on' then 'on' else 'off' end) as InventarioEquipos,
-(case when AdminSoporte='on' then 'on' else 'off' end) as AdminSoporte,
-(case when SolicitudSoporte='on' then 'on' else 'off' end) as SolicitudSoporte,
-(case when ConsultarSoporte='on' then 'on' else 'off' end) as ConsultarSoporte,
-(case when AdminAcpm='on' then 'on' else 'off' end) as AdminAcpm,
-(case when CrearAcpm='on' then 'on' else 'off' end) as CrearAcpm,
-(case when ConsultarAcpm='on' then 'on' else 'off' end) as ConsultarAcpm,
-(case when EditarAcpm='on' then 'on' else 'off' end) as EditarAcpm,
-(case when EliminarAcpm='on' then 'on' else 'off' end) as EliminarAcpm,
-(case when AsignarActividades='on' then 'on' else 'off' end) as AsignarActividades,
-(case when ResponderActividades='on' then 'on' else 'off' end) as ResponderActividades,
-(case when VerActividades='on' then 'on' else 'off' end) as VerActividades,
-(case when EditarActividades='on' then 'on' else 'off' end) as EditarActividades,
-(case when EliminarActividades='on' then 'on' else 'off' end) as EliminarActividades,
-(case when ArchivosSadoc='on' then 'on' else 'off' end) as ArchivosSadoc,
-(case when CarpetasSadoc='on' then 'on' else 'off' end) as CarpetasSadoc,
-(case when EliminarSadoc='on' then 'on' else 'off' end) as EliminarSadoc,
-(case when SolicitudCodificacion='on' then 'on' else 'off' end) as SolicitudCodificacion,
-(case when ResponderCodificacion='on' then 'on' else 'off' end) as ResponderCodificacion,
-(case when ConsultarCodificacion='on' then 'on' else 'off' end) as ConsultarCodificacion,
-(case when EditarCodificacion='on' then 'on' else 'off' end) as EditarCodificacion,
-(case when EliminarCodificacion='on' then 'on' else 'off' end) as EliminarCodificacion,
-(case when CrearOrden='on' then 'on' else 'off' end) as CrearOrden,
-(case when EditarOrden='on' then 'on' else 'off' end) as EditarOrden,
-(case when EliminarOrden='on' then 'on' else 'off' end) as EliminarOrden,
-(case when ConsultarOrden='on' then 'on' else 'off' end) as ConsultarOrden,
-(case when AdminProveedorLider='on' then 'on' else 'off' end) as AdminProveedorLider,
-(case when AdminProveedorCT='on' then 'on' else 'off' end) as AdminProveedorCT,
-(case when AprobacionGH='on' then 'on' else 'off' end) as AprobacionGH,
-(case when AprobacionGR='on' then 'on' else 'off' end) as AprobacionGR,
-(case when AprobacionCT='on' then 'on' else 'off' end) as AprobacionCT,
-(case when CrearBascula='on' then 'on' else 'off' end) as CrearBascula,
-(case when ConsultarBascula='on' then 'on' else 'off' end) as ConsultarBascula,
-(case when EditarBascula='on' then 'on' else 'off' end) as EditarBascula,
-(case when BasculaProceso='on' then 'on' else 'off' end) as BasculaProceso,
-(case when BasculaFact='on' then 'on' else 'off' end) as BasculaFact,
-(case when ValorPesaje='on' then 'on' else 'off' end) as ValorPesaje
-
-                                                                        
-	                                                                                        
-
-
-
-                                                               FROM $tabla
-
-                                                               WHERE $item = :$item");
-
+			$stmt = Conexion::conectar()->prepare(
+				"SELECT perfil,
+						descripcion,
+						(CASE WHEN AdminUsuarios = 'on' THEN 'on' ELSE 'off' END) AS AdminUsuarios,
+						(CASE WHEN VerUsuarios = 'on' THEN 'on' ELSE 'off' END) AS VerUsuarios,
+						(CASE WHEN EstadoUsuarios = 'on' THEN 'on' ELSE 'off' END) AS EstadoUsuarios,
+						(CASE WHEN AdminPerfiles = 'on' THEN 'on' ELSE 'off' END) AS AdminPerfiles,
+						(CASE WHEN AdminEmpresa = 'on' THEN 'on' ELSE 'off' END) AS AdminEmpresa,
+						(CASE WHEN SubirDocumentos = 'on' THEN 'on' ELSE 'off' END) AS SubirDocumentos,
+						(CASE WHEN SubirCalendario = 'on' THEN 'on' ELSE 'off' END) AS SubirCalendario,
+						(CASE WHEN AdminCalendario = 'on' THEN 'on' ELSE 'off' END) AS AdminCalendario
+				 FROM $tabla
+				 WHERE $item = :$item"
+			);
+	
 			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-
 			$stmt->execute();
-
+	
 			return $stmt->fetch();
 		} else {
-
-			$stmt = Conexion::conectar()->prepare("SELECT perfil
-                                                                    ,descripcion
-
-                                                                    ,(case when ModuloTI='on' then 'on'
-                                                                                  else 'off'
-                                                                                  end) as ModuloTI,
-																				  (case when AdminUsuarios='on' then 'on' else 'off' end) as AdminUsuarios,
-(case when VerUsuarios='on' then 'on' else 'off' end) as VerUsuarios,
-(case when EstadoUsuarios='on' then 'on' else 'off' end) as EstadoUsuarios,
-(case when AdminPerfiles='on' then 'on' else 'off' end) as AdminPerfiles,
-(case when AdminMantenimientos='on' then 'on' else 'off' end) as AdminMantenimientos,
-(case when InventarioEquipos='on' then 'on' else 'off' end) as InventarioEquipos,
-(case when AdminSoporte='on' then 'on' else 'off' end) as AdminSoporte,
-(case when SolicitudSoporte='on' then 'on' else 'off' end) as SolicitudSoporte,
-(case when ConsultarSoporte='on' then 'on' else 'off' end) as ConsultarSoporte,
-(case when AdminAcpm='on' then 'on' else 'off' end) as AdminAcpm,
-(case when CrearAcpm='on' then 'on' else 'off' end) as CrearAcpm,
-(case when ConsultarAcpm='on' then 'on' else 'off' end) as ConsultarAcpm,
-(case when EditarAcpm='on' then 'on' else 'off' end) as EditarAcpm,
-(case when EliminarAcpm='on' then 'on' else 'off' end) as EliminarAcpm,
-(case when AsignarActividades='on' then 'on' else 'off' end) as AsignarActividades,
-(case when ResponderActividades='on' then 'on' else 'off' end) as ResponderActividades,
-(case when VerActividades='on' then 'on' else 'off' end) as VerActividades,
-(case when EditarActividades='on' then 'on' else 'off' end) as EditarActividades,
-(case when EliminarActividades='on' then 'on' else 'off' end) as EliminarActividades,
-(case when ArchivosSadoc='on' then 'on' else 'off' end) as ArchivosSadoc,
-(case when CarpetasSadoc='on' then 'on' else 'off' end) as CarpetasSadoc,
-(case when EliminarSadoc='on' then 'on' else 'off' end) as EliminarSadoc,
-(case when SolicitudCodificacion='on' then 'on' else 'off' end) as SolicitudCodificacion,
-(case when ResponderCodificacion='on' then 'on' else 'off' end) as ResponderCodificacion,
-(case when ConsultarCodificacion='on' then 'on' else 'off' end) as ConsultarCodificacion,
-(case when EditarCodificacion='on' then 'on' else 'off' end) as EditarCodificacion,
-(case when EliminarCodificacion='on' then 'on' else 'off' end) as EliminarCodificacion,
-(case when CrearOrden='on' then 'on' else 'off' end) as CrearOrden,
-(case when EditarOrden='on' then 'on' else 'off' end) as EditarOrden,
-(case when EliminarOrden='on' then 'on' else 'off' end) as EliminarOrden,
-(case when ConsultarOrden='on' then 'on' else 'off' end) as ConsultarOrden,
-(case when AdminProveedorLider='on' then 'on' else 'off' end) as AdminProveedorLider,
-(case when AdminProveedorCT='on' then 'on' else 'off' end) as AdminProveedorCT,
-(case when AprobacionGH='on' then 'on' else 'off' end) as AprobacionGH,
-(case when AprobacionGR='on' then 'on' else 'off' end) as AprobacionGR,
-(case when AprobacionCT='on' then 'on' else 'off' end) as AprobacionCT,
-(case when CrearBascula='on' then 'on' else 'off' end) as CrearBascula,
-(case when ConsultarBascula='on' then 'on' else 'off' end) as ConsultarBascula,
-(case when EditarBascula='on' then 'on' else 'off' end) as EditarBascula,
-(case when BasculaProceso='on' then 'on' else 'off' end) as BasculaProceso,
-(case when BasculaFact='on' then 'on' else 'off' end) as BasculaFact,
-(case when ValorPesaje='on' then 'on' else 'off' end) as ValorPesaje
-
-                                                                   
-
-                                                     FROM
-                                                     $tabla");
-
+			$stmt = Conexion::conectar()->prepare(
+				"SELECT perfil,
+						descripcion,
+						(CASE WHEN AdminUsuarios = 'on' THEN 'on' ELSE 'off' END) AS AdminUsuarios,
+						(CASE WHEN VerUsuarios = 'on' THEN 'on' ELSE 'off' END) AS VerUsuarios,
+						(CASE WHEN EstadoUsuarios = 'on' THEN 'on' ELSE 'off' END) AS EstadoUsuarios,
+						(CASE WHEN AdminPerfiles = 'on' THEN 'on' ELSE 'off' END) AS AdminPerfiles,
+						(CASE WHEN AdminEmpresa = 'on' THEN 'on' ELSE 'off' END) AS AdminEmpresa,
+						(CASE WHEN SubirDocumentos = 'on' THEN 'on' ELSE 'off' END) AS SubirDocumentos,
+						(CASE WHEN SubirCalendario = 'on' THEN 'on' ELSE 'off' END) AS SubirCalendario,
+						(CASE WHEN AdminCalendario = 'on' THEN 'on' ELSE 'off' END) AS AdminCalendario
+				 FROM $tabla"
+			);
+	
 			$stmt->execute();
-
 			return $stmt->fetchAll();
 		}
-
-
 	
-
 		$stmt = null;
 	}
+	
 
 	/*=============================================
 	REGISTRO DE PERFIL

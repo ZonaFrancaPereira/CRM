@@ -6,7 +6,7 @@ class ModeloAgenda{
 
      static public function mdlGuardarEvento($datos) {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO eventos (title, start2, end2, background_color, border_color, text_color, allDay) VALUES (:title, :start2, :end2, :backgroundColor, :borderColor, :textColor, :allDay)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO eventos (title, start2, end2, background_color, border_color, text_color, allDay,id_usuario_fk) VALUES (:title, :start2, :end2, :backgroundColor, :borderColor, :textColor, :allDay,:id_usuario_fk)");
 
         $stmt->bindParam(":title", $datos["title"], PDO::PARAM_STR);
         $stmt->bindParam(":start2", $datos["start"], PDO::PARAM_STR);
@@ -15,6 +15,7 @@ class ModeloAgenda{
         $stmt->bindParam(":borderColor", $datos["borderColor"], PDO::PARAM_STR);
         $stmt->bindParam(":textColor", $datos["textColor"], PDO::PARAM_STR);
         $stmt->bindParam(":allDay", $datos["allDay"], PDO::PARAM_INT);
+        $stmt->bindParam(":id_usuario_fk", $datos["id_usuario_fk"], PDO::PARAM_INT);
 
 		if ($stmt->execute()) {
 			return "ok";
@@ -36,13 +37,35 @@ class ModeloAgenda{
         return $stmt->execute();
     }
 
-    static public function mdlObtenerEventos($start, $end) {
-      // Prepara la consulta SQL
-      $stmt = Conexion::conectar()->prepare("SELECT * FROM eventos WHERE start2 >= :start AND end2 <= :end");
 
-      // Asigna los parámetros
-      $stmt->bindParam(":start", $start);
-      $stmt->bindParam(":end", $end);
+    
+    static public function mdlObtenerEventos($start, $end,$userId) {
+      // Prepara la consulta SQL
+      $stmt = Conexion::conectar()->prepare(
+        "SELECT 
+            e.id,
+            e.title,
+            e.start2,
+            e.end2,
+            e.background_color,
+            e.border_color,
+            e.text_color,
+            e.allDay,
+            e.id_usuario_fk,
+            d.NombreEmpresa AS empresa_nombre
+           
+        FROM eventos e
+        INNER JOIN usuarios u ON e.id_usuario_fk = u.id
+        INNER JOIN datosempresa d ON e.title = d.id
+        WHERE e.id_usuario_fk = :userId 
+        AND e.start2 >= :start2 
+        AND e.end2 <= :end2"
+    );
+
+    // Asigna los parámetros
+    $stmt->bindParam(":userId", $userId);
+    $stmt->bindParam(":start2", $start);
+    $stmt->bindParam(":end2", $end);
       
       // Ejecuta la consulta
       $stmt->execute();
@@ -52,3 +75,4 @@ class ModeloAgenda{
   }
 }
  ?>
+ 

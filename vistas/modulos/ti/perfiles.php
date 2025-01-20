@@ -65,35 +65,33 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                         </div>
-                                        <input type="text" class="form-control input-lg" name="nuevoDescripcionPerfil" placeholder="Ejemplo: TI | Usuarios | Super Usuario" required>
+                                        <input type="text" class="form-control input-lg" name="nuevoDescripcionPerfil" placeholder="Ejemplo: Usuarios | Super Usuario" required>
                                     </div>
                                     <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                         <li class="nav-item ">
-                                            <a class="nav-link active " id="custom-tabs-one-home-tab" data-toggle="pill" href="#ti" role="tab" aria-controls="ti" aria-selected="true">TI</a>
+                                            <a class="nav-link active " id="custom-tabs-one-home-tab" data-toggle="pill" href="#ti" role="tab" aria-controls="ti" aria-selected="true">Empresar</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#sig" role="tab" aria-controls="sig" aria-selected="false">SIG</a>
+                                            <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#sig" role="tab" aria-controls="sig" aria-selected="false">Calendario</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#ct" role="tab" aria-controls="ct" aria-selected="false">Contabilidad</a>
+                                            <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#ct" role="tab" aria-controls="ct" aria-selected="false">Usuarios</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#op" role="tab" aria-controls="op" aria-selected="false">Operaciones</a>
-                                        </li>
+                                      
                                     </ul>
                                     <div class="tab-content" id="custom-tabs-one-tabContent">
                                         <div class="tab-pane fade show active" id="ti" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
                                             <!-- MODULO PARA DAR LOS PERMISOS QUE TIENE CADA USUARIO CON RELACIÓN A TI -->
                                             <div class="card-header bg-teal">
-                                                Configuraciones Tecnología e Informática.
+                                                Administrar Empresas.
                                             </div>
                                             <!-- DIV PARA CONTENER LAS OPCIONES  DE TI-->
                                             <div class="pt-2 card">
                                                 <!-- MODULO PARA GESTIONAR TODO LO RELACIONADO CON EL AREA DE TI, USUARIOS, PERFILES -->
                                                 <div class="card pt-2">
-                                                    <h6 class="text-center">MODULO GESTIÓN TI</h6>
+                                                    <h6 class="text-center">MODULO EMPRESAS</h6>
                                                 </div>
-                                                <p><B>Gestionar Usuarios</B> : Permisos para crear, consultar, editar, eliminar usuarios de ZFIP</p>
+                                                <p><B>Gestionar Empresas</B> : Permisos para crear, asignar empresas</p>
 
                                                 <!-- Check MODULO TI -->
                                                 <div class="checkbox">

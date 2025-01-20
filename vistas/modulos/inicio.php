@@ -112,9 +112,9 @@
            <datalist id="empresas">
              <?php
              
-              $item = null;
-              $valor = null;
-              $usuario = ControladorEmpresa::ctrMostrarEmpresa($item, $valor);
+              $item = "id_usuario_fk";
+              $valor = $_SESSION['id'];
+              $usuario = ControladorEmpresa::ctrMostrarEmpresaUsuario($item, $valor);
               foreach ($usuario as $key => $value) {
                 echo '<option value="' . $value["id"] . '"> ' . $value["NombreEmpresa"] . '  </option>';
               }
@@ -133,6 +133,7 @@
          <div class="form-group">
            <label for="eventColor">Color de Fondo</label>
            <input type="color" class="form-control" id="eventColor" value="#007bff">
+           <input type="number" class="form-control" id="id_usuario_fke" value="<?php echo $_SESSION['id'] ?>">
          </div>
        </div>
        <div class="modal-footer">
@@ -174,8 +175,10 @@
              end: fetchInfo.endStr
            },
            success: function(response) {
+            console.log(response);  // Verifica la respuesta del servidor
              try {
                var events = JSON.parse(response);
+               
                successCallback(events);
              } catch (e) {
                failureCallback('Error al cargar eventos.');
@@ -212,6 +215,7 @@
            var start = $('#eventStart').val();
            var end = $('#eventEnd').val();
            var color = $('#eventColor').val();
+           var id_usuario_fke = $('#id_usuario_fke').val();
 
            if (title && start && end) {
              var eventData = {
@@ -220,7 +224,8 @@
                end: end,
                backgroundColor: color,
                borderColor: color,
-               textColor: "#fff"
+               textColor: "#fff",
+               id_usuario_fke: id_usuario_fke
              };
 
              // Añadir evento al calendario
@@ -237,7 +242,8 @@
                  end: end,
                  backgroundColor: color,
                  borderColor: color,
-                 textColor: "#fff"
+                 textColor: "#fff",
+                 id_usuario_fke: id_usuario_fke
                },
                success: function(response) {
                  $('#eventModal').modal('hide');
