@@ -97,9 +97,7 @@ if ($perfil > 0) {
                                     <div class="card card-primary card-outline" style="border: 2px solid #1e3c72; border-radius: 10px;">
                                         <div class="card-body box-profile">
                                             <div class="text-center">
-                                                <img class="profile-user-img img-fluid img-circle"
-                                                    src="vistas/img/plantilla/icono-blanco.png"
-                                                    alt="User profile picture">
+                                                
                                             </div>
                                             <h3 class="profile-username text-center" style="color: #2a5298;">
                                                 <?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?>
@@ -170,7 +168,7 @@ if ($perfil > 0) {
                                                     <!-- Post -->
                                                     <div class="post">
                                                         <div class="user-block d-flex flex-wrap align-items-center mb-3">
-                                                            <img class="img-circle img-bordered-sm mr-2" src="vistas/img/plantilla/icono-blanco.png" alt="user image" style="border: 2px solid #1e3c72;">
+                                                           
                                                             <div class="flex-grow-1">
                                                                 <span class="username font-weight-bold">
                                                                     <a href="#" style="color: #1e3c72;"><?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?></a>
