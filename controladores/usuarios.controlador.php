@@ -91,16 +91,21 @@ class ControladorUsuarios{
 	static public function ctrCrearUsuario(){
 
 
-		if(isset($_POST["nuevoUsuario"])){
+		
+		
+		if (isset($_POST["correo_usuario"])) {
 
 
 
 
-			if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
-			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"]) &&
-			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"])){
+			if (
+				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
+				preg_match('/^[a-zA-Z0-9]+$/', $_POST["apellidos_usuario"]) &&
+				preg_match('/^[a-zA-Z0-9]+$/', $_POST["correo_usuario"]) &&
+				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"])
+			) {
 
-			   	/*=============================================
+				/*=============================================
 				VALIDAR IMAGEN
 				=============================================*/
 
@@ -108,7 +113,7 @@ class ControladorUsuarios{
 
 
 
-				if(isset($_FILES["nuevaFoto"]["tmp_name"]) && $_FILES["nuevaFoto"]["tmp_name"]!=""){
+				if (isset($_FILES["nuevaFoto"]["tmp_name"]) && $_FILES["nuevaFoto"]["tmp_name"] != "") {
 
 					list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
 
@@ -119,7 +124,7 @@ class ControladorUsuarios{
 					CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO
 					=============================================*/
 
-					$directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
+					$directorio = "vistas/img/usuarios/" . $_POST["correo_usuario"];
 
 					mkdir($directorio, 0755);
 
@@ -127,15 +132,15 @@ class ControladorUsuarios{
 					DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
 					=============================================*/
 
-					if($_FILES["nuevaFoto"]["type"] == "image/jpeg"){
+					if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
 
 						/*=============================================
 						GUARDAMOS LA IMAGEN EN EL DIRECTORIO
 						=============================================*/
 
-						$aleatorio = mt_rand(100,999);
+						$aleatorio = mt_rand(100, 999);
 
-						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".jpg";
+						$ruta = "vistas/img/usuarios/" . $_POST["correo_usuario"] . "/" . $aleatorio . ".jpg";
 
 						$origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);
 
@@ -144,18 +149,17 @@ class ControladorUsuarios{
 						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
 
 						imagejpeg($destino, $ruta);
-
 					}
 
-					if($_FILES["nuevaFoto"]["type"] == "image/png"){
+					if ($_FILES["nuevaFoto"]["type"] == "image/png") {
 
 						/*=============================================
 						GUARDAMOS LA IMAGEN EN EL DIRECTORIO
 						=============================================*/
 
-						$aleatorio = mt_rand(100,999);
+						$aleatorio = mt_rand(100, 999);
 
-						$ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".png";
+						$ruta = "vistas/img/usuarios/" . $_POST["correo_usuario"] . "/" . $aleatorio . ".png";
 
 						$origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);
 
@@ -164,10 +168,9 @@ class ControladorUsuarios{
 						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
 
 						imagepng($destino, $ruta);
-
 					}
-
 				}
+
 
 
 
@@ -176,14 +179,11 @@ class ControladorUsuarios{
 				$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
 				$datos = array("nombre" => $_POST["nuevoNombre"],
-					           "correo_usuario" => $_POST["nuevoUsuario"],
+								"apellidos_usuario" => $_POST["apellidos_usuario"],
+					           "correo_usuario" => $_POST["correo_usuario"],
 					           "password" => $encriptar,
 					           "perfil" => $_POST["nuevoPerfil"],
 					           "foto"=>$ruta);
-
-
-
-
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
 
 

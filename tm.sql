@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-01-2025 a las 23:14:43
+-- Tiempo de generación: 31-01-2025 a las 21:59:21
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -199,6 +199,14 @@ CREATE TABLE `eventos` (
   `id_usuario_fk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `eventos`
+--
+
+INSERT INTO `eventos` (`id`, `title`, `start2`, `end2`, `background_color`, `border_color`, `text_color`, `allDay`, `id_usuario_fk`) VALUES
+(24, 830106788, '2025-01-29 09:00:00', '2025-01-29 10:00:00', '#007bff', '#007bff', '#fff', 0, 1),
+(25, 816008012, '2025-01-30 08:00:00', '2025-01-31 10:00:00', '#007bff', '#007bff', '#fff', 0, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -217,6 +225,13 @@ CREATE TABLE `perfiles` (
   `SubirCalendario` enum('off','on') NOT NULL,
   `AdminCalendario` enum('off','on') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `perfiles`
+--
+
+INSERT INTO `perfiles` (`perfil`, `descripcion`, `AdminUsuarios`, `VerUsuarios`, `EstadoUsuarios`, `AdminPerfiles`, `AdminEmpresa`, `SubirDocumentos`, `SubirCalendario`, `AdminCalendario`) VALUES
+(1, 'sd', 'off', 'off', 'off', 'off', 'off', 'off', 'off', 'off');
 
 -- --------------------------------------------------------
 
@@ -239,15 +254,13 @@ CREATE TABLE `rutinas` (
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
-  `nombre` text NOT NULL,
-  `apellidos_usuario` varchar(100) NOT NULL,
-  `correo_usuario` varchar(100) NOT NULL,
-  `password` text NOT NULL,
-  `perfil` int(11) NOT NULL,
-  `firma` text NOT NULL,
+  `nombre` text DEFAULT NULL,
+  `apellidos_usuario` varchar(100) DEFAULT NULL,
+  `correo_usuario` varchar(100) DEFAULT NULL,
+  `password` text DEFAULT NULL,
+  `perfil` int(11) DEFAULT NULL,
+  `firma` text DEFAULT NULL,
   `estado` int(11) DEFAULT NULL,
-  `id_cargo_fk` int(11) NOT NULL,
-  `id_proceso_fk` int(11) NOT NULL,
   `ultimo_login` datetime DEFAULT NULL,
   `fecha` timestamp NULL DEFAULT current_timestamp(),
   `intentos` int(11) DEFAULT NULL
@@ -257,9 +270,9 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `apellidos_usuario`, `correo_usuario`, `password`, `perfil`, `firma`, `estado`, `id_cargo_fk`, `id_proceso_fk`, `ultimo_login`, `fecha`, `intentos`) VALUES
-(1, 'Administrador', '', 'admin', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 1, 'vistas/img/usuarios/admin/489.jpg', 1, 2, 2, '2025-01-14 14:10:16', '2020-04-28 06:20:56', 2),
-(3, 'vendedor', '', 'vendedor', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 4, '', 1, 2, 2, '2025-01-14 15:09:11', '2022-08-03 02:07:21', NULL);
+INSERT INTO `usuarios` (`id`, `nombre`, `apellidos_usuario`, `correo_usuario`, `password`, `perfil`, `firma`, `estado`, `ultimo_login`, `fecha`, `intentos`) VALUES
+(1, 'Administrador', '', 'admin', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 1, 'vistas/img/usuarios/admin/489.jpg', 1, '2025-01-31 15:55:38', '2020-04-28 06:20:56', 2),
+(3, 'vendedor', '', 'vendedor', '$2a$07$asxx54ahjppf45sd87a5auXBm1Vr2M1NV5t/zNQtGHGpS5fFirrbG', 4, '', 1, '2025-01-14 15:09:11', '2022-08-03 02:07:21', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -307,6 +320,12 @@ ALTER TABLE `eventos`
   ADD KEY `id_usuario_fk` (`id_usuario_fk`);
 
 --
+-- Indices de la tabla `perfiles`
+--
+ALTER TABLE `perfiles`
+  ADD PRIMARY KEY (`perfil`);
+
+--
 -- Indices de la tabla `rutinas`
 --
 ALTER TABLE `rutinas`
@@ -350,7 +369,13 @@ ALTER TABLE `clases`
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT de la tabla `perfiles`
+--
+ALTER TABLE `perfiles`
+  MODIFY `perfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

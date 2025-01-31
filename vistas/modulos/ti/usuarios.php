@@ -138,153 +138,122 @@ if($_SESSION["usuarios"] == "off"){
 MODAL AGREGAR USUARIO
 ======================================-->
 
-<div id="modalAgregarUsuario" class="modal fade" role="dialog">
+ <!-- MODAL AGREGAR USUARIO -->
 
-  <div class="modal-dialog">
+              <div class="modal fade" id="modalAgregarUsuario">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Registrar Usuario</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form method="POST" enctype="multipart/form-data" action="">
 
-    <div class="modal-content ui-draggable-handle">
 
-      <form role="form" method="post" enctype="multipart/form-data">
+                        <!--=====================================
+                CUERPO DEL MODAL
+                ======================================-->
+                        <div class="modal-body row">
 
-        <!--=====================================
-        CABEZA DEL MODAL
-        ======================================-->
 
-        <div class="modal-header" style="background:#3c8dbc; color:white">
+                          <!-- ENTRADA PARA EL NOMBRE -->
+                          <div class="form-group col-md-6">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-address-card"></i></i></span>
+                              </div>
+                              <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingresar nombre" required>
+                            </div>
+                          </div>
 
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <!-- ENTRADA PARA LOS APELLIDOS -->
+                          <div class="form-group col-md-6">
+                            <div class="input-group mb-3 ">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-address-card"></i></i></span>
+                              </div>
+                              <input type="text" class="form-control" name="apellidos_usuario" placeholder="Apellidos" required>
+                            </div>
+                          </div>
 
-          <h4 class="modal-title">Agregar usuario</h4>
+                          <!-- ENTRADA PARA EL CORREO USUARIO -->
+                          <div class="form-group col-md-6">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                              </div>
+                              <input type="text" class="form-control" name="correo_usuario" placeholder="Ingresar correo" required>
+                            </div>
+                          </div>
+                          <!-- ENTRADA PARA LA CONTRASEÑA -->
+                          <div class="form-group col-md-6">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                              </div>
+                              <input type="password" class="form-control" id="nuevoPassword" name="nuevoPassword" placeholder="Ingresar contraseña" required>
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                  <i class="fa fa-eye"></i>
+                                </button>
+                              </div>
+                            </div>
+                            <!-- Indicador de fortaleza de la contraseña -->
+                            <div id="passwordStrength" class="mt-2"></div>
+                          </div>
+                          <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
+                          <div class="form-group col-md-6">
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-users"></i></span>
+                              </div>
+                              <input type="text" class="form-control" name="nuevoPerfil" id="nuevoPerfil" list="perfilesList" placeholder="Seleccionar perfil" required>
+                            </div>
+                            <!-- Lista de datos para el input -->
+                            <datalist id="perfilesList">
+                              <?php
+                              $item = null;
+                              $valor = null;
+                              $perfiles = ControladorPerfiles::ctrMostrarPerfiles($item, $valor);
+                              foreach ($perfiles as $key => $value) {
+                                echo '<option value="' . $value["perfil"] . '">' . $value["descripcion"] . '</option>';
+                              }
+                              ?>
+                            </datalist>
+                          </div>
+                        
+                          <!-- ENTRADA PARA SUBIR FOTO -->
+                          <div class="form-group col-md-6">
 
-        </div>
+                            <div class="panel">Subir Firma</div>
 
-        <!--=====================================
-        CUERPO DEL MODAL
-        ======================================-->
+                            <input type="file" class="nuevaFoto" name="nuevaFoto">
 
-        <div class="modal-body">
-
-          <div class="box-body">
-
-            <!-- ENTRADA PARA EL NOMBRE -->
-
-            <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-
-                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar nombre" required>
-
+                            <p class="help-block">Peso máximo de la foto 2MB</p>
+                            <center>
+                              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="70%">
+                            </center>
+                          </div>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn bg-danger" data-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn bg-success">Guardar</button>
+                      <?php
+                      $crearUsuario = new ControladorUsuarios();
+                      $crearUsuario->ctrCrearUsuario();
+                      ?>
+                    </div>
+                      </form>
+                    </div>
+                   
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
               </div>
-
-            </div>
-
-            <!-- ENTRADA PARA EL USUARIO -->
-
-             <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-key"></i></span>
-
-                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar usuario" id="nuevoUsuario" required>
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA LA CONTRASEÑA -->
-
-             <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-
-                <input type="password" class="form-control input-lg" name="nuevoPassword" placeholder="Ingresar contraseña" required>
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA SELECCIONAR SU PERFIL -->
-
-            <div class="form-group">
-
-              <div class="input-group">
-
-                <span class="input-group-addon"><i class="fa fa-users"></i></span>
-
-                <select class="form-control input-lg" name="nuevoPerfil" id="nuevoPerfil">
-
-                  <option value="">Selecionar perfil</option>
-
-
-                    <?php
-                      $item = null;
-                      $valor = null;
-
-                      $perfiles = ControladorPerfiles::ctrMostrarPerfiles($item, $valor);
-
-                       foreach ($perfiles as $key => $value) {
-
-                         echo '<option value="'.$value["perfil"].'">'.$value["descripcion"].'</option>';
-
-                       }
-
-                    ?>
-
-                </select>
-
-              </div>
-
-            </div>
-
-            <!-- ENTRADA PARA SUBIR FOTO -->
-
-             <div class="form-group">
-
-              <div class="panel">SUBIR FOTO</div>
-
-              <input type="file" class="nuevaFoto" name="nuevaFoto">
-
-              <p class="help-block">Peso máximo de la foto 2MB</p>
-
-              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <!--=====================================
-        PIE DEL MODAL
-        ======================================-->
-
-        <div class="modal-footer">
-
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-
-          <button type="submit" class="btn btn-primary">Guardar usuario</button>
-
-        </div>
-
-        <?php
-
-          $crearUsuario = new ControladorUsuarios();
-          $crearUsuario -> ctrCrearUsuario();
-
-        ?>
-
-      </form>
-
-    </div>
-
-  </div>
-
-</div>
 
 <!--=====================================
 MODAL EDITAR USUARIO
