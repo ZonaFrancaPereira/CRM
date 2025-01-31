@@ -76,7 +76,6 @@ if ($_SESSION["ti"] == "off") {
                     </div>
                   
 
-                    
 
                     <!-- /.FORMULARIO PARA REALIZAR SOLICITUD DE SOPORTE -->
                     <div id="perfiles" class="tab-pane">

@@ -41,7 +41,8 @@ class ControladorAgenda {
             // Obtén los parámetros start y end
             $start = isset($_GET['start']) ? $_GET['start'] : null;
             $end = isset($_GET['end']) ? $_GET['end'] : null;
-            $userId = $_SESSION["id"];
+
+            $userId = isset($_GET['id_usuario_fk']) ? intval($_GET['id_usuario_fk']) : (isset($_SESSION["id"]) ? $_SESSION["id"] : 0);
            
       
             // Llama al modelo para obtener los eventos en el rango de fechas
@@ -70,40 +71,90 @@ class ControladorAgenda {
             echo json_encode(['status' => 'error', 'message' => 'Acción no definida']);
         }
     }
+    public static function ctrObtenerEventosU() {
+       
+        // Comprobar si la acción está definida
+        if (isset($_GET['action']) && $_GET['action'] === 'obtenerEventosU') {
+            // Obtén los parámetros start y end
+            $start = isset($_GET['start']) ? $_GET['start'] : null;
+            $end = isset($_GET['end']) ? $_GET['end'] : null;
+            $userId = isset($_GET['usuario']) ? intval($_GET['usuario']) : 0;           
+      
+            // Llama al modelo para obtener los eventos en el rango de fechas
+            $eventos = ModeloAgenda::mdlObtenerEventosU($start, $end,$userId);
+
+            // Crear un array para almacenar los eventos formateados
+            $eventosFormateados = [];
+
+            foreach ($eventos as $evento) {
+                // Asegúrate de que los datos tengan la estructura correcta
+                $eventosFormateados[] = [
+                    'id' => $evento['id'], // ID del evento
+                    'title' => $evento['empresa_nombre'], // Título del evento
+                    'nombre_usuario' => $evento['nombre'], // Nombre_usuario
+                    'apellidos_usuario' => $evento['apellidos_usuario'], // Apellidos Usuario
+                    'start' => $evento['start2'], // Fecha de inicio
+                    'end' => $evento['end2'], // Fecha de finalización (si está disponible)
+                    'backgroundColor' => $evento['background_color'], // Color de fondo
+                    'borderColor' => $evento['border_color'], // Color del borde
+                    'textColor' => $evento['text_color'], // Color del texto
+                    'allDay' => $evento['allDay'] // Indicador de día completo
+                ];
+            }
+
+            // Devuelve los eventos formateados en formato JSON
+            echo json_encode($eventosFormateados);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Acción no definida']);
+        }
+    }
 }
 // Inicia sesión para manejar las solicitudes AJAX
+// Asegúrate de que este archivo se ejecute cuando el método de la solicitud sea POST o GET.
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Si es POST, verificamos la acción
+    if (isset($_POST['action'])) {
+        require_once "../modelos/agenda.modelo.php";  // Incluimos el modelo aquí
 
-// Maneja las solicitudes AJAX basadas en el parámetro de acción
-
-
-
-if (isset($_POST['action'])) {
-   
-    require_once "../modelos/agenda.modelo.php"; // Incluye el modelo aquí dentro del switch
-
-    switch ($_POST['action']) {
-        case 'crearEvento':
-            ControladorAgenda::ctrCrearEvento();
-            break;
-        case 'eliminarEvento':
-            ControladorAgenda::ctrEliminarEvento();
-            break;
-        default:
-            echo json_encode(['status' => 'error', 'message' => 'Acción no válida']);
-    }
-}if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Manejo para POST
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-   
-    if (isset($_GET['action']) && $_GET['action'] === 'obtenerEventos') {
-        require_once "../modelos/agenda.modelo.php"; // Incluye el modelo aquí dentro del switch
-       
-        ControladorAgenda::ctrObtenerEventos();
+        // Realizamos las acciones según el valor de 'action'
+        switch ($_POST['action']) {
+            case 'crearEvento':
+                ControladorAgenda::ctrCrearEvento();
+                break;
+            case 'eliminarEvento':
+                ControladorAgenda::ctrEliminarEvento();
+                break;
+            default:
+                echo json_encode(['status' => 'error', 'message' => 'Acción no válida']);
+                break;
+        }
     } else {
-        //echo json_encode(['status' => 'error', 'message' => 'Acción no definida']);
+        echo json_encode(['status' => 'error', 'message' => 'No se recibió ninguna acción para procesar.']);
     }
+    
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Si es GET, verificamos qué acción se solicita
+    if (isset($_GET['action'])) {
+        require_once "../modelos/agenda.modelo.php";  // Incluimos el modelo aquí
+
+        // Realizamos las acciones según el valor de 'action'
+        switch ($_GET['action']) {
+            case 'obtenerEventos':
+                ControladorAgenda::ctrObtenerEventos();
+                break;
+            case 'obtenerEventosU':
+                ControladorAgenda::ctrObtenerEventosU();
+                break;
+            default:
+                echo json_encode(['status' => 'error', 'message' => 'Acción no definida']);
+                break;
+        }
+    } else {
+        //echo json_encode(['status' => 'error', 'message' => 'No se recibió ninguna acción para procesar.']);
+    }
+
 } else {
-   // echo json_encode(['status' => 'error', 'message' => 'Método no permitido']);
+    //echo json_encode(['status' => 'error', 'message' => 'Método no permitido']);
 }
+
 ?>

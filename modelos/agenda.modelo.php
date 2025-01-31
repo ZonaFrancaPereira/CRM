@@ -73,6 +73,57 @@ class ModeloAgenda{
       // Devuelve los resultados en un formato de array asociativo
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+    
+  static public function mdlObtenerEventosU($start, $end, $userId) {
+    // Construye la consulta SQL dinámicamente
+    $sql = "SELECT 
+                e.id,
+                e.title,
+                e.start2,
+                e.end2,
+                e.background_color,
+                e.border_color,
+                e.text_color,
+                e.allDay,
+                e.id_usuario_fk,
+                u.nombre,
+                u.apellidos_usuario,
+                d.NombreEmpresa AS empresa_nombre
+            FROM eventos e
+            INNER JOIN usuarios u ON e.id_usuario_fk = u.id
+            INNER JOIN datosempresa d ON e.title = d.id
+            WHERE e.start2 >= :start2 
+            AND e.end2 <= :end2";
+    
+    // Si el userId es diferente de 0, agregamos el filtro por usuario
+    if ($userId != 0) {
+        $sql .= " AND e.id_usuario_fk = :userId";
+    }
+
+    // Prepara la consulta
+    $stmt = Conexion::conectar()->prepare($sql);
+
+    // Asigna los parámetros
+    $stmt->bindParam(":start2", $start);
+    $stmt->bindParam(":end2", $end);
+
+    // Si el userId no es 0, se asigna también el parámetro userId
+    if ($userId != 0) {
+        $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
+    }
+
+    // Ejecuta la consulta
+    $stmt->execute();
+
+    // Devuelve los resultados en un formato de array asociativo
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
+  
+
 }
  ?>
  
