@@ -79,6 +79,18 @@ class ControladorEmpresa
 
         return $respuesta;
     }
+      /* =============================================
+      MOSTRAR EMPRESA ASIGNADA AL USUARIO
+      ============================================= */
+
+      static public function ctrMostrarEmpresaUsuario($item, $valor)
+      {
+          $tabla = "datosempresa";
+  
+          $respuesta = ModeloEmpresas::mdlMostraEmpresasUsuario($tabla, $item, $valor);
+  
+          return $respuesta;
+      }
 
 /* =============================================
       MOSTRAR EMPRESA

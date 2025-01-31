@@ -1,5 +1,5 @@
 <?php
-
+session_start();  // Asegúrate de que esto esté presente
 
 class ControladorAgenda {
     static public function ctrCrearEvento() {
@@ -11,7 +11,8 @@ class ControladorAgenda {
                 "backgroundColor" => $_POST['backgroundColor'],
                 "borderColor" => $_POST['borderColor'],
                 "textColor" => $_POST['textColor'],
-                "allDay" => isset($_POST['allDay']) ? 1 : 0
+                "allDay" => isset($_POST['allDay']) ? 1 : 0,
+                "id_usuario_fk" => $_POST['id_usuario_fke']
             );
     
             $respuesta = ModeloAgenda::mdlGuardarEvento($datos);
@@ -34,14 +35,17 @@ class ControladorAgenda {
     }
 
     public static function ctrObtenerEventos() {
+       
         // Comprobar si la acción está definida
         if (isset($_GET['action']) && $_GET['action'] === 'obtenerEventos') {
             // Obtén los parámetros start y end
             $start = isset($_GET['start']) ? $_GET['start'] : null;
             $end = isset($_GET['end']) ? $_GET['end'] : null;
-
+            $userId = $_SESSION["id"];
+           
+      
             // Llama al modelo para obtener los eventos en el rango de fechas
-            $eventos = ModeloAgenda::mdlObtenerEventos($start, $end);
+            $eventos = ModeloAgenda::mdlObtenerEventos($start, $end,$userId);
 
             // Crear un array para almacenar los eventos formateados
             $eventosFormateados = [];
@@ -50,7 +54,7 @@ class ControladorAgenda {
                 // Asegúrate de que los datos tengan la estructura correcta
                 $eventosFormateados[] = [
                     'id' => $evento['id'], // ID del evento
-                    'title' => $evento['title'], // Título del evento
+                    'title' => $evento['empresa_nombre'], // Título del evento
                     'start' => $evento['start2'], // Fecha de inicio
                     'end' => $evento['end2'], // Fecha de finalización (si está disponible)
                     'backgroundColor' => $evento['background_color'], // Color de fondo
@@ -94,6 +98,7 @@ if (isset($_POST['action'])) {
    
     if (isset($_GET['action']) && $_GET['action'] === 'obtenerEventos') {
         require_once "../modelos/agenda.modelo.php"; // Incluye el modelo aquí dentro del switch
+       
         ControladorAgenda::ctrObtenerEventos();
     } else {
         //echo json_encode(['status' => 'error', 'message' => 'Acción no definida']);

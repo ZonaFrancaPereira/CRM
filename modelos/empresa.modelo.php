@@ -121,6 +121,41 @@ public static function mdlMostraEmpresas($tabla, $item, $valor)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+ /*=============================================
+	MOSTRAR EMPRESAS ASIGNADAS A USUARIO
+	=============================================*/
+
+	public static function mdlMostraEmpresasUsuario($tabla, $item, $valor)
+	{
+		// Comprueba si se pasa un filtro
+		if ($item !== null && $valor !== null) {
+			// Prepara la consulta con el filtro dinámico
+			$stmt = Conexion::conectar()->prepare(
+				"SELECT $tabla.*, usuarios.nombre 
+				 FROM $tabla 
+				 INNER JOIN usuarios ON usuarios.id = $tabla.id_usuario_fk
+				 WHERE $item = :valor"
+			);
+	
+			// Enlaza el valor al parámetro
+			$stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
+		} else {
+			// Prepara la consulta sin filtro
+			$stmt = Conexion::conectar()->prepare(
+				"SELECT $tabla.*, usuarios.nombre 
+				 FROM $tabla 
+				 INNER JOIN usuarios ON usuarios.id = $tabla.id_usuario_fk"
+			);
+		}
+	
+		// Ejecuta la consulta
+		$stmt->execute();
+	
+		// Devuelve todos los resultados como un array asociativo
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	
+
 
 	/*=============================================
     ACTUALIZAR EMPRESA
