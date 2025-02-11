@@ -205,5 +205,134 @@ class ControladorEmpresa
         }
     }
 
+     /* =============================================
+      REGISTRAR VISITA
+      ============================================= */
+      public static function ctrRegistrarVisita()
+      {
+          if (isset($_POST["id_empresa_fk_visita"])) {
+              // Convertir la hora de AM/PM a formato 24 horas antes de guardarla
+              $hora_inicio = date("H:i:s", strtotime($_POST["hora_inicio"]));
+              $hora_fin = date("H:i:s", strtotime($_POST["hora_fin"]));
+      
+              // Capturar datos desde el formulario
+              $datos = array(
+                  "id_empresa_fk" => $_POST["id_empresa_fk_visita"],
+                  "fecha_visita" => $_POST["fecha_visita"],
+                  "hora_inicio" => $hora_inicio, // Guardar en formato 24 horas
+                  "hora_fin" => $hora_fin, // Guardar en formato 24 horas
+                  "firma_consultor" => $_POST["firma_consultor"],
+                  "firma_cliente" => $_POST["firma_cliente"]
+              );
+      
+              // Llamar al modelo para actualizar la fecha y otros datos
+              $respuesta = ModeloEmpresas::mdlRegistrarVisita($datos);
+
+              if (is_array($respuesta) && $respuesta["status"] === "ok") {
+                // Usar el último ID insertado
+                $id_visita_fk = $respuesta["id_visita_fk"];
+                $actividad = $_POST["actividades_realizadas"];
+                $totalItems = count($actividad);
+    
+                for ($i = 0; $i < $totalItems; $i++) {
+                    // Capturar datos de cada fila
+                    $datosActividad = array(
+                        "actividades_realizadas" => $actividad[$i],
+                        "id_visita_fk" => $id_visita_fk
+                    );
+    
+                    // Llamar al modelo para insertar los detalles de cada artículo
+                    $respuestaDetalle = ModeloEmpresas::mdlCrearDetalleActividad($datosActividad);
+      
+                    if ($respuestaDetalle !== "ok") {
+                        echo '<script>
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error al insertar el artículo: ' . htmlspecialchars($id_visita_fk[$i]) . '",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar"
+                            });
+                        </script>';
+                        return;
+                    }
+                }
+
+                // Capturar datos de los compromisos
+                $fecha_proyectada = $_POST["fecha_proyectada"];
+                $descripcion_compromiso = $_POST["descripcion_compromiso"];
+                $id_responsable_fk = $_POST["id_responsable_fk"];
+                $observaciones_compromiso = $_POST["observaciones_compromiso"];
+                $totalCompromisos = count($fecha_proyectada);
+
+                for ($i = 0; $i < $totalCompromisos; $i++) {
+                    // Capturar datos de cada fila
+                    $datosCompromiso = array(
+                        "fecha_proyectada" => $fecha_proyectada[$i],
+                        "descripcion_compromiso" => $descripcion_compromiso[$i],
+                        "id_responsable_fk" => $id_responsable_fk[$i],
+                        "observaciones_compromiso" => $observaciones_compromiso[$i],
+                        "id_visita_fk" => $id_visita_fk
+                    );
+
+                    // Llamar al modelo para insertar los detalles de cada compromiso
+                    $respuestaCompromiso = ModeloEmpresas::mdlCrearDetalleCompromiso($datosCompromiso);
+
+                    if ($respuestaCompromiso !== "ok") {
+                        echo '<script>
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error al insertar el compromiso: ' . htmlspecialchars($descripcion_compromiso[$i]) . '",
+                                showConfirmButton: true,
+                                confirmButtonText: "Cerrar"
+                            });
+                        </script>';
+                        return;
+                    }
+                }
+
+                // Si todas las actividades se registraron correctamente
+                echo '<script>
+                    Swal.fire(
+                        "Registrado!",
+                        "La Visita ha sido registrada con éxito.",
+                        "success"
+                    ).then(function() {
+                        window.location = "";
+                    });
+                </script>';
+            } else {
+                echo '<script>
+                    Swal.fire(
+                        "ERROR!",
+                        "Error al registrar la visita.",
+                        "error"
+                    ).then(function() {
+                        window.location = "";
+                    });
+                </script>';
+            }
+        }
+    }
+
+      /* =============================================
+      MOSTRAR VISITAS
+      ============================================= */
+
+      static public function ctrMostrarVisita($item, $valor, $visita)
+      {
+          $tabla = "registro_visitas";
+  
+          $respuesta = ModeloEmpresas::mdlMostraVisita($tabla, $item, $valor, $visita);
+  
+          return $respuesta;
+      }
+
+
+
+
+
+
+
+
 
 }

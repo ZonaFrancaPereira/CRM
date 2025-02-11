@@ -229,6 +229,183 @@ public static function mdlMostraEmpresas($tabla, $item, $valor)
     }
 }
 
+/*=============================================
+   REGISTRAR vISITA
+    =============================================*/
+
+	static public function mdlRegistrarVisita($datos){
+		try {
+			// Obtener la conexión PDO
+			$pdo = Conexion::conectar();
+			
+			// Preparar la consulta de inserción
+			$stmt = $pdo->prepare("INSERT INTO registro_visitas (
+				id_empresa_fk, 
+				fecha_visita, 
+				hora_inicio, 
+				hora_fin, 
+				firma_consultor, 
+				firma_cliente
+			) VALUES (
+				:id_empresa_fk, 
+				:fecha_visita, 
+				:hora_inicio, 
+				:hora_fin, 
+				:firma_consultor, 
+				:firma_cliente
+			)");
+	
+			// Vincular parámetros
+			$stmt->bindParam(":id_empresa_fk", $datos["id_empresa_fk"], PDO::PARAM_INT);
+			$stmt->bindParam(":fecha_visita", $datos["fecha_visita"], PDO::PARAM_STR);
+			$stmt->bindParam(":hora_inicio", $datos["hora_inicio"], PDO::PARAM_STR);
+			$stmt->bindParam(":hora_fin", $datos["hora_fin"], PDO::PARAM_STR);
+			$stmt->bindParam(":firma_consultor", $datos["firma_consultor"], PDO::PARAM_STR);
+			$stmt->bindParam(":firma_cliente", $datos["firma_cliente"], PDO::PARAM_STR);
+	
+			// Ejecutar la consulta
+			if ($stmt->execute()) {
+                // Retornar el último ID y el estado "ok"
+                return array("status" => "ok", "id_visita_fk" => $pdo->lastInsertId());
+            } else {
+                return "error";
+            }
+        } catch (PDOException $e) {
+            return "error: " . $e->getMessage();
+        }
+	}
+
+	
+/*=============================================
+   REGISTRAR ACTIVIDAD
+    =============================================*/
+
+	public static function mdlCrearDetalleActividad($datosActividad){
+        try {
+            // Obtener la conexión PDO
+            $pdo = Conexion::conectar();
+    
+            // Preparar la consulta de inserción
+            $stmt = $pdo->prepare("INSERT INTO detalle_actividades(
+                    actividades_realizadas,
+                    id_visita_fk
+                ) VALUES (
+                    :actividades_realizadas,
+                    :id_visita_fk
+                )"
+            );
+    
+            // Vincular los parámetros
+            $stmt->bindParam(":actividades_realizadas", $datosActividad["actividades_realizadas"], PDO::PARAM_STR);
+            $stmt->bindParam(":id_visita_fk", $datosActividad["id_visita_fk"], PDO::PARAM_INT);
+
+    
+            if ($stmt->execute()) {
+                return "ok";
+            } else {
+                return "error";
+            }
+        } catch (PDOException $e) {
+            return "error: " . $e->getMessage();
+        }
+    
+        $stmt = null;
+    }
 	
 	
+/*=============================================
+   REGISTRAR ACTIVIDAD
+    =============================================*/
+
+	public static function mdlCrearDetalleCompromiso($datosCompromiso){
+        try {
+            // Obtener la conexión PDO
+            $pdo = Conexion::conectar();
+    
+            // Preparar la consulta de inserción
+            $stmt = $pdo->prepare("INSERT INTO detalle_compromiso(
+                    fecha_proyectada,
+					descripcion_compromiso, 
+					id_responsable_fk, 
+					observaciones_compromiso, 
+                    id_visita_fk
+                ) VALUES (
+                    :fecha_proyectada,
+					:descripcion_compromiso, 
+					:id_responsable_fk, 
+					:observaciones_compromiso, 
+                    :id_visita_fk
+                )"
+            );
+    
+            // Vincular los parámetros
+            $stmt->bindParam(":fecha_proyectada", $datosCompromiso["fecha_proyectada"], PDO::PARAM_STR);
+			$stmt->bindParam(":descripcion_compromiso", $datosCompromiso["descripcion_compromiso"], PDO::PARAM_STR);
+			$stmt->bindParam(":id_responsable_fk", $datosCompromiso["id_responsable_fk"], PDO::PARAM_INT);
+			$stmt->bindParam(":observaciones_compromiso", $datosCompromiso["observaciones_compromiso"], PDO::PARAM_STR);
+            $stmt->bindParam(":id_visita_fk", $datosCompromiso["id_visita_fk"], PDO::PARAM_INT);
+
+    
+            if ($stmt->execute()) {
+                return "ok";
+            } else {
+                return "error";
+            }
+        } catch (PDOException $e) {
+            return "error: " . $e->getMessage();
+        }
+    
+        $stmt = null;
+    }
+
+		 /*=============================================
+	MOSTRAR EMPRESA POR ID
+	=============================================*/
+
+	public static function mdlMostraVisita($tabla, $item, $valor, $visita)
+	{
+		// Conectar a la base de datos
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_empresa_fk = :visita");
+		
+		// Vincular el parámetro de manera segura
+		$stmt->bindParam(':visita', $visita, PDO::PARAM_INT);
+
+		// Ejecutar la consulta
+		$stmt->execute();
+
+		// Retornar los resultados
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+
+	/*=============================================
+	MOSTRAR VISITAS PDF
+	=============================================*/
+
+		public static function mdlMostrarVisitasPdf($tabla, $item, $valor, $consulta)
+		{
+			switch ($consulta) {
+				case 'registro_visitas':
+					// Consulta con filtro
+					$stmt = Conexion::conectar()->prepare("SELECT m.*, m.NombreEmpresa, p.*, u.*, c.*
+					 FROM datosempresa m
+					INNER JOIN registro_visitas p ON m.id = p.id_empresa_fk
+					INNER JOIN detalle_actividades u ON p.id_visita = u.id_visita_fk
+					INNER JOIN detalle_compromiso c ON p.id_visita = c.id_visita_fk WHERE $item = :valor");
+					$stmt->bindParam(":valor", $valor, PDO::PARAM_STR);
+					$stmt->execute();
+					return $stmt->fetchAll(); // Usar fetchAll() para obtener todos los resultados
+					$stmt = null;
+					break;
+	
+				default:
+					$consulta = null;
+					$item = null;
+					$valor = null;
+					break;
+			}
+		}
+
+
+
 }

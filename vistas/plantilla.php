@@ -277,6 +277,78 @@ CUERPO DOCUMENTO
     });
   </script>
 
+<script>
+  
+  $(function() {
+  /*=============================================
+   Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+   =============================================*/
+  $("#adicional").on('click', function() {
+    $("#tabla tbody tr:eq(0)").clone().removeClass('fila-fija').appendTo("#tabla");
+    sumarTotalPrecios()
+    actualizarSuma(); // Actualiza la suma después de eliminar la fila
+
+  });
+  /*=============================================
+  Evento que selecciona la fila y la elimina 
+  =============================================*/
+  $(document).on("click", ".eliminar", function() {
+    var parent = $(this).parents().get(0);
+    $(parent).remove();
+    sumarTotalPrecios()
+    actualizarSuma(); // Actualiza la suma después de eliminar la fila
+
+
+  });
+});
+
+$(function() {
+  /*=============================================
+   Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+   =============================================*/
+  $("#adicional2").on('click', function() {
+    $("#tabla2 tbody tr:eq(0)").clone().removeClass('fila-fija2').appendTo("#tabla2");
+    sumarTotalPrecios()
+    actualizarSuma(); // Actualiza la suma después de eliminar la fila
+
+  });
+  /*=============================================
+  Evento que selecciona la fila y la elimina 
+  =============================================*/
+  $(document).on("click", ".eliminar", function() {
+    var parent = $(this).parents().get(0);
+    $(parent).remove();
+    sumarTotalPrecios()
+    actualizarSuma(); // Actualiza la suma después de eliminar la fila
+
+
+  });
+});
+
+$(function() {
+  /*=============================================
+   Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla
+   =============================================*/
+  $("#adicional3").on('click', function() {
+    $("#tabla3 tbody tr:eq(0)").clone().removeClass('fila-fija3').appendTo("#tabla3");
+    sumarTotalPrecios()
+    actualizarSuma(); // Actualiza la suma después de eliminar la fila
+
+  });
+  /*=============================================
+  Evento que selecciona la fila y la elimina 
+  =============================================*/
+  $(document).on("click", ".eliminar", function() {
+    var parent = $(this).parents().get(0);
+    $(parent).remove();
+    sumarTotalPrecios()
+    actualizarSuma(); // Actualiza la suma después de eliminar la fila
+
+
+  });
+});
+</script>
+
 </body>
 
 </html>
