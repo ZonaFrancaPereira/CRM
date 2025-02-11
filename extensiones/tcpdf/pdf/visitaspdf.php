@@ -9,7 +9,7 @@ $id_visita = $_GET['id'];
 
 // Obtener los datos del mantenimiento desde la base de datos
 $tabla = 'registro_visitas'; // Nombre de la tabla o configuración
-$item = 'id_empresa_fk'; // Campo por el cual filtrar
+$item = 'id_visita'; // Campo por el cual filtrar
 $valor = $id_visita; // Valor para filtrar
 $consulta = 'registro_visitas';
 

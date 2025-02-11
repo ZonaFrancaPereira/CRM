@@ -318,7 +318,7 @@ if ($perfil > 0) {
                                                                         echo '<tr>
                                                                                 <td>' . htmlspecialchars($value["id_visita"]) . '</td>
                                                                                 <td>' . htmlspecialchars($value["fecha_visita"]) . '</td>
-                                                                                <td><a target="_blank" href="extensiones/tcpdf/pdf/visitaspdf.php?id=' . htmlspecialchars($visita, ENT_QUOTES, 'UTF-8') . '" class="btn btn-outline-success"><i class="fas fa-file-signature"></i> Formato</a></td>
+                                                                                <td><a target="_blank" href="extensiones/tcpdf/pdf/visitaspdf.php?id=' . htmlspecialchars($value["id_visita"], ENT_QUOTES, 'UTF-8') . '" class="btn btn-outline-success"><i class="fas fa-file-signature"></i> Formato</a></td>
                                                                                 
                                                                             </tr>';
                                                                     }
@@ -392,7 +392,9 @@ if ($perfil > 0) {
                                                             <label for="hora_inicio" class="font-weight-bold">Hora Inicio</label>
                                                             <input type="time" class="form-control" id="hora_inicio" name="hora_inicio" required>
                                                         </div>
-
+                                                        <div class="card-header" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12;">
+                                                            <h3 class="card-title text-center">Actividades Realizadas</h3>
+                                                        </div>
                                                         <div class="form-group">
                                                             <table class="table pt-2" id="tabla">
                                                                 <thead class="text-center">
@@ -414,10 +416,11 @@ if ($perfil > 0) {
                                                             </table>
                                                             <div class="col-md-2 text-center mt-2">
                                                             <button id="adicional" name="adicional" type="button" class="adicional btn btn-info btn-block"> <i class="fas fa-plus"></i> Agregar</button>
-                                                            
                                                             </div>
                                                         </div>
-
+                                                        <div class="card-header" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12;">
+                                                            <h3 class="card-title text-center">Compromisos</h3>
+                                                        </div>
                                                         <div class="form-group">
                                                             <table class="table pt-2" id="tabla2">
                                                                 <thead class="text-center">
@@ -432,13 +435,13 @@ if ($perfil > 0) {
                                                                 <tbody>
                                                                     <tr class="fila-fija2 ">
                                                                         <td class="col-md-2">
-                                                                            <input type="date" class="form-control" name="fecha_proyectada[]" id="fecha_proyectada" required>
+                                                                            <input type="date" class="form-control" name="fecha_proyectada[]" id="fecha_proyectada" >
                                                                         </td>
                                                                         <td class="col-md-4">
                                                                             <textarea  name="descripcion_compromiso[]" id="descripcion_compromiso" class=" form-control" cols="10" rows="5"></textarea>
                                                                         </td>
                                                                         <td>
-                                                                            <input list="usuarios" id="id_responsable_fk" name="id_responsable_fk[]" class="form-control" required>
+                                                                            <input list="usuarios" id="id_responsable_fk" name="id_responsable_fk[]" class="form-control" >
                                                                             <datalist id="usuarios">
                                                                                 <?php
                                                                                 if ($usuario["id"] <> 0) {
@@ -474,11 +477,11 @@ if ($perfil > 0) {
 
                                                         <div>
                                                             <label for="">Firma</label>
-                                                            <input type="text" class="form-control" id="firma_consultor" name="firma_consultor" required>
+                                                            <input type="text" class="form-control" id="firma_consultor" name="firma_consultor" >
                                                         </div>
                                                         <div>
                                                             <label for="">Firma</label>
-                                                            <input type="text" class="form-control" id="firma_cliente" name="firma_cliente" required>
+                                                            <input type="text" class="form-control" id="firma_cliente" name="firma_cliente" >
                                                         </div>
 
                                                         <button type="submit" class="btn text-white font-weight-bold" style="background-color: #004085; border-radius: 5px;">Guardar</button>
