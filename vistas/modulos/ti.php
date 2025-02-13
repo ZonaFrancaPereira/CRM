@@ -2,10 +2,11 @@
 require_once "configuracion.php";
 
 // Validación de sesión
-if ($_SESSION["ti"] == "off") {
-    echo '<script> window.location = "inicio"; </script>';
-    return;
-}
+// if ($_SESSION["AdminUsuarios"] != "on") {
+//     echo '<script> window.location = "inicio"; </script>';
+//     return;
+// }
+//
 ?>
 
 <!-- Sidebar Menu -->

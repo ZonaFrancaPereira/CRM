@@ -6,7 +6,7 @@
                 <p>Panel de Control</p>
             </a>
         </li>
-
+ 
         <li class="nav-item" name="">
             <a data-toggle="tab" href="#nuevaempresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
                 <i class="nav-icon fas fa-qrcode"></i>
@@ -20,6 +20,7 @@
                 <p>Empresas</p>
             </a>
         </li>
+       
     </ul>
     
     <!-- Estilos dentro del nav -->
@@ -40,16 +41,7 @@
 </nav>
 
 
-<?php
 
-if ($_SESSION["ti"] == "off") {
-    echo '<script>
-        window.location = "inicio";
-    </script>';
-    return;
-}
-
-?>
 </div>
 <!-- /.sidebar -->
 </aside>
@@ -67,7 +59,7 @@ if ($_SESSION["ti"] == "off") {
                             </div>
                         </div>
                     </div>
-
+                    
                     <div id="listar_empresa" class="tab-pane">
                         <div class="row">
                             <div class="col-md-12">

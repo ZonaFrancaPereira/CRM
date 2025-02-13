@@ -77,7 +77,11 @@ class ModeloUsuarios
 	static public function mdlIngresarUsuario($tabla, $datos)
 	{
 
+<<<<<<< HEAD
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre,apellidos_usuario,correo_usuario, password, perfil, firma) VALUES (:nombre,:apellidos_usuario, :correo_usuario, :password, :perfil, :foto)");
+=======
 		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre,apellidos_usuario,correo_usuario, password, perfil, firma) VALUES (:nombre,:apellidos_usuario, :correo_usuario, :password, :perfil, :firma)");
+>>>>>>> a5fa73db7ddcf25222d251c6daac54b5287ce3f4
 
 		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam(":apellidos_usuario", $datos["apellidos_usuario"], PDO::PARAM_STR);
@@ -108,7 +112,7 @@ class ModeloUsuarios
 	static public function mdlEditarUsuario($tabla, $datos)
 	{
 
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, password = :password, perfil = :perfil, foto = :foto WHERE usuario = :usuario");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET nombre = :nombre, password = :password, perfil = :perfil, firma = :foto WHERE usuario = :usuario");
 
 		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
