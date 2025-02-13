@@ -86,25 +86,21 @@ public static function mdlMostraEmpresas($tabla, $item, $valor)
 }
 
 
-	public static function mdlMostraEmpresasAsignada($tabla, $consulta)
+	public static function mdlMostraEmpresasAsignada($tabla,$item, $valor, $id_usuario_fk)
 	{
-		switch ($consulta) {
-			
-			case 'usuario':
-					// Consulta para obtener todos los datos de la tabla
-					$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-					$stmt->execute();
-					return $stmt->fetchAll(PDO::FETCH_ASSOC); // Usar fetchAll() para obtener todos los resultados como un array asociativo
-					break;
-			default:
-				return []; // Retorna un array vacío si no se cumple ninguna condición
-				break;
-		}
+		// Consulta para obtener todos los datos de la empresa asignada al usuario que inicia sesión
+		$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE id_usuario_fk = :id_usuario_fk");
+		
+		// Vincular el parámetro de manera segura
+		$stmt->bindParam(':id_usuario_fk', $id_usuario_fk, PDO::PARAM_INT);
+		
+		// Ejecutar la consulta
+		$stmt->execute();
+		
+		// Retornar los resultados como un array asociativo
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 	}
 
-	 /*=============================================
-	MOSTRAR EMPRESA POR ID
-	=============================================*/
 
 	public static function mdlMostraEmpresaid($tabla, $idEmpresa)
 {

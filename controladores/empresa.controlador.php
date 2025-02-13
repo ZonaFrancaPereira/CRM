@@ -96,11 +96,11 @@ class ControladorEmpresa
       MOSTRAR EMPRESA
       ============================================= */
 
-    static public function ctrMostrarEmpresaAsignada($consulta)
+    static public function ctrMostrarEmpresaAsignada($item, $valor, $id_usuario_fk)
     {
         $tabla = "datosempresa";
 
-        $respuesta = ModeloEmpresas::mdlMostraEmpresasAsignada($tabla, $consulta);
+        $respuesta = ModeloEmpresas::mdlMostraEmpresasAsignada($tabla,$item, $valor, $id_usuario_fk);
 
         return $respuesta;
     }
