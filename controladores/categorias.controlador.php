@@ -49,11 +49,11 @@ class ControladorCategorias{
       MOSTRAR CATEGORIAS
       ============================================= */
 
-      static public function ctrMostrarCategorias($consulta)
+      static public function ctrMostrarCategorias($item, $valor)
       {
           $tabla = "categorias";
   
-          $respuesta = ModeloCategorias::mdlMostraCategorias($tabla,$consulta);
+          $respuesta = ModeloCategorias::mdlMostraCategorias($tabla,$item, $valor);
   
           return $respuesta;
       }
@@ -194,11 +194,11 @@ class ControladorCategorias{
       MOSTRAR ARCHIVOS DE LAS EMPRESAS PARA ACTIVARLOS
       ============================================= */
 
-      static public function ctrMostrarArchivosEmpresa($consulta)
+      static public function ctrMostrarArchivosEmpresa($valor,$item)
       {
           $tabla = "archivos_empresa";
   
-          $respuesta = ModeloCategorias::mdlMostrarArchivosEmpresa($tabla,$consulta);
+          $respuesta = ModeloCategorias::mdlMostrarArchivosEmpresa($tabla,$valor,$item);
   
           return $respuesta;
       }

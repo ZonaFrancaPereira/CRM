@@ -43,20 +43,19 @@ class ModeloCategorias
     /* =============================================
       MOSTRAR TODAS LAS CATEGORIAS
       ============================================= */
-    public static function mdlMostraCategorias($tabla, $consulta)
+    public static function mdlMostraCategorias($tabla, $item, $valor)
     {
-        switch ($consulta) {
+        // Obtener la conexión PDO
+        $pdo = Conexion::conectar();
 
-            case 'categorias':
-                // Consulta para obtener todos los datos de la tabla
-                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
-                $stmt->execute();
-                return $stmt->fetchAll(PDO::FETCH_ASSOC); // Usar fetchAll() para obtener todos los resultados como un array asociativo
-                break;
-            default:
-                return []; // Retorna un array vacío si no se cumple ninguna condición
-                break;
-        }
+        // Preparar la consulta para obtener todos los datos de la tabla
+        $stmt = $pdo->prepare("SELECT * FROM $tabla");
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Retornar los resultados obtenidos como un array asociativo
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
   /* =============================================
@@ -176,12 +175,10 @@ class ModeloCategorias
       MOSTRAR TODAS ARCHIVOS DE TODAS LAS EMPRESAS
       ============================================= */
 
-      public static function mdlMostrarArchivosEmpresa($tabla, $consulta)
+      public static function mdlMostrarArchivosEmpresa($tabla, $valor, $item)
       {
 
-        switch ($consulta) {
-      
-            case 'documentos-empresas':
+           
                 // Conexión a la base de datos
                 $conexion = Conexion::conectar();
             
@@ -216,16 +213,6 @@ class ModeloCategorias
                 // Retornar los resultados obtenidos como un array asociativo
                 return $stmt->fetchAll(PDO::FETCH_ASSOC); 
             
-                break;
-            
-            
-
-
-            default:
-                return []; // Retorna un array vacío si no se cumple ninguna condición
-                break;
-        }
-
       }
 
           /* =============================================
