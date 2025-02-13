@@ -205,27 +205,48 @@ ELIMINAR USUARIO
 =============================================*/
 $(".tablas").on("click", ".btnEliminarUsuario", function(){
 
-  var idUsuario = $(this).attr("idUsuario");
-  var fotoUsuario = $(this).attr("fotoUsuario");
-  var usuario = $(this).attr("usuario");
-
-  swal({
-    title: '¿Está seguro de borrar el usuario?',
-    text: "¡Si no lo está puede cancelar la accíón!",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Si, borrar usuario!'
-  }).then(function(result){
-
-    if(result.value){
-
-      window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&fotoUsuario="+fotoUsuario;
-
-    }
-
-  })
-
-})
+	var idUsuario = $(this).attr("idUsuario");
+	var fotoUsuario = $(this).attr("fotoUsuario");
+	var correo_usuario = $(this).attr("correo_usuario");
+	var fila = $(this).closest("tr");  // Selecciona la fila que contiene el botón
+  
+	Swal.fire({
+	  title: '¿Está seguro de borrar el usuario?',
+	  text: "¡Si no lo está puede cancelar la acción!",
+	  icon: 'warning',  // Cambiado de 'type' a 'icon'
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  cancelButtonText: 'Cancelar',
+	  confirmButtonText: 'Sí, borrar usuario!'
+	}).then(function(result){
+  
+	  if(result.isConfirmed){
+		$.ajax({
+		  url: 'ti',  // Cambiar por la URL correcta para eliminar el usuario
+		  type: 'POST',
+		  data: { idUsuario: idUsuario, fotoUsuario: fotoUsuario, correo_usuario: correo_usuario },
+		  success: function(response) {
+			Swal.fire(
+			  'Eliminado!',
+			  'El usuario ha sido eliminado.',
+			  'success'
+			).then(function() {
+			  // Eliminar la fila de la tabla
+			  window.location = "ti";
+			});
+		  },
+		  error: function() {
+			Swal.fire(
+			  'Error!',
+			  'Hubo un problema al eliminar el usuario.',
+			  'error'
+			);
+		  }
+		});
+	  }
+  
+	});
+  
+  });
+  

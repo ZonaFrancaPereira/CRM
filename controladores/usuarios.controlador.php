@@ -44,12 +44,21 @@ class ControladorUsuarios{
 						$_SESSION["nombre"] = $respuesta["nombre"];
 						$_SESSION["correo_usuario"] = $respuesta["correo_usuario"];
 						$_SESSION["foto"] = $respuesta["foto"];
+						//PERMISOS PARA EL MENU
 						$_SESSION["perfil"] = $respuesta["perfil"];
-					
-						$_SESSION["descripcionPerfil"] = $acceso["descripcion"];
+						$_SESSION["descripcionPerfil"] = $respuesta["descripcion"];
+						$_SESSION["AdminUsuarios"] = $respuesta["AdminUsuarios"];
+						$_SESSION["VerUsuarios"] = $respuesta["VerUsuarios"];
+						$_SESSION["EstadoUsuarios"] = $respuesta["EstadoUsuarios"];
+						$_SESSION["AdminPerfiles"] = $respuesta["AdminPerfiles"];
+						$_SESSION["AdminEmpresa"] = $respuesta["AdminEmpresa"];
+						$_SESSION["SubirDocumentos"] = $respuesta["SubirDocumentos"];
+						$_SESSION["SubirCalendario"] = $respuesta["SubirCalendario"];
+						$_SESSION["AdminCalendario"] = $respuesta["AdminCalendario"];
+						$_SESSION["descripcionPerfil"] = $respuesta["descripcion"];
 	
 						// DERECHOS MENU CONFIGURACION
-						$_SESSION["menuConfiguraciones"] = $acceso["menuConfiguraciones"];
+$_SESSION["menuConfiguraciones"] = $acceso["menuConfiguraciones"];
 	
 						// REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
 						$fecha = date('Y-m-d');
@@ -191,26 +200,14 @@ class ControladorUsuarios{
 				if($respuesta == "ok"){
 
 					echo '<script>
-
-					swal({
-
-						type: "success",
-						title: "¡El usuario ha sido guardado correctamente!",
-						showConfirmButton: true,
-						confirmButtonText: "Cerrar"
-
-					}).then(function(result){
-
-						if(result.value){
-
-							window.location = "usuarios";
-
-						}
-
-					});
-
-
-					</script>';
+                    Swal.fire(
+                        "Buen Trabajo!",
+                        "El usuario fue creado con Éxito.",
+                        "success"
+                    ).then(function() {
+                        window.location = "ti";
+                        });
+                </script>';
 
 
 				}
@@ -406,22 +403,16 @@ static public function ctrMostrarUsuariosCorreo($item, $valor){
 
 				if($respuesta == "ok"){
 
-					echo'<script>
-
-					swal({
-						  type: "success",
-						  title: "El usuario ha sido editado correctamente",
-						  showConfirmButton: true,
-						  confirmButtonText: "Cerrar"
-						  }).then(function(result) {
-									if (result.value) {
-
-									window.location = "usuarios";
-
-									}
-								})
-
-					</script>';
+					echo '<script>
+                    Swal.fire(
+                        "Actualizado!",
+                        "La Categoria ha sido creada con Éxito.",
+                        "success"
+                    ).then(function() {
+                        
+                        $("#panel").addClass("active");
+                        });
+                </script>';
 
 				}
 
@@ -438,7 +429,7 @@ static public function ctrMostrarUsuariosCorreo($item, $valor){
 						  }).then(function(result) {
 							if (result.value) {
 
-							window.location = "usuarios";
+							window.location = "ti";
 
 							}
 						})
@@ -454,47 +445,35 @@ static public function ctrMostrarUsuariosCorreo($item, $valor){
 	/*=============================================
 	BORRAR USUARIO
 	=============================================*/
+	static public function ctrBorrarUsuario()
+	{
 
-	static public function ctrBorrarUsuario(){
+		if (isset($_POST["idUsuario"])) {
 
-		if(isset($_GET["idUsuario"])){
+			$tabla = "usuarios";
+			$datos = $_POST["idUsuario"];
 
-			$tabla ="usuarios";
-			$datos = $_GET["idUsuario"];
+			if ($_POST["fotoUsuario"] != "") {
 
-			if($_GET["fotoUsuario"] != ""){
-
-				unlink($_GET["fotoUsuario"]);
-				rmdir('vistas/img/usuarios/'.$_GET["usuario"]);
-
+				unlink($_POST["fotoUsuario"]);
+				rmdir('vistas/img/usuarios/' . $_POST["correo_usuario"]);
 			}
 
 			$respuesta = ModeloUsuarios::mdlBorrarUsuario($tabla, $datos);
 
-			if($respuesta == "ok"){
+			if ($respuesta == "ok") {
 
-				echo'<script>
-
-				swal({
-					  type: "success",
-					  title: "El usuario ha sido borrado correctamente",
-					  showConfirmButton: true,
-					  confirmButtonText: "Cerrar",
-					  closeOnConfirm: false
-					  }).then(function(result) {
-								if (result.value) {
-
-								window.location = "usuarios";
-
-								}
-							})
-
-				</script>';
-
+				echo '<script>
+                    Swal.fire(
+                        "Buen Trabajo!",
+                        "El usuario fue creado con Éxito.",
+                        "success"
+                    ).then(function() {
+                        window.location = "ti";
+                        });
+                </script>';
 			}
-
 		}
-
 	}
 
 

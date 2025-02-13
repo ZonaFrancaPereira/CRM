@@ -12,122 +12,125 @@ if ($_SESSION["usuarios"] == "off") {
 }
 
 ?>
+
+
+
+<!-- Content Header -->
 <section class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>Administrar usuarios</h1>
+        <!-- Puedes agregar un título aquí si lo deseas -->
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-          <li class="breadcrumb-item active">INVENTARIO</li>
+          <li class="breadcrumb-item active">EMPRESAS</li>
         </ol>
       </div>
     </div>
   </div>
 </section>
 
-<div class="container-fluid">
-  <section class="content">
+<!-- Main Content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-0 shadow-sm" style="border-radius: 15px; overflow: hidden;">
+          <div class="card-header text-white" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
+            <h3 class="card-title font-weight-bold">Empresas Asignadas</h3>
+          </div>
+          <div class="card-body">
+            <br>
+            <div class="text-center">
+            <button class="btn bg-primary " data-toggle="modal" data-target="#modalAgregarUsuario">
 
-    <div class="box">
+              Agregar usuario
 
-      <div class="box-header with-border">
+            </button>
+            </div>
+            <br>
+            <table class="tablas display table table-hover table-bordered dt-responsive" width="100%" style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+              <thead style="background-color: #004085; color: white; text-align: center;">
 
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">
+                <tr>
 
-          Agregar usuario
+                  <th style="width:10px">#</th>
+                  <th>Nombre</th>
+                  <th>Usuario</th>
+                  <th>Foto</th>
+                  <th>Perfil</th>
+                  <th>Estado</th>
+                  <th>Último login</th>
+                  <th>Acciones</th>
 
-        </button>
+                </tr>
 
-      </div>
+              </thead>
 
-      <div class="box-body">
+              <tbody class="text-center">
 
-        <table class="display table table-bordered table-striped dt-responsive tablas" width="100%">
+                <?php
 
-          <thead>
+                $item = null;
+                $valor = null;
 
-            <tr>
+                $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
 
-              <th style="width:10px">#</th>
-              <th>Nombre</th>
-              <th>Usuario</th>
-              <th>Foto</th>
-              <th>Perfil</th>
-              <th>Estado</th>
-              <th>Último login</th>
-              <th>Acciones</th>
+                foreach ($usuarios as $key => $value) {
 
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            <?php
-
-            $item = null;
-            $valor = null;
-
-            $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
-
-            foreach ($usuarios as $key => $value) {
-
-              echo ' <tr>
+                  echo ' <tr>
                   <td>' . ($key + 1) . '</td>
-                  <td>' . $value["nombre"] . " ".$value["apellidos_usuario"].'</td>
+                  <td>' . $value["nombre"] . " " . $value["apellidos_usuario"] . '</td>
                   <td>' . $value["correo_usuario"] . '</td>';
 
-              if ($value["foto"] != "") {
+                  if ($value["foto"] != "") {
 
-                echo '<td><img src="' . $value["foto"] . '" class="img-thumbnail" data-action="zoom" width="40px"></td>';
-              } else {
+                    echo '<td><img src="' . $value["foto"] . '" class="img-thumbnail" data-action="zoom" width="40px"></td>';
+                  } else {
 
-                echo '<td><img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" data-action="zoom" width="40px"></td>';
-              }
+                    echo '<td><img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail" data-action="zoom" width="40px"></td>';
+                  }
 
-              echo '<td>' . $value["nombrePerfil"] . '</td>';
+                  echo '<td>' . $value["nombrePerfil"] . '</td>';
 
-              if ($value["estado"] != 0) {
+                  if ($value["estado"] != 0) {
 
-                echo '<td><button class="btn btn-success btn-xs btnActivar" idUsuario="' . $value["id"] . '" estadoUsuario="0">Activado</button></td>';
-              } else {
+                    echo '<td><button class="btn btn-success btn-xs btnActivar" idUsuario="' . $value["id"] . '" estadoUsuario="0">Activado</button></td>';
+                  } else {
 
-                echo '<td><button class="btn btn-danger btn-xs btnActivar" idUsuario="' . $value["id"] . '" estadoUsuario="1">Desactivado</button></td>';
-              }
+                    echo '<td><button class="btn btn-danger btn-xs btnActivar" idUsuario="' . $value["id"] . '" estadoUsuario="1">Desactivado</button></td>';
+                  }
 
-              echo '<td>' . $value["ultimo_login"] . '</td>
+                  echo '<td>' . $value["ultimo_login"] . '</td>
                   <td>
 
                     <div class="btn-group">
 
-                      <button class="btn btn-warning btnEditarUsuario" idUsuario="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fa fa-pencil"></i></button>
+                      <button class="btn btn-warning btnEditarUsuario" idUsuario="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditarUsuario"><i class="fas fa-edit"></i></button>
 
-                      <button class="btn btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '" fotoUsuario="' . $value["foto"] . '" usuario="' . $value["usuario"] . '"><i class="fa fa-times"></i></button>
+                      <button class="btn btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '" fotoUsuario="' . $value["firma"] . '" usuario="' . $value["correo_usuario"] . '"><i class="fas fa-trash"></i></button>
 
                     </div>
 
                   </td>
 
                 </tr>';
-            }
+                }
 
 
-            ?>
+                ?>
 
-          </tbody>
+              </tbody>
 
-        </table>
-
+            </table>
+          </div>
+        </div>
       </div>
-
     </div>
-
-  </section>
-
-</div>
+  </div>
+</section>
 
 <!--=====================================
 MODAL AGREGAR USUARIO
@@ -221,7 +224,7 @@ MODAL AGREGAR USUARIO
             </div>
 
             <!-- ENTRADA PARA SUBIR FOTO -->
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" hidden>
 
               <div class="panel">Subir Firma</div>
 

@@ -17,7 +17,7 @@ session_start();
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>TM</title>
+  <title>CRM</title>
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -276,7 +276,21 @@ CUERPO DOCUMENTO
 
     });
   </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Restaurar la pestaña activa desde el almacenamiento local
+    var activeTab = localStorage.getItem('activeTab');
+    if (activeTab) {
+      $('.nav-pills a[href="' + activeTab + '"]').tab('show');
+    }
 
+    // Guardar la pestaña activa en el almacenamiento local
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+      var tabId = $(e.target).attr('href');
+      localStorage.setItem('activeTab', tabId);
+    });
+  });
+</script>
 </body>
 
 </html>
