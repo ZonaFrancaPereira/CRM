@@ -9,7 +9,7 @@
             <a href="index.php" class="h1"><b>CRM</b></a>
           </div>
           <div class="card-body">
-            <p class="login-box-msg">Iniciar Sesiónaaaaaaa</p>
+            <p class="login-box-msg">Iniciar Sesión</p>
 
             <form action="" method="post">
               <div class="input-group mb-3">
