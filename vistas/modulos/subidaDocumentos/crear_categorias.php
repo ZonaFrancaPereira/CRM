@@ -60,7 +60,7 @@ if ($_SESSION["datosEmpresa"] == "off") {
                         <h3 class="card-title font-weight-bold">Categorias</h3>
                     </div>
                     <div class="card-body">
-                        <table id="tabla-categoria" class="table table-hover table-bordered dt-responsive" width="100%" style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                    <table class="display table table-striped table-valign-middle" width="100%" style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
                             <thead style="background-color: #004085; color: white;">
                                 <tr style="text-align: center;">
                                     <th style="padding: 10px; text-align: center;">#</th>
@@ -68,7 +68,23 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                     <th style="padding: 10px; text-align: center;">Eliminar</th>
                                 </tr>
                             </thead>
-
+                            <tbody>
+                                <?php
+                                $item = null;
+                                $valor = null;
+                                $categorias = ControladorCategorias::ctrMostrarCategorias($item, $valor);
+                                foreach ($categorias as $row) {
+                                    echo '<tr style="text-align:center">';
+                                    echo '<td>' . $row["id_categoria"] . '</td>';
+                                    echo '<td>' . $row["nombre_categoria"] . '</td>';
+                                    echo '<td>
+                                    <button class="btn btn-danger btnEliminarCategoria" idCategoria="' . $row["id_categoria"] . '" data-toggle="modal" data-target="#modalEliminar">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>';
+                                    echo '</tr>';
+                                }
+                                ?>
                         </table>
                     </div>
                 </div>

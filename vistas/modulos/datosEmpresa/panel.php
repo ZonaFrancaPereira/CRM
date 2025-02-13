@@ -31,7 +31,7 @@ if ($_SESSION["datosEmpresa"] == "off") {
                         <h3 class="card-title font-weight-bold">Empresas Asignadas</h3>
                     </div>
                     <div class="card-body">
-                    <table class="display table table-striped table-valign-middle" width="100%" style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                        <table class="display table table-striped table-valign-middle" width="100%" style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
                             <thead style="background-color: #004085; color: white; text-align: center;">
                                 <tr>
                                     <th style="padding: 10px;">NIT</th>
@@ -44,42 +44,41 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                 </tr>
                             </thead>
                             <tbody>
-                                    <?php
-                                    $id_usuario_fk = $_SESSION["id"];
-                                    $item = null;
-                                    $valor = null;
-                                    $contrato = ControladorEmpresa::ctrMostrarEmpresaAsignada($item, $valor, $id_usuario_fk);
-                                    foreach ($contrato as $row) {
-                                        echo '<tr style="text-align:center">';
-                                        echo '<td>' . $row["id"] . '</td>';
-                                        echo '<td>' . $row["NombreEmpresa"] . '</td>';
-                                        echo '<td>' . $row["DireccionEmpresa"] . '</td>';
-                                        echo '<td>' . $row["Telefono"] . '</td>';
-                                        echo '<td>' . $row["nombre_rep_legal"] . '</td>';
-                                        echo '<td>' . $row["correoElectronico"]. '</td>';
-                                        echo '<td>
-        <a target="_blank" href="index.php?ruta=perfil&id=' . $row["id"] . '" 
-            style="
-                display: inline-block;
-                border: 2px solid #f39c12; /* Borde dorado */
-                color: #f39c12; /* Texto dorado */
-                background-color: #004085; /* Fondo azul */
-                padding: 8px 15px;
-                text-decoration: none;
-                border-radius: 5px;
-                transition: all 0.3s ease;
-                font-weight: bold;
-            " 
-            onmouseover="this.style.backgroundColor=\'#f39c12\'; this.style.color=\'#004085\'; this.style.borderColor=\'#004085\';" 
-            onmouseout="this.style.backgroundColor=\'#004085\'; this.style.color=\'#f39c12\'; this.style.borderColor=\'#f39c12\';">
-            Perfil
-        </a>
-      </td>';
-echo '</tr>';
-
-                                    }
-                                    ?>
-                                </tbody>
+                                <?php
+                                $id_usuario_fk = $_SESSION["id"];
+                                $item = null;
+                                $valor = null;
+                                $contrato = ControladorEmpresa::ctrMostrarEmpresaAsignada($item, $valor, $id_usuario_fk);
+                                foreach ($contrato as $row) {
+                                    echo '<tr style="text-align:center">';
+                                    echo '<td>' . $row["id"] . '</td>';
+                                    echo '<td>' . $row["NombreEmpresa"] . '</td>';
+                                    echo '<td>' . $row["DireccionEmpresa"] . '</td>';
+                                    echo '<td>' . $row["Telefono"] . '</td>';
+                                    echo '<td>' . $row["nombre_rep_legal"] . '</td>';
+                                    echo '<td>' . $row["correoElectronico"] . '</td>';
+                                    echo '<td>
+                                                <a target="_blank" href="index.php?ruta=perfil&id=' . $row["id"] . '" 
+                                                    style="
+                                                        display: inline-block;
+                                                        border: 2px solid #f39c12; /* Borde dorado */
+                                                        color: #f39c12; /* Texto dorado */
+                                                        background-color: #004085; /* Fondo azul */
+                                                        padding: 8px 15px;
+                                                        text-decoration: none;
+                                                        border-radius: 5px;
+                                                        transition: all 0.3s ease;
+                                                        font-weight: bold;
+                                                    " 
+                                                    onmouseover="this.style.backgroundColor=\'#f39c12\'; this.style.color=\'#004085\'; this.style.borderColor=\'#004085\';" 
+                                                    onmouseout="this.style.backgroundColor=\'#004085\'; this.style.color=\'#f39c12\'; this.style.borderColor=\'#f39c12\';">
+                                                    Perfil
+                                                </a>
+                                            </td>';
+                                    echo '</tr>';
+                                }
+                                ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

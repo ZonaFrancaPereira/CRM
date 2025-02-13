@@ -30,7 +30,7 @@ if ($_SESSION["datosEmpresa"] == "off") {
                         <h3 class="card-title font-weight-bold">DOCUMENTOS EMPRESAS</h3>
                     </div>
                     <div class="card-body">
-                        <table id="tabla-documentos-empresas" class="table table-hover table-bordered dt-responsive" width="100%" style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+                    <table class="display table table-striped table-valign-middle" width="100%" style="border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
                             <thead style="background-color: #004085; color: white;">
                                 <tr style="text-align: center;">
                                     <th style="padding: 10px; text-align: center;">#</th>
@@ -44,6 +44,33 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                     <th style="padding: 10px; text-align: center;">Asignar fecha </th>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <?php
+                                $item = null;
+                                $valor = null;
+                                $documentosEmpresas = ControladorCategorias::ctrMostrarArchivosEmpresa($valor,$item);
+                                foreach ($documentosEmpresas as $row) {
+                                    echo '<tr style="text-align: center;">
+                                        <td>' . $row["id_archivos"] . '</td>
+                                        <td>' . $row["id_empresa_fk"] . '</td>
+                                        <td>' . $row["NombreEmpresa"] . '</td>
+                                        <td>' . $row["nombre_categoria"] . '</td>
+                                        <td>' . $row["nombre_archivo"] . '</td>
+                                        <td>' . $row["tipo_archivo_empresa"] . '</td>
+                                        <td>' . $row["estado_archivo"] . '</td>
+                                        <td>' . $row["fecha_archivo"] . '</td>
+                                        <td>
+                                                <button type="button" 
+                                                        class="btn btn-outline-info" 
+                                                        data-id_archivos="' . $row["id_archivos"] . '" 
+                                                        data-toggle="modal" 
+                                                        data-target="#modal-fechadocumentos">
+                                                    Asignar
+                                                </button>
+                                            </td>
+                                    </tr>';
+                                }
+                                ?>
                         </table>
 
                     </div>
