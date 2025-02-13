@@ -276,23 +276,7 @@ CUERPO DOCUMENTO
 
     });
   </script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Restaurar la pestaña activa desde el almacenamiento local
-    var activeTab = localStorage.getItem('activeTab');
-    if (activeTab) {
-      $('.nav-pills a[href="' + activeTab + '"]').tab('show');
-    }
-
-<<<<<<< HEAD
-    // Guardar la pestaña activa en el almacenamiento local
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-      var tabId = $(e.target).attr('href');
-      localStorage.setItem('activeTab', tabId);
-    });
-  });
-</script>
-=======
+  
 <script>
   
   $(function() {
@@ -365,7 +349,6 @@ $(function() {
 });
 </script>
 
->>>>>>> a5fa73db7ddcf25222d251c6daac54b5287ce3f4
 </body>
 
 </html>
