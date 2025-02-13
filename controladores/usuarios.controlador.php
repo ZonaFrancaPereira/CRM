@@ -103,10 +103,6 @@ $_SESSION["menuConfiguraciones"] = $acceso["menuConfiguraciones"];
 		
 		
 		if (isset($_POST["correo_usuario"])) {
-
-
-
-
 			if (
 				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["apellidos_usuario"]) &&
@@ -119,8 +115,6 @@ $_SESSION["menuConfiguraciones"] = $acceso["menuConfiguraciones"];
 				=============================================*/
 
 				$ruta = "";
-
-
 
 				if (isset($_FILES["nuevaFoto"]["tmp_name"]) && $_FILES["nuevaFoto"]["tmp_name"] != "") {
 
@@ -192,10 +186,9 @@ $_SESSION["menuConfiguraciones"] = $acceso["menuConfiguraciones"];
 					           "correo_usuario" => $_POST["correo_usuario"],
 					           "password" => $encriptar,
 					           "perfil" => $_POST["nuevoPerfil"],
-					           "foto"=>$ruta);
+					           "firma"=>$ruta
+							);
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
-
-
 
 				if($respuesta == "ok"){
 
