@@ -191,6 +191,7 @@ CUERPO DOCUMENTO
         $_GET["ruta"] == "perfil" ||
         $_GET["ruta"] == "descargar" ||
         $_GET["ruta"] == "calendario" ||
+        $_GET["ruta"] == "perfilUsuario" ||
         $_GET["ruta"] == "salir"
       ) {
 

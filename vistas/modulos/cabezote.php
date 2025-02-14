@@ -120,9 +120,9 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar  elevation-4" style="background-color: #003366; border-bottom: 3px solid #FFD700;">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <!-- <img src="vistas/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-      <span class="brand-text font-weight-light" style="color: #FFD700; font-size: 1.0rem;">CRM</span>
+    <a href="inicio" class="brand-link">
+      <img src="vistas/img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" > 
+      <span class="brand-text font-weight-light" style="color: #FFD700; font-size: 1.0rem;"></span>
     </a>
 
     <!-- Sidebar -->
@@ -131,7 +131,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         
         <div class="info">
-          <a href="#" class="brand-text font-weight-light d-block" style="color: #FFD700; font-size: 1.0rem;"><?php echo $_SESSION["nombre"]; ?></a>
+          <a href="perfilUsuario" class="brand-text font-weight-light d-block" style="color: #FFD700; font-size: 1.0rem;"><?php echo $_SESSION["nombre"]; ?></a>
         </div>
       </div>
 
