@@ -276,9 +276,7 @@ CUERPO DOCUMENTO
 
     });
   </script>
-  
 <script>
-  
   $(function() {
   /*=============================================
    Clona la fila oculta que tiene los campos base, y la agrega al final de la tabla

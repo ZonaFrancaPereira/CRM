@@ -17,7 +17,14 @@
         <li class="nav-item" name="">
             <a data-toggle="tab" href="#listar_empresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
                 <i class="nav-icon fas fa-qrcode"></i>
-                <p>Empresas</p>
+                <p>Cliente</p>
+            </a>
+        </li>
+
+        <li class="nav-item" name="">
+            <a data-toggle="tab" href="#prospecto_empresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
+                <i class="nav-icon fas fa-qrcode"></i>
+                <p>Prospecto </p>
             </a>
         </li>
        
@@ -64,6 +71,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <?php require "datosEmpresa/listar_empresa.php"; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="prospecto_empresa" class="tab-pane">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <?php require "datosEmpresa/prospecto_empresa.php"; ?>
                             </div>
                         </div>
                     </div>
