@@ -164,4 +164,74 @@ class ModeloPerfiles
 
 		$stmt = null;
 	}
+
+
+	/*=============================================
+	ACTUALIZAR PERFIL
+	=============================================*/
+	static public function mdlActualizarPerfil($tabla, $datos)
+	{
+		try {
+			$pdo = Conexion::conectar();
+
+			$stmt = $pdo->prepare("UPDATE $tabla SET 
+			nombre = :nombre,
+			password = :password,
+			firma = :firma
+			WHERE id = :id");
+
+			$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+			$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
+			$stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
+			$stmt->bindParam(":firma", $datos["firma"], PDO::PARAM_STR);
+			if ($stmt->execute()) {
+				return "ok";
+			} else {
+				error_log(print_r($stmt->errorInfo(), true));
+				return $stmt->errorInfo();
+			}
+		} catch (PDOException $e) {
+			error_log($e->getMessage());
+			return "error: " . $e->getMessage();
+		}
+	}
+
+	static public function mdlObtenerFirma($tabla, $id)
+{
+    try {
+        $pdo = Conexion::conectar();
+        $stmt = $pdo->prepare("SELECT firma FROM $tabla WHERE id = :id");
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $resultado ? $resultado["firma"] : null;
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return null;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
