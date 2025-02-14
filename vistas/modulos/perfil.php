@@ -142,30 +142,52 @@ if ($perfil > 0) {
                                     <div class="card shadow-lg border-0 rounded-lg">
 
 
-                                        <div class="card-header p-" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); border-radius: 12px;">
-                                            <ul class="nav nav-pills d-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; font-size: 1.1rem; font-weight: bold; padding: 0;">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" href="#activity" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
-                                                        <i class="fas fa-info-circle"></i> Información
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#documentos" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
-                                                        <i class="fas fa-file-alt"></i> Documentos
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#settings" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
-                                                        <i class="fas fa-cog"></i> Subir Documentos
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="#registrar_visita" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
-                                                        <i class="fas fa-calendar-check"></i> Registrar Visita
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <?php if ($resultado['estado_empresa'] == 'Cliente') : ?>
+                                            <div class="card-header p-" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); border-radius: 12px;">
+                                                <ul class="nav nav-pills d-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; font-size: 1.1rem; font-weight: bold; padding: 0;">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" href="#activity" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                            <i class="fas fa-info-circle"></i> Información
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#documentos" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                            <i class="fas fa-file-alt"></i> Documentos
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#settings" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                            <i class="fas fa-cog"></i> Subir Documentos
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#registrar_visita" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                            <i class="fas fa-calendar-check"></i> Registrar Visita
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        <?php elseif ($resultado['estado_empresa'] == 'Prospecto') : ?>
+                                            <div class="card-header p-" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); border-radius: 12px;">
+                                                <ul class="nav nav-pills d-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; font-size: 1.1rem; font-weight: bold; padding: 0;">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" href="#activity" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                            <i class="fas fa-info-circle"></i> Información
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#propuesta" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                            <i class="fas fa-file-upload"></i> Subir Propuesta
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="#cotizacion" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                            <i class="fas fa-file-invoice"></i> Panel Cotización
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        <?php endif; ?>
 
                                         <div class="card-body bg-light">
                                             <div class="tab-content">
@@ -490,6 +512,117 @@ if ($perfil > 0) {
                                                         $RegistrarVisita->ctrRegistrarVisita();
                                                         ?>
                                                     </form>
+                                                </div>
+
+                                                <div class="tab-pane" id="propuesta">
+                                                    <form id="form_subir_propuesta" method="POST" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label for="id_empresa_prospecto" class="font-weight-bold">Nombre de la Empresa</label>
+                                                            <input type="text" id="id_empresa_prospecto" name="id_empresa_prospecto" class="form-control" value="<?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8'); ?>" placeholder="Ingrese el nit de la empresa" readonly>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="id_categoria_prospecto" class="font-weight-bold">Nombre de la Categoria</label>
+                                                            <select id="id_categoria_prospecto" name="id_categoria_prospecto" class="form-control" required>
+                                                                <option value="" disabled selected>Seleccione una categoría</option>
+                                                                <?php
+                                                                $item = null;
+                                                                $valor = null;
+                                                                $idcategoria = ControladorCategorias::ctrMostrarCategoria($item, $valor);
+
+                                                                foreach ($idcategoria as $key => $value) {
+                                                                    echo '<option value="' . $value["id_categoria"] . '">' . $value["nombre_categoria"] . '</option>';
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="nombre_propuesta" class="font-weight-bold">Nombre del Documento</label>
+                                                            <input type="text" class="form-control" id="nombre_propuesta" name="nombre_propuesta" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="ruta_archivos_propuesta" class="font-weight-bold">Subir Archivo</label>
+                                                            <input type="file" class="form-control" id="ruta_archivos_propuesta" name="ruta_archivos_propuesta" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Tipo de Archivo</label>
+                                                            <select class="form-control" id="tipo_archivo_propuesta" name="tipo_archivo_propuesta" required>
+                                                                <option value="Excel">Excel</option>
+                                                                <option value="Word">Word</option>
+                                                                <option value="Pdf">Pdf</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="fecha_propuesta" class="font-weight-bold">Fecha Propuesta</label>
+                                                            <input type="date" class="form-control" id="fecha_propuesta" name="fecha_propuesta" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="valor_propuesta" class="font-weight-bold">Valor Propuesta</label>
+                                                            <input type="number" class="form-control" id="valor_propuesta" name="valor_propuesta" required>
+                                                        </div>
+
+                                                        <button type="submit" class="btn text-white font-weight-bold" style="background-color: #004085; border-radius: 5px;">Guardar</button>
+                                                        <?php
+                                                        $SubirPropuesta = new ControladorCategorias();
+                                                        $SubirPropuesta->ctrSubirCotizacion();
+                                                        ?>
+                                                    </form>
+                                                </div>
+
+                                                <div class="tab-pane" id="cotizacion">
+                                                    <div class="card mb-4">
+                                                        <div class="card-header" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12;">
+                                                            <h3 class="card-title text-center">Cotizacion</h3>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <table class="display table table-bordered table-striped dt-responsive" width="100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width:10px">#</th>
+                                                                        <th>Categoria</th>  
+                                                                        <th>Nombre Archivo</th>
+                                                                        <th>Fecha</th>
+                                                                        <th>Valor</th>
+                                                                        <th>Acciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                    $item = null;
+                                                                    $valor = null;
+                                                                    // Obtener la lista de archivos desde el controlador
+                                                                    $archivos = ControladorCategorias::ctrMostrarArchivosCotizacion($item, $valor);
+
+                                                                    // Mostrar cada archivo en la tabla
+                                                                    foreach ($archivos as $key => $value) {
+                                                                        // Obtén el nombre del archivo desde la base de datos
+                                                                        $archivo = htmlspecialchars($value["ruta_archivos_propuesta"]);
+                                                                        // Genera la ruta correcta solo con la parte relativa a la carpeta EMPRESAS
+                                                                        $rutaArchivo = $archivo; // Ya debe ser una ruta válida, como 'EMPRESAS/archivo.pdf'
+
+                                                                        echo '<tr>
+                                                                                <td>' . htmlspecialchars($value["id_propuesta"]) . '</td>
+                                                                                <td>' . htmlspecialchars($value["nombre_categoria"]) . '</td>
+                                                                                <td>' . htmlspecialchars($value["nombre_propuesta"]) . '</td>
+                                                                                <td>' . htmlspecialchars($value["fecha_propuesta"]) . '</td>
+                                                                                <td>' . htmlspecialchars($value["valor_propuesta"]) . '</td>
+                                                                                <td>
+                                                                                    <div class="btn-group">
+                                                                                        <!-- Botón Descargar Archivo -->
+                                                                                        <button class="btn bg-success" onclick="descargarArchivo(\'' . $rutaArchivo . '\')">
+                                                                                            <i class="fa fa-download"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>';
+                                                                    }
+                                                                    ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             <div class="modal fade" id="modal-editempresa" tabindex="-1" role="dialog" aria-labelledby="modalEditarEmpresaLabel" aria-hidden="true">

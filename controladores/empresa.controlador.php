@@ -24,7 +24,8 @@ class ControladorEmpresa
                     "nombre_rep_legal" => $_POST["nombre_rep_legal"],
                     "fecha_nap_red_legal" => $_POST["fecha_nap_red_legal"],
                     "correoElectronico" => $_POST["correoElectronico"],
-                    "fecha_inicio_contrato" => $_POST["fecha_inicio_contrato"]
+                    "fecha_inicio_contrato" => $_POST["fecha_inicio_contrato"],
+                    "estado_empresa" => $_POST["estado_empresa"]
                 );
 
                 // Llamar al modelo
@@ -79,6 +80,20 @@ class ControladorEmpresa
 
         return $respuesta;
     }
+
+
+        /* =============================================
+      MOSTRAR EMPRESA PROSPECTO
+      ============================================= */
+
+      static public function ctrMostrarEmpresaProspecto($item, $valor)
+      {
+          $tabla = "datosempresa";
+  
+          $respuesta = ModeloEmpresas::mdlMostraEmpresasProspecto($tabla, $item, $valor);
+  
+          return $respuesta;
+      }
       /* =============================================
       MOSTRAR EMPRESA ASIGNADA AL USUARIO
       ============================================= */
@@ -327,9 +342,18 @@ class ControladorEmpresa
           return $respuesta;
       }
 
+  /* =============================================
+      CAMBIAR EMPRESA A CLIENTE
+      ============================================= */
 
-
-
+      static public function ctrConvertirCliente($id_prospecto, $estado_empresa)
+      {
+          $tabla = "datosempresa";
+  
+          $respuesta = ModeloEmpresas::mdlConvertirCliente($tabla, $id_prospecto, $estado_empresa);
+  
+          return $respuesta;
+      }
 
 
 

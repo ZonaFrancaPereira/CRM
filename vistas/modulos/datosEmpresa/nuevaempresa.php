@@ -28,7 +28,7 @@ if ($_SESSION["datosEmpresa"] == "off") {
                         <h3 class="card-title text-white">Agregar Datos de Empresa</h3>
                     </div>
                     <div class="card-body">
-                        
+
                         <form id="crear_empresa" method="POST" enctype="multipart/form-data">
                             <div class="row">
                                 <!-- ID -->
@@ -106,6 +106,17 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                     <label class="font-weight-bold">Fecha de Inicio de Contrato</label>
                                     <input type="date" name="fecha_inicio_contrato" class="form-control" id="fecha_inicio_contrato">
                                 </div>
+
+                                <!-- Estado de la Empresa -->
+                                <div class="form-group col-md-6">
+                                    <label class="font-weight-bold">Estado de la Empresa</label>
+                                    <select class="form-control" id="estado_empresa" name="estado_empresa" required>
+                                        <option value="">Seleccione el estado</option>
+                                        <option value="Cliente">Cliente</option>
+                                        <option value="Prospecto">Prospecto</option>
+                                    </select>
+                                </div>
+
                             </div>
 
                             <!-- Botón de envío con estilo similar a "$perfil" -->
@@ -120,9 +131,9 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                     border-radius: 5px;
                                     transition: all 0.3s ease;
                                     font-weight: bold;
-                                " 
-                                onmouseover="this.style.backgroundColor='#f39c12'; this.style.color='#004085'; this.style.borderColor='#004085';" 
-                                onmouseout="this.style.backgroundColor='#004085'; this.style.color='#f39c12'; this.style.borderColor='#f39c12';">
+                                "
+                                    onmouseover="this.style.backgroundColor='#f39c12'; this.style.color='#004085'; this.style.borderColor='#004085';"
+                                    onmouseout="this.style.backgroundColor='#004085'; this.style.color='#f39c12'; this.style.borderColor='#f39c12';">
                                     Guardar Empresa
                                 </button>
                             </div>

@@ -78,9 +78,10 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                     echo '<td>' . $row["id_categoria"] . '</td>';
                                     echo '<td>' . $row["nombre_categoria"] . '</td>';
                                     echo '<td>
-                                    <button class="btn btn-danger btnEliminarCategoria" idCategoria="' . $row["id_categoria"] . '" data-toggle="modal" data-target="#modalEliminar">
+                                    <button class="btn btn-danger btnEliminarCategoria" data-id="' . $row["id_categoria"] . '"  data-toggle="modal" data-target="#modalEliminar">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
+                                    
                                 </td>';
                                     echo '</tr>';
                                 }

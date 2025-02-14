@@ -25,7 +25,8 @@ class ModeloEmpresas
 				nombre_rep_legal, 
 				fecha_nap_red_legal, 
 				correoElectronico, 
-				fecha_inicio_contrato
+				fecha_inicio_contrato,
+				estado_empresa
 			) VALUES (
 				:id, 
 				:dv, 
@@ -37,7 +38,8 @@ class ModeloEmpresas
 				:nombre_rep_legal, 
 				:fecha_nap_red_legal, 
 				:correoElectronico, 
-				:fecha_inicio_contrato
+				:fecha_inicio_contrato,
+				:estado_empresa
 			)");
 	
 			// Vincular parámetros
@@ -52,6 +54,7 @@ class ModeloEmpresas
 			$stmt->bindParam(":fecha_nap_red_legal", $datos["fecha_nap_red_legal"], PDO::PARAM_STR);
 			$stmt->bindParam(":correoElectronico", $datos["correoElectronico"], PDO::PARAM_STR);
 			$stmt->bindParam(":fecha_inicio_contrato", $datos["fecha_inicio_contrato"], PDO::PARAM_STR);
+			$stmt->bindParam(":estado_empresa", $datos["estado_empresa"], PDO::PARAM_STR);
 	
 			// Ejecutar la consulta
 			if ($stmt->execute()) {
@@ -70,21 +73,66 @@ class ModeloEmpresas
  /*=============================================
 	MOSTRAR EMPRESAS
 	=============================================*/
+	public static function mdlMostraEmpresas($tabla)
+	{
+		// Prepara la consulta SQL para obtener todos los datos de la tabla especificada junto con el nombre del usuario asignado
+		$stmt = Conexion::conectar()->prepare(
+			"SELECT $tabla.*, usuarios.nombre
+			 FROM $tabla 
+			 LEFT JOIN usuarios ON $tabla.id_usuario_fk = usuarios.id WHERE estado_empresa = 'Cliente'"
+		);
+		
+		// Ejecuta la consulta
+		$stmt->execute();
+		
+		// Devuelve todos los resultados como un array asociativo
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
 
-public static function mdlMostraEmpresas($tabla, $item, $valor)
-{
-    // Prepara la consulta SQL para obtener todos los datos de la tabla especificada
-    $stmt = Conexion::conectar()->prepare("SELECT $tabla.*, usuarios.nombre 
-                      FROM $tabla 
-                      INNER JOIN usuarios ON usuarios.id = $tabla.id_usuario_fk ");
-    
-    // Ejecuta la consulta
-    $stmt->execute();
-    
-    // Devuelve todos los resultados como un array asociativo
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
+	 /*=============================================
+	MOSTRAR EMPRESAS PROPSECTO
+	=============================================*/
+	public static function mdlMostraEmpresasProspecto($tabla)
+	{
+		// Prepara la consulta SQL para obtener todos los datos de la tabla especificada junto con el nombre del usuario asignado
+		$stmt = Conexion::conectar()->prepare(
+			"SELECT * FROM $tabla WHERE estado_empresa = 'Prospecto'"
+		);
+		
+		// Ejecuta la consulta
+		$stmt->execute();
+		
+		// Devuelve todos los resultados como un array asociativo
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+ /*=============================================
+	CAMBIAR A CLIENTE
+	=============================================*/
+
+	static public function mdlConvertirCliente($tabla, $id_prospecto, $estado_empresa)
+	{
+		try {
+			// Prepara la consulta para actualizar el estado de la empresa
+			$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET estado_empresa = :estado_empresa WHERE id = :id");
+			
+			// Vincula los parámetros con los datos del formulario
+			$stmt->bindParam(":id", $id_prospecto, PDO::PARAM_INT);
+			$stmt->bindParam(":estado_empresa", $estado_empresa, PDO::PARAM_STR);
+			
+			// Ejecuta la consulta
+			if ($stmt->execute()) {
+				return "ok";
+			} else {
+				return "error";
+			}
+		} catch (PDOException $e) {
+			return "error: " . $e->getMessage();
+		} finally {
+			$stmt = null; // Libera el recurso
+		}
+	}
 
 	public static function mdlMostraEmpresasAsignada($tabla,$item, $valor, $id_usuario_fk)
 	{

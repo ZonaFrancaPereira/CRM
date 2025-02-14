@@ -49,3 +49,18 @@ $('#modal-asignarempresa').on('show.bs.modal', function (event) {
 });
 
 
+/*=============================================
+MODAL PARA TRAER LOS DATOS DE LA EMPRESA
+=============================================*/
+// Abre el modal y establece los datos en el formulario
+$('#modal-prospecto').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); // Botón que activó el modal
+
+  // Extrae todos los datos del botón
+  var id_prospecto = button.data('id');
+
+  var modal = $(this);
+  
+  // Establece los valores en los campos del modal
+  modal.find('#id_prospecto').val(id_prospecto);
+});

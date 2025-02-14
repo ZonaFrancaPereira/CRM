@@ -90,9 +90,8 @@ class ControladorCategorias{
                         "La categoría ha sido eliminada con éxito.",
                         "success"
                     ).then(function() {
-                        document.getElementById("form_crear_categorias").reset(); // Reemplaza con el ID correcto de tu formulario
-                        $("#crear_categorias").addClass("active");
-                        });
+                        window.location = "subirDocumentos"; // Recargar la página
+                    });
                     </script>';
             } else {
                 echo '<script>
@@ -174,7 +173,74 @@ class ControladorCategorias{
           }
       }
       
+              /* =============================================
+      SUBIR DOCUMENTOS COTIZACIONES
+      ============================================= */
+      public static function ctrSubirCotizacion()
+      {
+          if (isset($_POST['id_empresa_prospecto']) && isset($_FILES['ruta_archivos_propuesta'])) {
+              // Ruta donde se guardará el archivo
+              $directorio = "vistas/files/COTIZACION/";
       
+              // Verificar si el directorio existe, si no, crearlo
+              if (!file_exists($directorio)) {
+                  mkdir($directorio, 0755, true); // Crear directorio con permisos
+              }
+      
+              // Obtener información del archivo
+              $archivo = $_FILES['ruta_archivos_propuesta'];
+              $nombreArchivo = $archivo['name'];
+              $rutaArchivo = $directorio . basename($nombreArchivo);
+      
+              // Mover el archivo cargado al directorio
+              if (move_uploaded_file($archivo['tmp_name'], $rutaArchivo)) {
+                  // Datos para el modelo
+                  $tabla = "archivos_propuesta";
+                  $datos = array(
+                      "id_empresa_prospecto" => $_POST["id_empresa_prospecto"],
+                      "id_categoria_prospecto" => $_POST["id_categoria_prospecto"],
+                      "ruta_archivos_propuesta" => $rutaArchivo, // Ruta completa guardada en la base de datos
+                      "nombre_propuesta" => $_POST["nombre_propuesta"],
+                      "tipo_archivo_propuesta" => $_POST["tipo_archivo_propuesta"],
+                      "fecha_propuesta" => $_POST["fecha_propuesta"],
+                      "valor_propuesta" => $_POST["valor_propuesta"]
+
+                  );
+      
+                  // Llamar al modelo
+                  $respuesta = ModeloCategorias::mdlSubirCotizacion($tabla, $datos);
+      
+                  // Manejar la respuesta del modelo
+                  if ($respuesta == "ok") {
+                      echo '<script>
+                          Swal.fire(
+                              "Guardado!",
+                              "El archivo se ha guardado exitosamente",
+                              "success"
+                          ).then(function() {
+                              document.getElementById("form_subir_documentos").reset();
+                          });
+                      </script>';
+                  } else {
+                      echo '<script>
+                          Swal.fire(
+                              "ERROR!",
+                              "Hubo un problema al guardar los datos.",
+                              "error"
+                          );
+                      </script>';
+                  }
+              } else {
+                  echo '<script>
+                      Swal.fire(
+                          "ERROR!",
+                          "No se pudo mover el archivo al servidor.",
+                          "error"
+                      );
+                  </script>';
+              }
+          }
+      }
 
    /* =============================================
       MOSTRAR ARCHIVOS EMPRESAS
@@ -189,6 +255,18 @@ class ControladorCategorias{
           return $respuesta;
       }
 
+         /* =============================================
+      MOSTRAR ARCHIVOS COTIZACION
+      ============================================= */
+
+      static public function ctrMostrarArchivosCotizacion($item, $valor)
+      {
+          $tabla = "archivos_propuesta";
+  
+          $respuesta = ModeloCategorias::mdlMostrarArchivosCotizacion($tabla,$item, $valor);
+  
+          return $respuesta;
+      }
 
          /* =============================================
       MOSTRAR ARCHIVOS DE LAS EMPRESAS PARA ACTIVARLOS

@@ -134,6 +134,53 @@ class ModeloCategorias
         }
     }
 
+            /* =============================================
+            GUARDAR ARCHIO DE CATEGORIAS
+            ============================================= */
+
+        public static function mdlSubirCotizacion($tabla, $datos)
+        {
+            try {
+                $pdo = Conexion::conectar();
+
+                $stmt = $pdo->prepare("INSERT INTO $tabla (
+                id_empresa_prospecto, 
+                id_categoria_prospecto, 
+                nombre_propuesta, 
+                ruta_archivos_propuesta, 
+                tipo_archivo_propuesta, 
+                fecha_propuesta, 
+                valor_propuesta
+                ) VALUES (
+                :id_empresa_prospecto, 
+                :id_categoria_prospecto, 
+                :nombre_propuesta, 
+                :ruta_archivos_propuesta, 
+                :tipo_archivo_propuesta, 
+                :fecha_propuesta, 
+                :valor_propuesta
+                )");
+
+                $stmt->bindParam(":id_empresa_prospecto", $datos["id_empresa_prospecto"], PDO::PARAM_INT);
+                $stmt->bindParam(":id_categoria_prospecto", $datos["id_categoria_prospecto"], PDO::PARAM_INT);
+                $stmt->bindParam(":nombre_propuesta", $datos["nombre_propuesta"], PDO::PARAM_STR);
+                $stmt->bindParam(":ruta_archivos_propuesta", $datos["ruta_archivos_propuesta"], PDO::PARAM_STR);
+                $stmt->bindParam(":tipo_archivo_propuesta", $datos["tipo_archivo_propuesta"], PDO::PARAM_STR);
+                $stmt->bindParam(":fecha_propuesta", $datos["fecha_propuesta"], PDO::PARAM_STR);
+                $stmt->bindParam(":valor_propuesta", $datos["valor_propuesta"], PDO::PARAM_STR);
+
+                if ($stmt->execute()) {
+                    return "ok";
+                } else {
+                    error_log(print_r($stmt->errorInfo(), true));
+                    return $stmt->errorInfo();
+                }
+            } catch (PDOException $e) {
+                error_log($e->getMessage());
+                return "error: " . $e->getMessage();
+            }
+        }
+
   /* =============================================
       MOSTRAR TODAS ARCHIVOS DE LA EMPRESA
       ============================================= */
@@ -170,6 +217,41 @@ class ModeloCategorias
           return $stmt->fetchAll(PDO::FETCH_ASSOC);
       }
       
+
+        /* =============================================
+      MOSTRAR TODAS ARCHIVOS DE LA EMPRESA
+      ============================================= */
+
+      public static function mdlMostrarArchivosCotizacion($tabla, $item, $valor)
+      {
+          // Capturamos el id desde la URL de manera segura
+          $perfil = isset($_GET['id']) ? intval($_GET['id']) : 0;
+      
+          // Si no hay un id válido, retornamos un array vacío
+          if ($perfil == 0) {
+              return [];
+          }
+      
+          // Consulta SQL con parámetros preparados para evitar inyecciones
+          $stmt = Conexion::conectar()->prepare(
+              "SELECT 
+                  a.*, 
+                  c.nombre_categoria 
+              FROM $tabla a 
+              INNER JOIN categorias c 
+                  ON a.id_categoria_prospecto = c.id_categoria 
+              WHERE a.id_empresa_prospecto = :perfil "  // Añadimos la condición para excluir los inactivos
+          );
+      
+          // Enlazamos el parámetro de manera segura
+          $stmt->bindParam(':perfil', $perfil, PDO::PARAM_INT);
+      
+          // Ejecutamos la consulta
+          $stmt->execute();
+      
+          // Retornamos los resultados de la consulta
+          return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      }
       
   /* =============================================
       MOSTRAR TODAS ARCHIVOS DE TODAS LAS EMPRESAS
