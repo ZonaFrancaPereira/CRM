@@ -120,6 +120,36 @@ class ModeloAgenda{
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+static public function mdlEditarEvento($datos) {
+    $stmt = Conexion::conectar()->prepare(
+        "UPDATE eventos 
+         SET 
+             start2 = :start2, 
+             end2 = :end2, 
+             background_color = :backgroundColor, 
+             border_color = :borderColor, 
+             text_color = :textColor, 
+             allDay = :allDay 
+         WHERE id = :id"
+    );
+
+   
+    $stmt->bindParam(":start2", $datos["start"], PDO::PARAM_STR);
+    $stmt->bindParam(":end2", $datos["end"], PDO::PARAM_STR);
+    $stmt->bindParam(":backgroundColor", $datos["backgroundColor"], PDO::PARAM_STR);
+    $stmt->bindParam(":borderColor", $datos["borderColor"], PDO::PARAM_STR);
+    $stmt->bindParam(":textColor", $datos["textColor"], PDO::PARAM_STR);
+    $stmt->bindParam(":allDay", $datos["allDay"], PDO::PARAM_INT);
+    $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        return "ok";
+    } else {
+        return "error";
+    }
+
+    $stmt = null;
+}
 
 
   
