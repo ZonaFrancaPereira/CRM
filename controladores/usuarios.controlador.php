@@ -43,7 +43,8 @@ class ControladorUsuarios{
 						$_SESSION["id"] = $respuesta["id"];
 						$_SESSION["nombre"] = $respuesta["nombre"];
 						$_SESSION["correo_usuario"] = $respuesta["correo_usuario"];
-						$_SESSION["foto"] = $respuesta["foto"];
+						$_SESSION["firma"] = $respuesta["firma"];
+						$_SESSION["password"] = $respuesta["password"];
 						//PERMISOS PARA EL MENU
 						$_SESSION["perfil"] = $respuesta["perfil"];
 						$_SESSION["descripcionPerfil"] = $respuesta["descripcion"];
@@ -653,6 +654,10 @@ static public function ctrMostrarUsuariosCorreo($item, $valor){
 		}
 
 	}
+
+
+
+
 
 
 }

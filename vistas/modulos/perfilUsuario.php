@@ -89,8 +89,7 @@
 					<div class="card card-primary card-outline">
 						<div class="card-body box-profile">
 							<div class="text-center">
-								<img class="profile-user-img img-fluid " src="img/logo_zf.png">
-							</div>
+								<img class="profile-user-img img-fluid" src="<?php echo $_SESSION['firma']; ?>" alt="User profile picture">			</div>
 
 							<h3 class="profile-username text-center text-uppercase"><?php echo $_SESSION['nombre_usuario'] . " " . $_SESSION['apellidos_usuario']; ?></h3>
 							<h3 class="profile-username text-center "><?php echo $_SESSION['nombre_cargo'] . " " . $_SESSION['proceso_fk']; ?></h5>
@@ -143,26 +142,23 @@
 
 								<div class="active tab-pane" id="settings">
 									<form class="form-horizontal" action="" method="POST" enctype="multipart/form-data">
-										<div class="form-group row">
+										<div class="form-group row" hidden>
 											<label for="inputName" class="col-sm-2 col-form-label">Usuario</label>
 											<div class="col-sm-10">
-
-												<input type="text" name="nombre_usuario" class="form-control" value="<?php echo $nombre_usuario; ?>" readonly>
-											</div>
+											<input type="text" name="id" id="id" class="form-control" value="<?php echo $_SESSION['id']; ?>" readonly hidden></div>
+											<input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $_SESSION['nombre']; ?>" readonly></div>
 										</div>
 
 										<div class="form-group row">
 											<label for="inputEmail" class="col-sm-2 col-form-label">Contraseña Actual</label>
 											<div class="col-sm-10">
-
-												<input type="password" name="" value="<?php echo $contrasena_usuario ?>" class="form-control password3" placeholder="Ingrese su actual contraseña">
+												<input type="password" name=""  value="<?php echo $_SESSION['password']; ?>" class="form-control password3" placeholder="Ingrese su actual contraseña">
 											</div>
 										</div>
 										<div class="form-group row">
 											<label for="usertag" class="col-sm-2 col-form-label">Nueva Contraseña <font color='brown'> (opcional)</font></label>
 											<div class="col-sm-10">
-												<input type="password" name="pass1" class="form-control password1 " placeholder="Ingrese nueva contraseña">
-
+												<input type="password" name="password" class="form-control password1 " placeholder="Ingrese nueva contraseña">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -174,24 +170,17 @@
 										</div>
 										<div class="form-group row">
 											<label for="inputName2" class="col-sm-2 col-form-label">Firma </label>
-											<div class="col-sm-10">
-												<?php if ($firma_usuario == "") {
-													echo "<p>Te solicitamos amablemente adjuntar tu firma a nuestra plataforma. Tu firma es esencial para validar y completar los procesos en curso.
-													";
-												} else { ?>
-													<center>
-														<img src="firmas/<?php echo $firma_usuario ?>" alt="Firma Gerente " width="250" class="text-center img-thumbnail">
-													</center>
-												<?php }
-												?>
-												<input type="file" name="firma_usuario" class="form-control">
-											</div>
+											<input type="file" name="firma" class="form-control col-sm-10" id="firma">
 										</div>
 										<div class="form-group row">
 											<div class="offset-sm-2 col-sm-10">
 												<button type="submit" class="btn btn-success btn-block" name="update" value="Update User">Guardar Cambios</button>
 											</div>
 										</div>
+										<?php
+										$ActualizarPerfil = new ControladorPerfiles();
+										$ActualizarPerfil->ctrActualizarPerfil();
+										?>
 									</form>
 
 

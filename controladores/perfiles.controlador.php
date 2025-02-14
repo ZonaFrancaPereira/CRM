@@ -149,4 +149,82 @@ class ControladorPerfiles
 			}
 		}
 	}
+
+
+	/*=============================================
+	ACTUALIZAR PERFIL
+	=============================================*/
+	public function ctrActualizarPerfil()
+	{
+		if (isset($_POST['id'])) {
+			// Ruta donde se guardará el archivo
+			$directorio = "vistas/img/usuarios/";
+			$encriptar = crypt($_POST["password"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+	
+			// Obtener la firma actual del usuario antes de actualizar
+			$firmaActual = ModeloPerfiles::mdlObtenerFirma("usuarios", $_POST["id"]);
+	
+			// Verificar si el directorio existe, si no, crearlo
+			if (!file_exists($directorio)) {
+				mkdir($directorio, 0755, true);
+			}
+	
+			// Verificar si se ha subido un nuevo archivo
+			if (!empty($_FILES['firma']['name'])) {
+				$archivo = $_FILES['firma'];
+				$nombreArchivo = $archivo['name'];
+				$rutaArchivo = $directorio . basename($nombreArchivo);
+	
+				// Mover el archivo cargado al directorio
+				if (move_uploaded_file($archivo['tmp_name'], $rutaArchivo)) {
+					$firma = $rutaArchivo; // Guardamos la nueva firma
+				} else {
+					echo '<script>
+						Swal.fire(
+							"ERROR!",
+							"No se pudo mover el archivo al servidor.",
+							"error"
+						);
+					</script>';
+					return;
+				}
+			} else {
+				$firma = $firmaActual; // Si no subió archivo, mantiene la firma existente
+			}
+	
+			// Datos para el modelo
+			$tabla = "usuarios";
+			$datos = array(
+				"id" => $_POST["id"],
+				"nombre" => $_POST["nombre"],
+				"firma" => $firma, // Se mantiene la firma actual si no se subió una nueva
+				"password" => $encriptar
+			);
+	
+			// Llamar al modelo
+			$respuesta = ModeloPerfiles::mdlActualizarPerfil($tabla, $datos);
+	
+			// Manejar la respuesta del modelo
+			if ($respuesta == "ok") {
+				echo '<script>
+					Swal.fire(
+						"Guardado!",
+						"Se actualizó el perfil correctamente",
+						"success"
+					).then(function() {
+						document.getElementById("").reset();
+					});
+				</script>';
+			} else {
+				echo '<script>
+					Swal.fire(
+						"ERROR!",
+						"Hubo un problema al guardar los datos.",
+						"error"
+					);
+				</script>';
+			}
+		}
+	}
+	
 }
