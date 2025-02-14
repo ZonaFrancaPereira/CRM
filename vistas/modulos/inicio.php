@@ -107,11 +107,11 @@
            <label for="eventTitle">Título del Evento</label>
 
            <label for="">Asignar Empresa</label>
-          
+
            <input list="empresas" id="eventTitle" name="id_usuario_fk_empresa" class="form-control" placeholder="Nombre del responsable" required>
            <datalist id="empresas">
              <?php
-             
+
               $item = "id_usuario_fk";
               $valor = $_SESSION['id'];
               $usuario = ControladorEmpresa::ctrMostrarEmpresaUsuario($item, $valor);
@@ -175,10 +175,10 @@
              end: fetchInfo.endStr
            },
            success: function(response) {
-            console.log(response);  // Verifica la respuesta del servidor
+             console.log(response); // Verifica la respuesta del servidor
              try {
                var events = JSON.parse(response);
-               
+
                successCallback(events);
              } catch (e) {
                failureCallback('Error al cargar eventos.');
@@ -248,6 +248,16 @@
                success: function(response) {
                  $('#eventModal').modal('hide');
                  console.log('Evento guardado:', response);
+                 Swal.fire({
+                   icon: "success",
+                   title: "¡El evento ha sido guardado correctamente!",
+                   showConfirmButton: true,
+                   confirmButtonText: "Cerrar"
+                 }).then((result) => {
+                   if (result.isConfirmed) {
+                     window.location = "inicio";
+                   }
+                 });
                },
                error: function(xhr, status, error) {
                  console.error('Error al guardar el evento:', error);
@@ -323,27 +333,42 @@
 
          // Eliminar el evento
          $('#deleteEvent').off('click').on('click', function() {
-           if (confirm('¿Estás seguro de que quieres eliminar este evento?')) {
-             // Eliminar el evento del calendario
-             event.remove();
+           Swal.fire({
+             title: "¿Estás seguro?",
+             text: "¿Quieres eliminar este evento?",
+             icon: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#d33",
+             cancelButtonColor: "#3085d6",
+             confirmButtonText: "Sí, eliminar",
+             cancelButtonText: "Cancelar"
+           }).then((result) => {
+             if (result.isConfirmed) {
+               // Eliminar el evento del calendario
+               event.remove();
 
-             // Eliminar el evento de la base de datos
-             $.ajax({
-               url: 'controladores/agenda.controlador.php',
-               method: 'POST',
-               data: {
-                 action: 'eliminarEvento',
-                 id: currentEventId
-               },
-               success: function(response) {
-                 $('#eventModal').modal('hide');
-                 console.log('Evento eliminado:', response);
-               },
-               error: function(xhr, status, error) {
-                 console.error('Error al eliminar el evento:', error);
-               }
-             });
-           }
+               // Eliminar el evento de la base de datos
+               $.ajax({
+                 url: 'controladores/agenda.controlador.php',
+                 method: 'POST',
+                 data: {
+                   action: 'eliminarEvento',
+                   id: currentEventId
+                 },
+                 success: function(response) {
+                   $('#eventModal').modal('hide');
+                   Swal.fire("Eliminado", "El evento ha sido eliminado.", "success");
+                   console.log('Evento eliminado:', response);
+                 },
+                 error: function(xhr, status, error) {
+                   Swal.fire("Error", "Hubo un problema al eliminar el evento.", "error");
+                   console.error('Error al eliminar el evento:', error);
+                 }
+               });
+             }
+           });
+
+
          });
        }
      });

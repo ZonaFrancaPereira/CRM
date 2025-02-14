@@ -2,6 +2,9 @@
 session_start();  // Asegúrate de que esto esté presente
 
 class ControladorAgenda {
+    /* =============================================
+     CREAR EVENTO
+     ============================================= */
     static public function ctrCrearEvento() {
         if (isset($_POST['title']) && isset($_POST['start'])) {
             $datos = array(
@@ -22,7 +25,9 @@ class ControladorAgenda {
             echo json_encode(['status' => 'error', 'message' => 'Datos incompletos']);
         }
     }
-
+    /* =============================================
+     ELIMINAR EVENTO
+    ============================================= */
     static public function ctrEliminarEvento() {
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
@@ -33,7 +38,9 @@ class ControladorAgenda {
             echo json_encode(['status' => 'error', 'message' => 'ID no proporcionado']);
         }
     }
-
+    /*=============================================
+     OBTENER EVENTOS DEL USUARIO QUE INICIA SESION
+    ============================================= */
     public static function ctrObtenerEventos() {
        
         // Comprobar si la acción está definida
@@ -71,6 +78,9 @@ class ControladorAgenda {
             echo json_encode(['status' => 'error', 'message' => 'Acción no definida']);
         }
     }
+     /* =============================================
+     OBTENER EVENTOS DE TODOS LOS USUARIOS
+    ============================================= */
     public static function ctrObtenerEventosU() {
        
         // Comprobar si la acción está definida
@@ -108,6 +118,31 @@ class ControladorAgenda {
             echo json_encode(['status' => 'error', 'message' => 'Acción no definida']);
         }
     }
+    /* =============================================
+     EDITAR LOS EVENTOS
+    ============================================= */
+    static public function ctrEditarEvento() {
+        if (isset($_POST['id']) && isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end'])) {
+            $datos = array(
+                "id" => $_POST['id'],
+                
+                "start" => $_POST['start'],
+                "end" => $_POST['end'],
+                "backgroundColor" => $_POST['backgroundColor'],
+                "borderColor" => $_POST['borderColor'],
+                "textColor" => $_POST['textColor'],
+                "allDay" => isset($_POST['allDay']) ? 1 : 0,
+                "id_usuario_fk" => $_POST['id_usuario_fk']
+            );
+    
+            $respuesta = ModeloAgenda::mdlEditarEvento($datos);
+    
+            echo json_encode(['status' => $respuesta ? 'success' : 'error']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Datos incompletos']);
+        }
+    }
+    
 }
 // Inicia sesión para manejar las solicitudes AJAX
 // Asegúrate de que este archivo se ejecute cuando el método de la solicitud sea POST o GET.
@@ -124,6 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             case 'eliminarEvento':
                 ControladorAgenda::ctrEliminarEvento();
                 break;
+                case 'editarEvento':
+                    ControladorAgenda::ctrEditarEvento();
+                    break;
             default:
                 echo json_encode(['status' => 'error', 'message' => 'Acción no válida']);
                 break;
