@@ -151,8 +151,69 @@ static public function mdlEditarEvento($datos) {
     $stmt = null;
 }
 
+public static function mdlObtenerRestriccion($dia) {
+    $stmt = Conexion::conectar()->prepare("SELECT * FROM restricciones_calendario 
+    WHERE estado = 1
+    AND (
+        -- Caso 1: Restricción dentro de un mismo día
+        (dia_inicio = :dia AND dia_fin = :dia)
 
-  
+        -- Caso 2: Día actual dentro del rango de días normales (sin cruzar medianoche)
+        OR (dia_inicio < dia_fin AND :dia BETWEEN dia_inicio AND dia_fin)
+
+        -- Caso 3: Restricción que cruza la medianoche
+        OR (dia_inicio > dia_fin AND (:dia >= dia_inicio OR :dia <= dia_fin))
+    )");
+
+    $stmt->bindParam(":dia", $dia, PDO::PARAM_INT); // Cambio a PARAM_INT
+    $stmt->bindParam(":hora", $hora, PDO::PARAM_STR);
+    
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+public static function mdlMostrarRestricciones() {
+    $stmt = Conexion::conectar()->prepare("SELECT id_restriccion, dia_inicio, dia_fin, estado FROM restricciones_calendario");
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
+
+
+
+
+    public static function mdlActualizarRestriccion($tabla, $datos) {
+        $stmt = Conexion::conectar()->prepare(
+			"UPDATE $tabla SET dia_inicio = :dia_inicio, dia_fin = :dia_fin, estado = :estado 
+            WHERE id_restriccion = :id_restriccion"
+		);
+
+
+        $stmt->bindParam(":dia_inicio", $datos["dia_inicio"], PDO::PARAM_STR);
+        $stmt->bindParam(":dia_fin", $datos["dia_fin"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_INT);
+        $stmt->bindParam(":id_restriccion", $datos["id_restriccion"], PDO::PARAM_INT);
+
+
+
+		if ($stmt->execute()) {
+
+			return "ok";
+		} else {
+
+			return "error";
+		}
+
+	
+
+		$stmt = null;
+
+    }
+
+
+
+
+
+
 
 }
  ?>

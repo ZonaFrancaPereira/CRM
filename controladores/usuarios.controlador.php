@@ -251,7 +251,18 @@ $_SESSION["menuConfiguraciones"] = $acceso["menuConfiguraciones"];
 
 		return $respuesta;
 	}
-	
+		/*=============================================
+	MOSTRAR PDF
+	=============================================*/
+
+	static public function ctrMostrarUsuariosPdf($item, $valor){
+
+		$tabla = "usuarios";
+
+		$respuesta = ModeloUsuarios::MdlMostrarUsuariosPdf($tabla, $item, $valor);
+
+		return $respuesta;
+	}
 /*=============================================
 MOSTRAR USUARIO CORREO
 =============================================*/

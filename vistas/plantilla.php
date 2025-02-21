@@ -136,6 +136,9 @@ session_start();
   <!-- fullCalendar 2.2.5 -->
   <script src="vistas/plugins/moment/moment.min.js"></script>
   <script src="vistas/plugins/fullcalendar/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 </head>
 
 <!--=====================================

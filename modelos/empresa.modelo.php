@@ -289,6 +289,8 @@ class ModeloEmpresas
 				hora_inicio, 
 				hora_fin, 
 				firma_consultor, 
+				cc_cliente,
+				nombre_cliente,
 				firma_cliente
 			) VALUES (
 				:id_empresa_fk, 
@@ -296,6 +298,8 @@ class ModeloEmpresas
 				:hora_inicio, 
 				:hora_fin, 
 				:firma_consultor, 
+				:cc_cliente,
+				:nombre_cliente,
 				:firma_cliente
 			)");
 	
@@ -305,6 +309,8 @@ class ModeloEmpresas
 			$stmt->bindParam(":hora_inicio", $datos["hora_inicio"], PDO::PARAM_STR);
 			$stmt->bindParam(":hora_fin", $datos["hora_fin"], PDO::PARAM_STR);
 			$stmt->bindParam(":firma_consultor", $datos["firma_consultor"], PDO::PARAM_STR);
+			$stmt->bindParam(":cc_cliente", $datos["cc_cliente"], PDO::PARAM_STR);
+			$stmt->bindParam(":nombre_cliente", $datos["nombre_cliente"], PDO::PARAM_STR);
 			$stmt->bindParam(":firma_cliente", $datos["firma_cliente"], PDO::PARAM_STR);
 	
 			// Ejecutar la consulta
