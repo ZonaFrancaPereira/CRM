@@ -214,6 +214,19 @@ class ModeloPerfiles
 
 
 
+static public function mdlObtenerUsuario($tabla, $id)
+{
+    try {
+        $pdo = Conexion::conectar();
+        $stmt = $pdo->prepare("SELECT password, firma FROM $tabla WHERE id = :id");
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log($e->getMessage());
+        return null;
+    }
+}
 
 
 
