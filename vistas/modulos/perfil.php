@@ -141,7 +141,7 @@ if ($perfil > 0) {
                                     </div>
 
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <div class="card shadow-lg border-0 rounded-lg">
                                         <?php if ($resultado['estado_empresa'] == 'Cliente') : ?>
                                             <div class="card-header p-" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); border-radius: 12px;">
