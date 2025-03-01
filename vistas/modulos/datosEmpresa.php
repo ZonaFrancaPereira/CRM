@@ -1,3 +1,13 @@
+<?php
+require_once "configuracion.php";
+
+// Validación de sesión
+ if ($_SESSION["AdminEmpresa"] != "on") {
+    echo '<script> window.location = "inicio"; </script>';
+         return;
+}
+//
+?>
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
@@ -7,7 +17,7 @@
             </a>
         </li>
         <?php
-if (!empty($_SESSION["AdminEmpresa"]) && $_SESSION["AdminEmpresa"] === "on") {
+if ( $_SESSION["AdminEmpresa"] === "on") {
     echo '<li class="nav-item" name="">
             <a data-toggle="tab" href="#nuevaempresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
                 <i class="nav-icon fas fa-qrcode"></i>

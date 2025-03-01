@@ -16,7 +16,7 @@
         <a href="index.php" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">Inicio</a>
       </li>
       <?php
-if (!empty($_SESSION["VerUsuarios"]) || $_SESSION["AdminUsuarios"] === "on") {
+if ($_SESSION["AdminUsuarios"] === "on") {
     echo '<li class="nav-item d-none d-sm-inline-block">
             <a href="ti" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">Usuarios</a>
           </li>';
@@ -29,14 +29,18 @@ if (!empty($_SESSION["VerUsuarios"]) || $_SESSION["AdminUsuarios"] === "on") {
       <li class="nav-item d-none d-sm-inline-block">
         <a href="datosEmpresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">Empresa</a>
       </li>
-
-      <li class="nav-item d-none d-sm-inline-block">
+      <?php
+      if ($_SESSION["SubirDocumentos"] === "on") {
+       echo '<li class="nav-item d-none d-sm-inline-block">
         <a href="subirDocumentos" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">Documentos</a>
-      </li>
+      </li>';
+}
+?>
+
 
       
       <?php
-if (!empty($_SESSION["VerUsuarios"]) || $_SESSION["AdminUsuarios"] === "on") {
+if ($_SESSION["AdminCalendario"] === "on") {
     echo '<li class="nav-item d-none d-sm-inline-block">
         <a href="calendario" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">Calendario</a>
       </li>';
@@ -47,7 +51,7 @@ if (!empty($_SESSION["VerUsuarios"]) || $_SESSION["AdminUsuarios"] === "on") {
 
     </ul>
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ml-auto" >
       <!-- MENU PARA DISPOSITIVOS MOVILES -->
       <li class="nav-item dropdown d-block d-sm-block d-md-none">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -57,50 +61,32 @@ if (!empty($_SESSION["VerUsuarios"]) || $_SESSION["AdminUsuarios"] === "on") {
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <span class="dropdown-item dropdown-header">Otros Aplicativos</span>
           <div class="dropdown-divider"></div>
-          <a href="sadoc.php" class="dropdown-item">
-            <i class="fas fa-folder-open"></i> SADOC
-            <span class="float-right text-muted text-sm">Ir</span>
-          </a>
-
+          <a href="index.php" class="dropdown-item"> <i class="fas fa-home"></i> Inicio</a>
           <div class="dropdown-divider"></div>
-          <a href="ordenes.php" class="dropdown-item">
-            <i class="fas fa-money-check-alt"></i> Ordenes de Compra
-            <span class="float-right text-muted text-sm">Ir</span>
-          </a>
-
-          <div class="dropdown-divider"></div>
-          <a href="acpm.php" class="dropdown-item">
-            <i class="fas fa-tasks"></i> ACPM
-            <span class="float-right text-muted text-sm">Ir</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="index.php" class="dropdown-item dropdown-footer">Plataforma ZFIP</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown" hidden>
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-danger navbar-badge"><?= $notificaciones = ($total_acpm + $cantidad_orden + $total_actividades_vencidas); ?></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header"><B><?= $notificaciones; ?> Pendientes</B></span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="far fa-times-circle mr-2"></i> <?= $total_acpm; ?> | ACPM Pendientes
-            <span class="float-right badge badge-info">Pendientes</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="far fa-thumbs-down mr-2"></i> <?= $total_actividades_vencidas; ?> | Actividades Vencidas
-            <span class="float-right badge badge-danger">Urgente</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-cart-plus mr-2"></i> <?= $cantidad_orden; ?> | Ordenes en Proceso
-            <span class="float-right badge badge-success">Proceso</span>
-          </a>
-
-        </div>
+          <?php
+if ($_SESSION["AdminUsuarios"] === "on") {
+    echo '<a href="ti" class="dropdown-item"> <i class="fas fa-users"></i> Usuarios</a>
+  ';
+}
+?>
+ <div class="dropdown-divider"></div>
+<a href="datosEmpresa" class="dropdown-item"> <i class="fas fa-building"></i> Empresa</a>
+<div class="dropdown-divider"></div>
+<?php
+      if ($_SESSION["SubirDocumentos"] === "on") {
+       echo '
+       <a href="subirDocumentos" class="dropdown-item"> <i class="fas fa-folder"></i> Documentos</a>
+       ';
+}
+?>
+ <div class="dropdown-divider"></div>
+ <?php
+if ($_SESSION["AdminCalendario"] === "on") {
+    echo '<a href="calendario" class="dropdown-item"> <i class="fas fa-calendar"></i> Calendario</a>
+   ';
+}
+?>
+          
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
