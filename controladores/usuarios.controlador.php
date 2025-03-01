@@ -46,20 +46,20 @@ class ControladorUsuarios{
 						$_SESSION["firma"] = $respuesta["firma"];
 						$_SESSION["password"] = $respuesta["password"];
 						//PERMISOS PARA EL MENU
-						$_SESSION["perfil"] = $respuesta["perfil"];
-						$_SESSION["descripcionPerfil"] = $respuesta["descripcion"];
-						$_SESSION["AdminUsuarios"] = $respuesta["AdminUsuarios"];
-						$_SESSION["VerUsuarios"] = $respuesta["VerUsuarios"];
-						$_SESSION["EstadoUsuarios"] = $respuesta["EstadoUsuarios"];
-						$_SESSION["AdminPerfiles"] = $respuesta["AdminPerfiles"];
-						$_SESSION["AdminEmpresa"] = $respuesta["AdminEmpresa"];
-						$_SESSION["SubirDocumentos"] = $respuesta["SubirDocumentos"];
-						$_SESSION["SubirCalendario"] = $respuesta["SubirCalendario"];
-						$_SESSION["AdminCalendario"] = $respuesta["AdminCalendario"];
-						$_SESSION["descripcionPerfil"] = $respuesta["descripcion"];
+						$_SESSION["perfil"] = $acceso["perfil"];
+						$_SESSION["descripcionPerfil"] = $acceso["descripcion"];
+						$_SESSION["AdminUsuarios"] = $acceso["AdminUsuarios"];
+						$_SESSION["VerUsuarios"] = $acceso["VerUsuarios"];
+						$_SESSION["EstadoUsuarios"] = $acceso["EstadoUsuarios"];
+						$_SESSION["AdminPerfiles"] = $acceso["AdminPerfiles"];
+						$_SESSION["AdminEmpresa"] = $acceso["AdminEmpresa"];
+						$_SESSION["SubirDocumentos"] = $acceso["SubirDocumentos"];
+						$_SESSION["SubirCalendario"] = $acceso["SubirCalendario"];
+						$_SESSION["AdminCalendario"] = $acceso["AdminCalendario"];
+						$_SESSION["descripcionPerfil"] = $acceso["descripcion"];
 	
 						// DERECHOS MENU CONFIGURACION
-$_SESSION["menuConfiguraciones"] = $acceso["menuConfiguraciones"];
+
 	
 						// REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
 						$fecha = date('Y-m-d');

@@ -94,7 +94,7 @@ if ($perfil > 0) {
                             <div class="row">
                                 <div class="col-md-3">
                                     <!-- Profile Image -->
-                                    <div class="card card-primary card-outline" style="border: 2px solid #1e3c72; border-radius: 10px;">
+                                    <div class="card card-primary card-outline" style="border: 2px solid #1e3c72; border-radius: 10px;" hidden>
                                         <div class="card-body box-profile">
                                             <div class="text-center">
 
@@ -110,7 +110,7 @@ if ($perfil > 0) {
                                         </div>
                                     </div>
 
-                                    <div class="card card-primary" style="border: 2px solid #1e3c72; border-radius: 10px;">
+                                    <div class="card card-primary" style="border: 2px solid #1e3c72; border-radius: 10px;" hidden>
                                         <div class="card-header text-center" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12;">
                                             <h3 class="card-title">Información de la Empresa</h3>
                                         </div>
@@ -202,7 +202,7 @@ if ($perfil > 0) {
                                                             <div class="flex-grow-1">
                                                                 <span class="username font-weight-bold">
                                                                     <a href="#" style="color: #1e3c72;"><?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?></a>
-                                                                    <a href="#" class="btn-tool text-secondary float-right"><i class="fas fa-times"></i></a>
+
                                                                 </span>
                                                                 <span class="description text-muted d-block" style="color: #2a5298;"><?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($digito, ENT_QUOTES, 'UTF-8'); ?></span>
                                                             </div>
@@ -244,9 +244,10 @@ if ($perfil > 0) {
                                                                     <span class="text-dark"><?php echo htmlspecialchars($fecha_contrato, ENT_QUOTES, 'UTF-8'); ?></span>
                                                                 </li>
                                                             </ul>
-
+                                                        </div>
+                                                        <div class="pt-5">
                                                             <button type="submit"
-                                                                class="btn mt-3"
+                                                                class="btn mt-3 "
                                                                 style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float: right;"
                                                                 data-representante-legal="<?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?>"
                                                                 data-id="<?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8'); ?>"
@@ -652,7 +653,7 @@ if ($perfil > 0) {
                                                 </div>
 
                                                 <div class="modal fade" id="modal-editempresa" tabindex="-1" role="dialog" aria-labelledby="modalEditarEmpresaLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
+                                                    <div class="modal-dialog  modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header p-3" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);">
                                                                 <h5 class="modal-title" id="modalEditarEmpresaLabel" style="font-size: 1.3rem; font-weight: bold;">
@@ -664,41 +665,44 @@ if ($perfil > 0) {
                                                             </div>
                                                             <div class="modal-body">
                                                                 <form id="formEditarEmpresa" method="POST" enctype="multipart/form-data">
-                                                                    <div class="form-group">
-                                                                        <label for="id_empresa">NIT Empresa</label>
-                                                                        <input type="text" class="form-control" id="id_empresa" name="id_empresa" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="dv_empresa">Dígito de Verificación Empresa</label>
-                                                                        <input type="text" class="form-control" id="dv_empresa" name="dv_empresa" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="nombre_empresa">Nombre Empresa</label>
-                                                                        <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="direccion_empresa">Dirección Empresa</label>
-                                                                        <input type="text" class="form-control" id="direccion_empresa" name="direccion_empresa" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="ciudad_empresa">Ciudad Empresa</label>
-                                                                        <input type="text" class="form-control" id="ciudad_empresa" name="ciudad_empresa" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="telefono_empresa">Teléfono Empresa 1</label>
-                                                                        <input type="text" class="form-control" id="telefono_empresa" name="telefono_empresa" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="telefono2_empresa">Teléfono Empresa 2</label>
-                                                                        <input type="text" class="form-control" id="telefono2_empresa" name="telefono2_empresa">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="nombre_rep_legal_empresa">Nombre Representante Legal Empresa</label>
-                                                                        <input type="text" class="form-control" id="nombre_rep_legal_empresa" name="nombre_rep_legal_empresa" required>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="correo_empresa">Correo Electrónico Empresa</label>
-                                                                        <input type="text" class="form-control" id="correo_empresa" name="correo_empresa" required>
+                                                                    <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                            <label for="nombre_empresa">Nombre Empresa</label>
+                                                                            <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="id_empresa">NIT Empresa</label>
+                                                                            <input type="text" class="form-control" id="id_empresa" name="id_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="dv_empresa">Dígito de Verificación Empresa</label>
+                                                                            <input type="text" class="form-control" id="dv_empresa" name="dv_empresa" required>
+                                                                        </div>
+                                                                       
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="direccion_empresa">Dirección Empresa</label>
+                                                                            <input type="text" class="form-control" id="direccion_empresa" name="direccion_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="ciudad_empresa">Ciudad Empresa</label>
+                                                                            <input type="text" class="form-control" id="ciudad_empresa" name="ciudad_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="telefono_empresa">Teléfono Empresa 1</label>
+                                                                            <input type="text" class="form-control" id="telefono_empresa" name="telefono_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="telefono2_empresa">Teléfono Empresa 2</label>
+                                                                            <input type="text" class="form-control" id="telefono2_empresa" name="telefono2_empresa">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="nombre_rep_legal_empresa">Nombre Representante Legal Empresa</label>
+                                                                            <input type="text" class="form-control" id="nombre_rep_legal_empresa" name="nombre_rep_legal_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="correo_empresa">Correo Electrónico Empresa</label>
+                                                                            <input type="text" class="form-control" id="correo_empresa" name="correo_empresa" required>
+                                                                        </div>
                                                                     </div>
                                                                     <button style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float:right;"
                                                                         type="submit" class="btn btn-primary" name="actualizar_empresa" id="actualizar_empresa">Actualizar Empresa</button>
