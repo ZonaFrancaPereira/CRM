@@ -6,8 +6,9 @@
                 <p>Panel de Control</p>
             </a>
         </li>
- 
-        <li class="nav-item" name="">
+        <?php
+if (!empty($_SESSION["AdminEmpresa"]) && $_SESSION["AdminEmpresa"] === "on") {
+    echo '<li class="nav-item" name="">
             <a data-toggle="tab" href="#nuevaempresa" class="nav-link" style="color: #FFD700; font-size: 1.0rem;">
                 <i class="nav-icon fas fa-qrcode"></i>
                 <p> Nueva Empresa</p>
@@ -26,7 +27,11 @@
                 <i class="nav-icon fas fa-qrcode"></i>
                 <p>Prospecto </p>
             </a>
-        </li>
+        </li>';
+}
+?>
+
+        
        
     </ul>
     
