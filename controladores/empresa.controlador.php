@@ -25,7 +25,8 @@ class ControladorEmpresa
                     "fecha_nap_red_legal" => $_POST["fecha_nap_red_legal"],
                     "correoElectronico" => $_POST["correoElectronico"],
                     "fecha_inicio_contrato" => $_POST["fecha_inicio_contrato"],
-                    "estado_empresa" => $_POST["estado_empresa"]
+                    "estado_empresa" => $_POST["estado_empresa"],
+                    "id_usuario_fk" => $_POST["id_usuario_fk"]
                 );
 
                 // Llamar al modelo
