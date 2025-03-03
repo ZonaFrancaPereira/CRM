@@ -227,6 +227,12 @@ class ControladorEmpresa
       public static function ctrRegistrarVisita()
       {
           if (isset($_POST["id_empresa_fk_visita"])) {
+            $img = $_POST['base64'];
+        $img = str_replace('data:image/png;base64,', '', $img);
+        $fileData = base64_decode($img);
+        $fileName = uniqid() . '.png';
+        file_put_contents("vistas/img/usuarios/firmas_visitas/" . $fileName, $fileData);
+        $ruta="vistas/img/usuarios/firmas_visitas/".$fileName;
               // Convertir la hora de AM/PM a formato 24 horas antes de guardarla
               $hora_inicio = date("H:i:s", strtotime($_POST["hora_inicio"]));
               $hora_fin = date("H:i:s", strtotime($_POST["hora_fin"]));
@@ -237,8 +243,10 @@ class ControladorEmpresa
                   "fecha_visita" => $_POST["fecha_visita"],
                   "hora_inicio" => $hora_inicio, // Guardar en formato 24 horas
                   "hora_fin" => $hora_fin, // Guardar en formato 24 horas
-                  "firma_consultor" => $_POST["firma_consultor"],
-                  "firma_cliente" => $_POST["firma_cliente"]
+                  "firma_consultor" => $_SESSION["id"],
+                  "cc_cliente" => $_POST["cc_cliente"],
+                  "nombre_cliente" => $_POST["nombre_cliente"],
+                  "firma_cliente" => $ruta
               );
       
               // Llamar al modelo para actualizar la fecha y otros datos

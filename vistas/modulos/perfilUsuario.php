@@ -130,11 +130,8 @@
 				<!-- /.col -->
 				<div class="col-md-9">
 					<div class="card">
-						<div class="card-header p-2">
-							<ul class="nav nav-pills">
-
-								<li class="nav-item "><a class="nav-link active" href="#settings" data-toggle="tab">Configurar Perfil</a></li>
-							</ul>
+						<div class="card-header p-2 bg-primary">
+							<h5 class="text-center"><B>Configurar Perfil</B></h5>
 						</div><!-- /.card-header -->
 						<div class="card-body">
 							<div class="tab-content">
@@ -149,7 +146,7 @@
 											<input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $_SESSION['nombre']; ?>" readonly></div>
 										</div>
 
-										<div class="form-group row">
+										<div class="form-group row" hidden>
 											<label for="inputEmail" class="col-sm-2 col-form-label">Contraseña Actual</label>
 											<div class="col-sm-10">
 												<input type="password" name=""  value="<?php echo $_SESSION['password']; ?>" class="form-control password3" placeholder="Ingrese su actual contraseña">

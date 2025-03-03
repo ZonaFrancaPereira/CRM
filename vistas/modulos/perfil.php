@@ -94,7 +94,7 @@ if ($perfil > 0) {
                             <div class="row">
                                 <div class="col-md-3">
                                     <!-- Profile Image -->
-                                    <div class="card card-primary card-outline" style="border: 2px solid #1e3c72; border-radius: 10px;">
+                                    <div class="card card-primary card-outline" style="border: 2px solid #1e3c72; border-radius: 10px;" hidden>
                                         <div class="card-body box-profile">
                                             <div class="text-center">
 
@@ -110,63 +110,66 @@ if ($perfil > 0) {
                                         </div>
                                     </div>
 
-                                    <div class="card card-primary" style="border: 2px solid #1e3c72; border-radius: 10px;">
-                                        <div class="card-header" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12;">
-                                            <h3 class="card-title text-center">Información de la Empresa</h3>
+                                    <div class="card card-primary" style="border: 2px solid #1e3c72; border-radius: 10px;" hidden>
+                                        <div class="card-header text-center" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12;">
+                                            <h3 class="card-title">Información de la Empresa</h3>
                                         </div>
                                         <div class="card-body">
-                                            <ul class="list-unstyled">
-                                                <li class="list-group-item border-0 text-center">
+                                            <ul class="list-group list-group-flush text-center">
+                                                <li class="list-group-item border-0">
                                                     <strong><i class="fas fa-user-tie mr-2" style="color: #f39c12;"></i> Representante Legal:</strong>
-                                                    <a class="float-right" style="color: #000000;"><?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?></a>
+                                                    <br>
+                                                    <span style="color: #000000;"><?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?></span>
                                                 </li>
-                                                <br><br>
-                                                <li class="list-group-item border-0 text-center">
+                                                <li class="list-group-item border-0">
                                                     <strong><i class="fas fa-map-marker-alt mr-2" style="color: #f39c12;"></i> Ciudad:</strong>
-                                                    <a class="float-right" style="color: #000000;"><?php echo htmlspecialchars($ciudad, ENT_QUOTES, 'UTF-8'); ?></a>
+                                                    <br>
+                                                    <span style="color: #000000;"><?php echo htmlspecialchars($ciudad, ENT_QUOTES, 'UTF-8'); ?></span>
                                                 </li>
-                                                <li class="list-group-item border-0 text-center">
+                                                <li class="list-group-item border-0">
                                                     <strong><i class="fas fa-map-marker-alt mr-2" style="color: #f39c12;"></i> Dirección:</strong>
-                                                    <a class="float-right" style="color: #000000;"><?php echo htmlspecialchars($direccion, ENT_QUOTES, 'UTF-8'); ?></a>
+                                                    <br>
+                                                    <span style="color: #000000;"><?php echo htmlspecialchars($direccion, ENT_QUOTES, 'UTF-8'); ?></span>
                                                 </li>
-                                                <br><br>
-                                                <li class="list-group-item border-0 text-center">
+                                                <li class="list-group-item border-0">
                                                     <strong><i class="fas fa-phone-alt mr-2" style="color: #f39c12;"></i> Teléfono:</strong>
-                                                    <a class="float-right" style="color: #000000;"><?php echo htmlspecialchars($telefono1, ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($telefono2, ENT_QUOTES, 'UTF-8'); ?></a>
+                                                    <br>
+                                                    <span style="color: #000000;"><?php echo htmlspecialchars($telefono1, ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($telefono2, ENT_QUOTES, 'UTF-8'); ?></span>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
+
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <div class="card shadow-lg border-0 rounded-lg">
-
-
                                         <?php if ($resultado['estado_empresa'] == 'Cliente') : ?>
-                                            <div class="card-header p-" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); border-radius: 12px;">
-                                                <ul class="nav nav-pills d-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; font-size: 1.1rem; font-weight: bold; padding: 0;">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" href="#activity" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                            <div class="card-header p-" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); border-radius: 12px;">
+                                                <ul class="nav nav-pills d-flex flex-wrap justify-content-center gap-2" style="font-size: 1rem; font-weight: bold; padding: 0;">
+                                                    <li class="nav-item flex-grow-1 text-center">
+                                                        <a class="nav-link active" href="#activity" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 10px; transition: all 0.3s ease; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); display: block;">
                                                             <i class="fas fa-info-circle"></i> Información
                                                         </a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#documentos" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                    <li class="nav-item flex-grow-1 text-center">
+                                                        <a class="nav-link" href="#documentos" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 10px; transition: all 0.3s ease; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); display: block;">
                                                             <i class="fas fa-file-alt"></i> Documentos
                                                         </a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#settings" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                    <li class="nav-item flex-grow-1 text-center">
+                                                        <a class="nav-link" href="#settings" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 10px; transition: all 0.3s ease; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); display: block;">
                                                             <i class="fas fa-cog"></i> Subir Documentos
                                                         </a>
                                                     </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="#registrar_visita" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 12px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                    <li class="nav-item flex-grow-1 text-center">
+                                                        <a class="nav-link" href="#registrar_visita" data-toggle="tab" style="color: #f1c40f; background: rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 10px; transition: all 0.3s ease; box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); display: block;">
                                                             <i class="fas fa-calendar-check"></i> Registrar Visita
                                                         </a>
                                                     </li>
                                                 </ul>
                                             </div>
+
+
                                         <?php elseif ($resultado['estado_empresa'] == 'Prospecto') : ?>
                                             <div class="card-header p-" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); border-radius: 12px;">
                                                 <ul class="nav nav-pills d-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; font-size: 1.1rem; font-weight: bold; padding: 0;">
@@ -199,7 +202,7 @@ if ($perfil > 0) {
                                                             <div class="flex-grow-1">
                                                                 <span class="username font-weight-bold">
                                                                     <a href="#" style="color: #1e3c72;"><?php echo htmlspecialchars($nombreEmpresa, ENT_QUOTES, 'UTF-8'); ?></a>
-                                                                    <a href="#" class="btn-tool text-secondary float-right"><i class="fas fa-times"></i></a>
+
                                                                 </span>
                                                                 <span class="description text-muted d-block" style="color: #2a5298;"><?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8') . ' - ' . htmlspecialchars($digito, ENT_QUOTES, 'UTF-8'); ?></span>
                                                             </div>
@@ -241,9 +244,10 @@ if ($perfil > 0) {
                                                                     <span class="text-dark"><?php echo htmlspecialchars($fecha_contrato, ENT_QUOTES, 'UTF-8'); ?></span>
                                                                 </li>
                                                             </ul>
-
+                                                        </div>
+                                                        <div class="pt-5">
                                                             <button type="submit"
-                                                                class="btn mt-3"
+                                                                class="btn mt-3 "
                                                                 style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float: right;"
                                                                 data-representante-legal="<?php echo htmlspecialchars($representante_legal, ENT_QUOTES, 'UTF-8'); ?>"
                                                                 data-id="<?php echo htmlspecialchars($perfil, ENT_QUOTES, 'UTF-8'); ?>"
@@ -432,12 +436,12 @@ if ($perfil > 0) {
                                                                         </td>
                                                                         <td class="eliminar col-md-1 text-center">
                                                                             <input type="button" class="btn btn-danger" value="X" />
-                                                                        </td>   
+                                                                        </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
                                                             <div class="col-md-2 text-center mt-2">
-                                                            <button id="adicional" name="adicional" type="button" class="adicional btn btn-info btn-block"> <i class="fas fa-plus"></i> Agregar</button>
+                                                                <button id="adicional" name="adicional" type="button" class="adicional btn btn-info btn-block"> <i class="fas fa-plus"></i> Agregar</button>
                                                             </div>
                                                         </div>
                                                         <div class="card-header" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12;">
@@ -457,13 +461,13 @@ if ($perfil > 0) {
                                                                 <tbody>
                                                                     <tr class="fila-fija2 ">
                                                                         <td class="col-md-2">
-                                                                            <input type="date" class="form-control" name="fecha_proyectada[]" id="fecha_proyectada" >
+                                                                            <input type="date" class="form-control" name="fecha_proyectada[]" id="fecha_proyectada">
                                                                         </td>
                                                                         <td class="col-md-4">
-                                                                            <textarea  name="descripcion_compromiso[]" id="descripcion_compromiso" class=" form-control" cols="10" rows="5"></textarea>
+                                                                            <textarea name="descripcion_compromiso[]" id="descripcion_compromiso" class=" form-control" cols="10" rows="5"></textarea>
                                                                         </td>
                                                                         <td>
-                                                                            <input list="usuarios" id="id_responsable_fk" name="id_responsable_fk[]" class="form-control" >
+                                                                            <input list="usuarios" id="id_responsable_fk" name="id_responsable_fk[]" class="form-control">
                                                                             <datalist id="usuarios">
                                                                                 <?php
                                                                                 if ($usuario["id"] <> 0) {
@@ -479,7 +483,7 @@ if ($perfil > 0) {
                                                                             </datalist>
                                                                         </td>
                                                                         <td class="col-md-4">
-                                                                            <textarea  name="observaciones_compromiso[]" id="observaciones_compromiso" class=" form-control" cols="10" rows="5"></textarea>
+                                                                            <textarea name="observaciones_compromiso[]" id="observaciones_compromiso" class=" form-control" cols="10" rows="5"></textarea>
                                                                         </td>
                                                                         <td class="eliminar col-md-1 text-center">
                                                                             <input type="button" class="btn btn-danger" value="X" />
@@ -497,20 +501,43 @@ if ($perfil > 0) {
                                                             <input type="time" class="form-control" id="hora_fin" name="hora_fin" required>
                                                         </div>
 
-                                                        <div>
-                                                            <label for="">Firma</label>
-                                                            <input type="text" class="form-control" id="firma_consultor" name="firma_consultor" >
+                                                        <div class="card-header" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12;">
+                                                            <h3 class="card-title text-center">Datos de quien recibió la visita</h3>
                                                         </div>
-                                                        <div>
-                                                            <label for="">Firma</label>
-                                                            <input type="text" class="form-control" id="firma_cliente" name="firma_cliente" >
-                                                        </div>
+                                                        <div class="row pt-5">
+                                                            <div class="col-md-6 form-group">
+                                                                <label for="cc_cliente" class="font-weight-bold">Identificación </label>
+                                                                <input type="text" class="form-control" id="cc_cliente" name="cc_cliente" required placeholder="CC del Cliente">
+                                                            </div>
+                                                            <div class="col-md-6 form-group">
+                                                                <label for="nombre_cliente" class="font-weight-bold">Nombre</label>
+                                                                <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required placeholder="Nombre del cliente">
+                                                            </div>
+                                                            <div class="col-md-6 text-center" hidden>
+                                                                <h3>Firma del Operador</h3>
+                                                                <canvas id="canvasOperador" width="400" height="200" style="border:1px solid #000; margin-bottom: 10px;"></canvas>
+                                                                <br>
+                                                                <button type="button" id="btnLimpiarOperador" class="btn bg-warning">Limpiar</button>
+                                                                <button type="button" id="btnDescargarOperador" class="btn btn-success" hidden>Descargar</button>
+                                                            </div>
 
-                                                        <button type="submit" class="btn text-white font-weight-bold" style="background-color: #004085; border-radius: 5px;">Guardar</button>
-                                                        <?php
-                                                        $RegistrarVisita = new ControladorEmpresa();
-                                                        $RegistrarVisita->ctrRegistrarVisita();
-                                                        ?>
+                                                            <div class="col-md-12 text-center">
+                                                                <label for="" class="font-weight-bold">Firma de Cliente</label>
+                                                                <input type="hidden" name="base64" value="" id="base64">
+
+                                                                <canvas id="canvasZonaFranca" width="400" height="200" style="border:1px solid #000; margin-bottom: 10px;"></canvas>
+                                                                <br>
+                                                                <button type="button" id="btnLimpiarZonaFranca" class="btn bg-warning">Limpiar</button>
+                                                                <button type="button" id="btnDescargarZonaFranca" class="btn btn-success" hidden>Descargar</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pt-2">
+                                                            <button type="submit" class="btn text-white font-weight-bold btn-block" style="background-color: #004085; border-radius: 5px;">Guardar</button>
+                                                            <?php
+                                                            $RegistrarVisita = new ControladorEmpresa();
+                                                            $RegistrarVisita->ctrRegistrarVisita();
+                                                            ?>
+                                                        </div>
                                                     </form>
                                                 </div>
 
@@ -581,7 +608,7 @@ if ($perfil > 0) {
                                                                 <thead>
                                                                     <tr>
                                                                         <th style="width:10px">#</th>
-                                                                        <th>Categoria</th>  
+                                                                        <th>Categoria</th>
                                                                         <th>Nombre Archivo</th>
                                                                         <th>Fecha</th>
                                                                         <th>Valor</th>
@@ -625,64 +652,68 @@ if ($perfil > 0) {
                                                     </div>
                                                 </div>
 
-                                            <div class="modal fade" id="modal-editempresa" tabindex="-1" role="dialog" aria-labelledby="modalEditarEmpresaLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header p-3" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);">
-                                                            <h5 class="modal-title" id="modalEditarEmpresaLabel" style="font-size: 1.3rem; font-weight: bold;">
-                                                                Editar Empresa
-                                                            </h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #f1c40f; font-size: 1.5rem; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 5px 10px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form id="formEditarEmpresa" method="POST" enctype="multipart/form-data">
-                                                                <div class="form-group">
-                                                                    <label for="id_empresa">NIT Empresa</label>
-                                                                    <input type="text" class="form-control" id="id_empresa" name="id_empresa" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="dv_empresa">Dígito de Verificación Empresa</label>
-                                                                    <input type="text" class="form-control" id="dv_empresa" name="dv_empresa" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="nombre_empresa">Nombre Empresa</label>
-                                                                    <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="direccion_empresa">Dirección Empresa</label>
-                                                                    <input type="text" class="form-control" id="direccion_empresa" name="direccion_empresa" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="ciudad_empresa">Ciudad Empresa</label>
-                                                                    <input type="text" class="form-control" id="ciudad_empresa" name="ciudad_empresa" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="telefono_empresa">Teléfono Empresa 1</label>
-                                                                    <input type="text" class="form-control" id="telefono_empresa" name="telefono_empresa" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="telefono2_empresa">Teléfono Empresa 2</label>
-                                                                    <input type="text" class="form-control" id="telefono2_empresa" name="telefono2_empresa">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="nombre_rep_legal_empresa">Nombre Representante Legal Empresa</label>
-                                                                    <input type="text" class="form-control" id="nombre_rep_legal_empresa" name="nombre_rep_legal_empresa" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="correo_empresa">Correo Electrónico Empresa</label>
-                                                                    <input type="text" class="form-control" id="correo_empresa" name="correo_empresa" required>
-                                                                </div>
-                                                                <button style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float:right;"
-                                                                    type="submit" class="btn btn-primary" name="actualizar_empresa" id="actualizar_empresa">Actualizar Empresa</button>
+                                                <div class="modal fade" id="modal-editempresa" tabindex="-1" role="dialog" aria-labelledby="modalEditarEmpresaLabel" aria-hidden="true">
+                                                    <div class="modal-dialog  modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header p-3" style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border-bottom: 4px solid #f39c12; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);">
+                                                                <h5 class="modal-title" id="modalEditarEmpresaLabel" style="font-size: 1.3rem; font-weight: bold;">
+                                                                    Editar Empresa
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #f1c40f; font-size: 1.5rem; background: rgba(255, 255, 255, 0.15); border-radius: 15px; padding: 5px 10px; transition: all 0.4s ease; box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="formEditarEmpresa" method="POST" enctype="multipart/form-data">
+                                                                    <div class="row">
+                                                                    <div class="form-group col-md-12">
+                                                                            <label for="nombre_empresa">Nombre Empresa</label>
+                                                                            <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="id_empresa">NIT Empresa</label>
+                                                                            <input type="text" class="form-control" id="id_empresa" name="id_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="dv_empresa">Dígito de Verificación Empresa</label>
+                                                                            <input type="text" class="form-control" id="dv_empresa" name="dv_empresa" required>
+                                                                        </div>
+                                                                       
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="direccion_empresa">Dirección Empresa</label>
+                                                                            <input type="text" class="form-control" id="direccion_empresa" name="direccion_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="ciudad_empresa">Ciudad Empresa</label>
+                                                                            <input type="text" class="form-control" id="ciudad_empresa" name="ciudad_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="telefono_empresa">Teléfono Empresa 1</label>
+                                                                            <input type="text" class="form-control" id="telefono_empresa" name="telefono_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="telefono2_empresa">Teléfono Empresa 2</label>
+                                                                            <input type="text" class="form-control" id="telefono2_empresa" name="telefono2_empresa">
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="nombre_rep_legal_empresa">Nombre Representante Legal Empresa</label>
+                                                                            <input type="text" class="form-control" id="nombre_rep_legal_empresa" name="nombre_rep_legal_empresa" required>
+                                                                        </div>
+                                                                        <div class="form-group col-md-6">
+                                                                            <label for="correo_empresa">Correo Electrónico Empresa</label>
+                                                                            <input type="text" class="form-control" id="correo_empresa" name="correo_empresa" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button style="background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: 2px solid #f39c12; border-radius: 10px; padding: 10px 20px; font-weight: bold; transition: all 0.3s ease-in-out; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); float:right;"
+                                                                        type="submit" class="btn btn-primary" name="actualizar_empresa" id="actualizar_empresa">Actualizar Empresa</button>
 
-                                                                <?php
-                                                                $ActualizarEmpresa = new ControladorEmpresa();
-                                                                $ActualizarEmpresa->ctrActualizarEmpresa();
-                                                                ?>
-                                                            </form>
+                                                                    <?php
+                                                                    $ActualizarEmpresa = new ControladorEmpresa();
+                                                                    $ActualizarEmpresa->ctrActualizarEmpresa();
+                                                                    ?>
+                                                                </form>
 
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -692,12 +723,11 @@ if ($perfil > 0) {
                                 </div>
                             </div>
                         </div>
+                    </section>
                 </div>
+            </div>
+        </div>
     </section>
-</div>
-</div>
-</div>
-</section>
 </div>
 <!-- /.content-wrapper -->
 <?php require('footer.php'); ?>
@@ -739,3 +769,130 @@ if ($perfil > 0) {
         document.body.removeChild(enlace);
     }
 </script>
+
+<script>
+    // Función para inicializar el canvas y asociar los eventos
+    function inicializarCanvas(canvasId, btnLimpiarId, btnDescargarId, nombreArchivo, inputBase64Id) {
+        const canvas = document.getElementById(canvasId);
+        const contexto = canvas.getContext("2d");
+        const COLOR_PINCEL = "black";
+        const COLOR_FONDO = "white";
+        const GROSOR = 2;
+        let xAnterior = 0,
+            yAnterior = 0,
+            xActual = 0,
+            yActual = 0;
+        let haComenzadoDibujo = false;
+
+        // Establece el color de fondo inicial del canvas
+        const limpiarCanvas = () => {
+            contexto.fillStyle = COLOR_FONDO;
+            contexto.fillRect(0, 0, canvas.width, canvas.height);
+        };
+        limpiarCanvas(); // Limpia el canvas al cargar la página
+
+        // Botón para limpiar el canvas
+        document.getElementById(btnLimpiarId).onclick = limpiarCanvas;
+
+        // Botón para descargar el contenido del canvas como una imagen PNG
+        document.getElementById(btnDescargarId).onclick = () => {
+            try {
+                const imagenDataURL = canvas.toDataURL("image/png");
+                if (imagenDataURL) {
+                    const enlace = document.createElement('a');
+                    enlace.href = imagenDataURL;
+                    enlace.download = `${nombreArchivo}.png`;
+
+                    // Solución para navegadores: agregar el enlace al DOM y hacer clic programático
+                    document.body.appendChild(enlace);
+                    enlace.click();
+                    document.body.removeChild(enlace);
+                } else {
+                    alert("Error: No se pudo generar la imagen del canvas.");
+                }
+            } catch (error) {
+                console.error("Error al descargar la imagen:", error);
+                alert("Error al guardar la imagen. Verifica la consola para más detalles.");
+            }
+        };
+
+        // Función para iniciar el dibujo
+        const onClicOToqueIniciado = (evento) => {
+            evento.preventDefault();
+            xAnterior = xActual;
+            yAnterior = yActual;
+            xActual = evento.clientX ? evento.clientX - canvas.getBoundingClientRect().left : evento.touches[0].clientX - canvas.getBoundingClientRect().left;
+            yActual = evento.clientY ? evento.clientY - canvas.getBoundingClientRect().top : evento.touches[0].clientY - canvas.getBoundingClientRect().top;
+            contexto.beginPath();
+            contexto.fillStyle = COLOR_PINCEL;
+            contexto.fillRect(xActual, yActual, GROSOR, GROSOR);
+            contexto.closePath();
+            haComenzadoDibujo = true;
+        };
+
+        // Función para dibujar a medida que se mueve el mouse o el toque
+        const onMouseODedoMovido = (evento) => {
+            evento.preventDefault();
+            if (!haComenzadoDibujo) return;
+            xAnterior = xActual;
+            yAnterior = yActual;
+            xActual = evento.clientX ? evento.clientX - canvas.getBoundingClientRect().left : evento.touches[0].clientX - canvas.getBoundingClientRect().left;
+            yActual = evento.clientY ? evento.clientY - canvas.getBoundingClientRect().top : evento.touches[0].clientY - canvas.getBoundingClientRect().top;
+            contexto.beginPath();
+            contexto.moveTo(xAnterior, yAnterior);
+            contexto.lineTo(xActual, yActual);
+            contexto.strokeStyle = COLOR_PINCEL;
+            contexto.lineWidth = GROSOR;
+            contexto.stroke();
+            contexto.closePath();
+        };
+
+        // Función para finalizar el dibujo
+        const onMouseODedoLevantado = () => {
+            haComenzadoDibujo = false;
+        };
+
+
+
+        // Event listeners para los distintos tipos de eventos
+        canvas.addEventListener("mousedown", onClicOToqueIniciado); // Mouse click
+        canvas.addEventListener("touchstart", onClicOToqueIniciado); // Touch start
+        canvas.addEventListener("mousemove", onMouseODedoMovido); // Mouse move
+        canvas.addEventListener("touchmove", onMouseODedoMovido); // Touch move
+        canvas.addEventListener("mouseup", onMouseODedoLevantado); // Mouse up
+        canvas.addEventListener("mouseout", onMouseODedoLevantado); // Mouse out
+        canvas.addEventListener("touchend", onMouseODedoLevantado); // Touch end
+        canvas.addEventListener("touchcancel", onMouseODedoLevantado); // Touch cancel
+    }
+
+    // Inicializar los canvas para cada firma
+    window.onload = function() {
+        // Asegúrate de pasar el id del input base64 para cada canvas
+        inicializarCanvas("canvasOperador", "btnLimpiarOperador", "btnDescargarOperador", "Firma_Operador", "base64Operador");
+        inicializarCanvas("canvasZonaFranca", "btnLimpiarZonaFranca", "btnDescargarZonaFranca", "Firma_Usuario_Zona_Franca", "base64ZonaFranca");
+    };
+</script>
+
+<script>
+    document.getElementById('form_registrar_visita').addEventListener("submit", function(e) {
+
+        var ctx = document.getElementById("canvasZonaFranca");
+        var image = ctx.toDataURL(); // data:image/png....
+        document.getElementById('base64').value = image;
+    }, false);
+
+    document.querySelectorAll('option').forEach(option => {
+        if (!option.textContent.trim()) {
+            option.textContent = option.value;
+        }
+    });
+</script>
+
+
+
+<style>
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+</style>

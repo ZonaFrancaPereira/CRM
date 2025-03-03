@@ -82,6 +82,7 @@
        <div class="col-md-12">
          <div class="card card-primary">
            <div class="card-body p-0">
+           
              <div id="calendar"></div>
            </div>
          </div>
@@ -90,9 +91,9 @@
    </div>
 
  </div>
- <!-- Modal para agregar un evento -->
+ 
  <!-- Modal para Crear/Editar Evento -->
- <!-- Modal para Crear/Editar Evento -->
+ 
  <div class="modal fade" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
    <div class="modal-dialog" role="document">
      <div class="modal-content">
@@ -133,7 +134,7 @@
          <div class="form-group">
            <label for="eventColor">Color de Fondo</label>
            <input type="color" class="form-control" id="eventColor" value="#007bff">
-           <input type="number" class="form-control" id="id_usuario_fke" value="<?php echo $_SESSION['id'] ?>">
+           <input type="hidden" class="form-control" id="id_usuario_fke" value="<?php echo $_SESSION['id'] ?>">
          </div>
        </div>
        <div class="modal-footer">
@@ -207,7 +208,35 @@
          $('#deleteEvent').hide(); // Ocultar el botón de eliminar
 
          // Mostrar el modal
-         $('#eventModal').modal('show');
+         $.ajax({
+           url: "controladores/agenda.controlador.php",
+           type: "POST",
+           data: {
+             action: 'validar'
+           },
+           dataType: "json",
+           success: function(response) {
+             console.log("Respuesta del servidor:", response); // Para depuración
+
+             if (response.restriccion) {
+               Swal.fire({
+                 icon: "warning",
+                 title: "Acción no permitida",
+                 text: response.mensaje
+               });
+             } else {
+               $("#eventModal").modal("show"); // Si no hay restricción, abre el modal
+             }
+           },
+           error: function(xhr, status, error) {
+             console.error("Error en la validación:", error);
+             Swal.fire({
+               icon: "error",
+               title: "Error",
+               text: "Hubo un problema al validar las restricciones. Inténtalo nuevamente."
+             });
+           }
+         });
 
          // Guardar el evento
          $('#saveEvent').off('click').on('click', function() {

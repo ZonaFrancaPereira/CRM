@@ -5,6 +5,7 @@ require_once "conexion.php";
 class ModeloUsuarios
 {
 
+	
 	/*=============================================
 	MOSTRAR USUARIOS
 	=============================================*/
@@ -50,7 +51,21 @@ class ModeloUsuarios
 
 		$stmt = null;
 	}
+	/*=============================================
+	MOSTRAR USUARIOS PDF
+	=============================================*/
+	static public function mdlMostrarUsuariosPdf($tabla, $item, $valor)
+	{
+		// Consulta con INNER JOIN incluyendo la tabla proceso
+		$stmt = Conexion::conectar()->prepare(
+			"SELECT * FROM $tabla WHERE $item = :valor"
+		);
+		$stmt->bindParam(":valor", $valor, PDO::PARAM_INT);
+		$stmt->execute();
 
+		// Utilizar fetchAll para obtener todos los resultados
+		return $stmt->fetchAll();
+	}
 	/*=============================================
 		MOSTRAR USUARIOS CORREO
 	=============================================*/
