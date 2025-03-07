@@ -26,6 +26,7 @@ class ModeloEmpresas
 				fecha_nap_red_legal, 
 				correoElectronico, 
 				fecha_inicio_contrato,
+				id_usuario_fk,
 				estado_empresa
 			) VALUES (
 				:id, 
@@ -39,6 +40,7 @@ class ModeloEmpresas
 				:fecha_nap_red_legal, 
 				:correoElectronico, 
 				:fecha_inicio_contrato,
+				:id_usuario_fk,
 				:estado_empresa
 			)");
 	
@@ -54,6 +56,7 @@ class ModeloEmpresas
 			$stmt->bindParam(":fecha_nap_red_legal", $datos["fecha_nap_red_legal"], PDO::PARAM_STR);
 			$stmt->bindParam(":correoElectronico", $datos["correoElectronico"], PDO::PARAM_STR);
 			$stmt->bindParam(":fecha_inicio_contrato", $datos["fecha_inicio_contrato"], PDO::PARAM_STR);
+			$stmt->bindParam(":id_usuario_fk", $datos["id_usuario_fk"], PDO::PARAM_INT);
 			$stmt->bindParam(":estado_empresa", $datos["estado_empresa"], PDO::PARAM_STR);
 	
 			// Ejecutar la consulta

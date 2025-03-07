@@ -117,6 +117,21 @@ if ($_SESSION["datosEmpresa"] == "off") {
                                     </select>
                                 </div>
 
+                                <div class="form-group col-md-6">
+                                    <label for="id_usuario_fk">Asignar Empresa</label>
+                                    <select id="id_usuario_fk" name="id_usuario_fk" class="form-control" required>
+                                        <option value="">Seleccione el responsable</option>
+                                        <?php
+                                        $item = null;
+                                        $valor = null;
+                                        $usuario = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+                                        foreach ($usuario as $key => $value) {
+                                            echo '<option value="' . $value["id"] . '"> ' . $value["nombre"] . ' ' . $value["apellidos_usuario"] . ' </option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+
                             </div>
 
                             <!-- Botón de envío con estilo similar a "$perfil" -->
